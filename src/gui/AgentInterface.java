@@ -1131,7 +1131,7 @@ public class AgentInterface extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_jMenu1MouseClicked
-
+HANS PUTO
     private void jTextFieldCorreoClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCorreoClienteFocusGained
         // TODO add your handling code here:
         for (int i = 0; i < clientsList.size(); i++) {
