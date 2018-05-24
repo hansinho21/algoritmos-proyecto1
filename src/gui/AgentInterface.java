@@ -215,45 +215,42 @@ public class AgentInterface extends javax.swing.JFrame {
      * @throws IOException
      */
     private void initializeImages() throws ListException, IOException {
-//        jLabelFood1.setIcon((Icon) iconsList.getNode(1).element.getImage());
-//        jLabelFood2.setIcon((Icon) iconsList.getNode(2).element.getImage());
-//        jLabelFood3.setIcon((Icon) iconsList.getNode(3).element.getImage());
 
-                data.fillRestaurantFood(restaurantsList.peek().getName());
-                foodList = data.getFoodList();
-                drinkList = data.getDrinkList();
-                dessertList = data.getDessertList();
-                otherList = data.getOtherList();
+        data.fillRestaurantFood(restaurantsByProvince.peek().getName());
+        foodList = data.getFoodList();
+        drinkList = data.getDrinkList();
+        dessertList = data.getDessertList();
+        otherList = data.getOtherList();
 
-                nodeFood1 = foodList.getNode(1);
-                nodeFood2 = foodList.getNode(2);
-                nodeFood3 = foodList.getNode(3);
-                jLabelFood1.setIcon((Icon) foodList.getNode(1).element.getImage());
-                jLabelFood2.setIcon((Icon) foodList.getNode(2).element.getImage());
-                jLabelFood3.setIcon((Icon) foodList.getNode(3).element.getImage());
+        nodeFood1 = foodList.getNode(1);
+        nodeFood2 = foodList.getNode(2);
+        nodeFood3 = foodList.getNode(3);
+        jLabelFood1.setIcon((Icon) foodList.getNode(1).element.getImage());
+        jLabelFood2.setIcon((Icon) foodList.getNode(2).element.getImage());
+        jLabelFood3.setIcon((Icon) foodList.getNode(3).element.getImage());
 
-                nodeDrink1 = drinkList.getNode(1);
-                nodeDrink2 = drinkList.getNode(2);
-                nodeDrink3 = drinkList.getNode(3);
-                jLabelDrink1.setIcon((Icon) drinkList.getNode(1).element.getImage());
-                jLabelDrink2.setIcon((Icon) drinkList.getNode(2).element.getImage());
-                jLabelDrink3.setIcon((Icon) drinkList.getNode(3).element.getImage());
+        nodeDrink1 = drinkList.getNode(1);
+        nodeDrink2 = drinkList.getNode(2);
+        nodeDrink3 = drinkList.getNode(3);
+        jLabelDrink1.setIcon((Icon) drinkList.getNode(1).element.getImage());
+        jLabelDrink2.setIcon((Icon) drinkList.getNode(2).element.getImage());
+        jLabelDrink3.setIcon((Icon) drinkList.getNode(3).element.getImage());
 
-                nodeDessert1 = dessertList.getNode(1);
-                nodeDessert2 = dessertList.getNode(2);
-                nodeDessert3 = dessertList.getNode(3);
-                jLabelDessert1.setIcon((Icon) dessertList.getNode(1).element.getImage());
-                jLabelDessert2.setIcon((Icon) dessertList.getNode(2).element.getImage());
-                jLabelDessert3.setIcon((Icon) dessertList.getNode(3).element.getImage());
+        nodeDessert1 = dessertList.getNode(1);
+        nodeDessert2 = dessertList.getNode(2);
+        nodeDessert3 = dessertList.getNode(3);
+        jLabelDessert1.setIcon((Icon) dessertList.getNode(1).element.getImage());
+        jLabelDessert2.setIcon((Icon) dessertList.getNode(2).element.getImage());
+        jLabelDessert3.setIcon((Icon) dessertList.getNode(3).element.getImage());
 
-                nodeOther1 = otherList.getNode(1);
-                nodeOther2 = otherList.getNode(2);
-                nodeOther3 = otherList.getNode(3);
-                jLabelOther1.setIcon((Icon) otherList.getNode(1).element.getImage());
-                jLabelOther2.setIcon((Icon) otherList.getNode(2).element.getImage());
-                jLabelOther3.setIcon((Icon) otherList.getNode(3).element.getImage());
-            
-            restaurantsList.add(restaurantsList.poll());
+        nodeOther1 = otherList.getNode(1);
+        nodeOther2 = otherList.getNode(2);
+        nodeOther3 = otherList.getNode(3);
+        jLabelOther1.setIcon((Icon) otherList.getNode(1).element.getImage());
+        jLabelOther2.setIcon((Icon) otherList.getNode(2).element.getImage());
+        jLabelOther3.setIcon((Icon) otherList.getNode(3).element.getImage());
+
+        restaurantsByProvince.add(restaurantsByProvince.poll());
 
     }
 
@@ -298,7 +295,7 @@ public class AgentInterface extends javax.swing.JFrame {
         nodeFood2 = nodeFood2.previous;
         nodeFood3 = nodeFood3.previous;
     }
-    
+
     /**
      * Añade funcion del carrucel de imagenes con el botón anterior de bebidas.
      */
@@ -310,7 +307,7 @@ public class AgentInterface extends javax.swing.JFrame {
         nodeDrink2 = nodeDrink2.previous;
         nodeDrink3 = nodeDrink3.previous;
     }
-    
+
     /**
      * Añade funcion del carrucel de imagenes con el botón anterior de comidas.
      */
@@ -322,7 +319,7 @@ public class AgentInterface extends javax.swing.JFrame {
         nodeDessert2 = nodeDessert2.previous;
         nodeDessert3 = nodeDessert3.previous;
     }
-    
+
     /**
      * Añade funcion del carrucel de imagenes con el botón anterior de comidas.
      */
@@ -336,9 +333,9 @@ public class AgentInterface extends javax.swing.JFrame {
     }
 
     /**
-     * Añade funcion del carrucel de imagenes con el botón siguiente.
+     * Añade funcion del carrucel de imagenes con el botón siguiente de comidas.
      */
-    private void nextButton() {
+    private void nextFoodButton() {
         jLabelFood1.setIcon((Icon) nodeFood1.next.element.getImage());
         jLabelFood2.setIcon((Icon) nodeFood2.next.element.getImage());
         jLabelFood3.setIcon((Icon) nodeFood3.next.element.getImage());
@@ -348,13 +345,49 @@ public class AgentInterface extends javax.swing.JFrame {
     }
 
     /**
+     * Añade funcion del carrucel de imagenes con el botón siguiente de bebidas.
+     */
+    private void nextDrinkButton() {
+        jLabelDrink1.setIcon((Icon) nodeDrink1.next.element.getImage());
+        jLabelDrink2.setIcon((Icon) nodeDrink2.next.element.getImage());
+        jLabelDrink3.setIcon((Icon) nodeDrink3.next.element.getImage());
+        nodeDrink1 = nodeDrink1.next;
+        nodeDrink2 = nodeDrink2.next;
+        nodeDrink3 = nodeDrink3.next;
+    }
+
+    /**
+     * Añade funcion del carrucel de imagenes con el botón siguiente de postres.
+     */
+    private void nextDessertButton() {
+        jLabelDessert1.setIcon((Icon) nodeDessert1.next.element.getImage());
+        jLabelDessert2.setIcon((Icon) nodeDessert2.next.element.getImage());
+        jLabelDessert3.setIcon((Icon) nodeDessert3.next.element.getImage());
+        nodeDessert1 = nodeDessert1.next;
+        nodeDessert2 = nodeDessert2.next;
+        nodeDessert3 = nodeDessert3.next;
+    }
+
+    /**
+     * Añade funcion del carrucel de imagenes con el botón siguiente de otros.
+     */
+    private void nextOtherButton() {
+        jLabelOther1.setIcon((Icon) nodeOther1.next.element.getImage());
+        jLabelOther2.setIcon((Icon) nodeOther2.next.element.getImage());
+        jLabelOther3.setIcon((Icon) nodeOther3.next.element.getImage());
+        nodeOther1 = nodeOther1.next;
+        nodeOther2 = nodeOther2.next;
+        nodeOther3 = nodeOther3.next;
+    }
+
+    /**
      * Carga a los JLabel la información del siguiente conductor en la cola.
      */
     private void driverInformation() {
         Driver driver = driversList.peek();
         jLabelDriverIcon.setIcon(driver.getImage());
         jLabelDriverName.setText(driver.getName());
-        jLabelDriverId.setText(driver.getId());  
+        jLabelDriverId.setText(driver.getId());
     }
 
     /**
@@ -639,6 +672,11 @@ public class AgentInterface extends javax.swing.JFrame {
         jLabelDrink1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelDrink1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/defaultFood.png"))); // NOI18N
         jLabelDrink1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelDrink1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelDrink1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabelDrink1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 200, 90, 60));
 
         jLabelFood1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -750,41 +788,81 @@ public class AgentInterface extends javax.swing.JFrame {
         jLabelDessert1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelDessert1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/defaultFood.png"))); // NOI18N
         jLabelDessert1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelDessert1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelDessert1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabelDessert1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 280, 90, 60));
 
         jLabelOther1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelOther1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/defaultFood.png"))); // NOI18N
         jLabelOther1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelOther1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelOther1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabelOther1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, 90, 60));
 
         jLabelDrink2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelDrink2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/defaultFood.png"))); // NOI18N
         jLabelDrink2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelDrink2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelDrink2MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabelDrink2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 200, 90, 60));
 
         jLabelDessert2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelDessert2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/defaultFood.png"))); // NOI18N
         jLabelDessert2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelDessert2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelDessert2MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabelDessert2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 280, 90, 60));
 
         jLabelOther2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelOther2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/defaultFood.png"))); // NOI18N
         jLabelOther2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelOther2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelOther2MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabelOther2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, 90, 60));
 
         jLabelDrink3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelDrink3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/defaultFood.png"))); // NOI18N
         jLabelDrink3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelDrink3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelDrink3MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabelDrink3, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 200, 90, 60));
 
         jLabelDessert3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelDessert3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/defaultFood.png"))); // NOI18N
         jLabelDessert3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelDessert3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelDessert3MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabelDessert3, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 280, 90, 60));
 
         jLabelOther3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelOther3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/defaultFood.png"))); // NOI18N
         jLabelOther3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelOther3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelOther3MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabelOther3, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 360, 90, 60));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -1131,7 +1209,7 @@ public class AgentInterface extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_jMenu1MouseClicked
-HANS PUTO
+
     private void jTextFieldCorreoClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCorreoClienteFocusGained
         // TODO add your handling code here:
         for (int i = 0; i < clientsList.size(); i++) {
@@ -1176,19 +1254,22 @@ HANS PUTO
 
     private void jButtonNextOtherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextOtherActionPerformed
         // TODO add your handling code here:
+        nextOtherButton();
     }//GEN-LAST:event_jButtonNextOtherActionPerformed
 
     private void jButtonNextDessertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextDessertActionPerformed
         // TODO add your handling code here:
+        nextDessertButton();
     }//GEN-LAST:event_jButtonNextDessertActionPerformed
 
     private void jButtonNextDrinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextDrinkActionPerformed
         // TODO add your handling code here:
+        nextDrinkButton();
     }//GEN-LAST:event_jButtonNextDrinkActionPerformed
 
     private void jButtonNextFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFoodActionPerformed
         // TODO add your handling code here:
-        nextButton();
+        nextFoodButton();
 
     }//GEN-LAST:event_jButtonNextFoodActionPerformed
 
@@ -1242,7 +1323,7 @@ HANS PUTO
         try {
             // TODO add your handling code here:
             restaurantsByProvince.add(restaurantsByProvince.poll());
-            
+
             jLabelRestaurant.setIcon(restaurantsByProvince.peek().getImage());
             initializeImages();
         } catch (ListException ex) {
@@ -1263,8 +1344,8 @@ HANS PUTO
                 logic.updateDriverQueue(driversList);
 
                 //Verifica y añade un cliente en caso de que éste no esté en la lista
-                Client c = new Client(jTextFieldIdClient.getText(),jTextFieldNomCliente.getText(), 
-                        LastName1Client.getText(),LastName2Client.getText() ,jTextFieldCorreoCliente.getText(), jTextFieldTelCliente.getText(),
+                Client c = new Client(jTextFieldIdClient.getText(), jTextFieldNomCliente.getText(),
+                        LastName1Client.getText(), LastName2Client.getText(), jTextFieldCorreoCliente.getText(), jTextFieldTelCliente.getText(),
                         jComboBoxProvinciaCliente.getSelectedItem().toString(), jTexfieldDireccion.getText());
                 logic.saveClients(c);
 
@@ -1285,23 +1366,20 @@ HANS PUTO
 
     private void jLabelFood1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFood1MouseClicked
         // TODO add your handling code here:
-        System.out.println(nodeFood1.element.toString());
-        logic.addDataInBillTable("Macdonalds", nodeFood1.element, tableModel, contTable);
+        logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood1.element, tableModel, contTable);
         updatePrice(nodeFood1.element);
 
     }//GEN-LAST:event_jLabelFood1MouseClicked
 
     private void jLabelFood2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFood2MouseClicked
         // TODO add your handling code here:
-        System.out.println(nodeFood2.element.toString());
-        logic.addDataInBillTable("Macdonalds", nodeFood2.element, tableModel, contTable);
+        logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood2.element, tableModel, contTable);
         updatePrice(nodeFood2.element);
     }//GEN-LAST:event_jLabelFood2MouseClicked
 
     private void jLabelFood3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFood3MouseClicked
         // TODO add your handling code here:
-        System.out.println(nodeFood3.element.toString());
-        logic.addDataInBillTable("Macdonalds", nodeFood3.element, tableModel, contTable);
+        logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood3.element, tableModel, contTable);
         updatePrice(nodeFood3.element);
     }//GEN-LAST:event_jLabelFood3MouseClicked
 
@@ -1365,6 +1443,60 @@ HANS PUTO
     private void jTextFieldCorreoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCorreoClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCorreoClienteActionPerformed
+
+    private void jLabelDrink1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDrink1MouseClicked
+        // TODO add your handling code here:
+        logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDrink1.element, tableModel, contTable);
+        updatePrice(nodeDrink1.element);
+    }//GEN-LAST:event_jLabelDrink1MouseClicked
+
+    private void jLabelDrink2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDrink2MouseClicked
+        // TODO add your handling code here:
+        logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDrink2.element, tableModel, contTable);
+        updatePrice(nodeDrink2.element);
+    }//GEN-LAST:event_jLabelDrink2MouseClicked
+
+    private void jLabelDrink3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDrink3MouseClicked
+        // TODO add your handling code here:
+        logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDrink3.element, tableModel, contTable);
+        updatePrice(nodeDrink3.element);
+    }//GEN-LAST:event_jLabelDrink3MouseClicked
+
+    private void jLabelDessert1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDessert1MouseClicked
+        // TODO add your handling code here:
+        logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDessert1.element, tableModel, contTable);
+        updatePrice(nodeDessert1.element);
+    }//GEN-LAST:event_jLabelDessert1MouseClicked
+
+    private void jLabelDessert2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDessert2MouseClicked
+        // TODO add your handling code here:
+        logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDessert2.element, tableModel, contTable);
+        updatePrice(nodeDessert2.element);
+    }//GEN-LAST:event_jLabelDessert2MouseClicked
+
+    private void jLabelDessert3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDessert3MouseClicked
+        // TODO add your handling code here:
+        logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDessert3.element, tableModel, contTable);
+        updatePrice(nodeDessert3.element);
+    }//GEN-LAST:event_jLabelDessert3MouseClicked
+
+    private void jLabelOther1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelOther1MouseClicked
+        // TODO add your handling code here:
+        logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeOther1.element, tableModel, contTable);
+        updatePrice(nodeOther1.element);
+    }//GEN-LAST:event_jLabelOther1MouseClicked
+
+    private void jLabelOther2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelOther2MouseClicked
+        // TODO add your handling code here:
+        logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeOther2.element, tableModel, contTable);
+        updatePrice(nodeOther2.element);
+    }//GEN-LAST:event_jLabelOther2MouseClicked
+
+    private void jLabelOther3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelOther3MouseClicked
+        // TODO add your handling code here:
+        logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeOther3.element, tableModel, contTable);
+        updatePrice(nodeOther3.element);
+    }//GEN-LAST:event_jLabelOther3MouseClicked
 
     /**
      * @param args the command line arguments

@@ -65,7 +65,7 @@ public class Data {
             client.setName(aux[1]);
             client.setLastName1(aux[2]);
             client.setLastName2(aux[3]);
-            System.out.println(aux[7]+" aqui es");
+            System.out.println(aux[7] + " aqui es");
             client.setEmail(aux[4]);
             client.setPhone(aux[5]);
             client.setProvince(aux[6]);
@@ -191,31 +191,161 @@ public class Data {
 
     public void fillRestaurantFood(String restaurant) throws IOException, ListException {
 
+        foodList.cancel();
+        drinkList.cancel();
+        dessertList.cancel();
+        otherList.cancel();
+        
         if (restaurant.equals("McDonalds")) {
-            foodList.insert(new Product("BigMac", 12, "/images/mcdonalds/big-mac.png"));
-            foodList.insert(new Product("Alitas", 12, "/images/mcdonalds/alitas-pollo.png"));
-            foodList.insert(new Product("McNuggets", 12, "/images/mcdonalds/chicken-mcnuggets.png"));
-            foodList.insert(new Product("Cuarto de libra", 12, "/images/mcdonalds/cuarto-de-libra-doble.png"));
-            foodList.insert(new Product("Mini hamburguesa", 12, "/images/mcdonalds/hamburguesa_mini.png"));
-            foodList.insert(new Product("McPapas", 12, "/images/mcdonalds/mcpapas.png"));
+            foodList.insert(new Product("mcFood1", 12, "/images/mcdonalds/mcFood1.png"));
+            foodList.insert(new Product("mcFood2", 12, "/images/mcdonalds/mcFood2.png"));
+            foodList.insert(new Product("mcFood3", 12, "/images/mcdonalds/mcFood3.png"));
+            foodList.insert(new Product("mcFood4", 12, "/images/mcdonalds/mcFood4.png"));
+            foodList.insert(new Product("mcFood5", 12, "/images/mcdonalds/mcFood5.png"));
+            foodList.insert(new Product("mcFood6", 12, "/images/mcdonalds/mcFood6.png"));
 
-            drinkList.insert(new Product("Coca Cola", 10, "/images/mcdonalds/coca-cola.png"));
-            drinkList.insert(new Product("Coca Cola Dieta", 10, "/images/mcdonalds/diet-coca-cola.png"));
-            drinkList.insert(new Product("McCoca", 10, "/images/mcdonalds/mcdonalds-coca.png"));
-            drinkList.insert(new Product("Naranja", 10, "/images/mcdonalds/naranja.png"));
+            drinkList.insert(new Product("mcDrink1", 10, "/images/mcdonalds/mcDrink1.png"));
+            drinkList.insert(new Product("mcDrink2", 10, "/images/mcdonalds/mcDrink2.png"));
+            drinkList.insert(new Product("mcDrink3", 10, "/images/mcdonalds/mcDrink3.png"));
+            drinkList.insert(new Product("mcDrink4", 10, "/images/mcdonalds/mcDrink4.png"));
 
-            dessertList.insert(new Product("Cono1", 11, "/images/mcdonalds/Casquinha-Mista-Colombia_new.png"));
-            dessertList.insert(new Product("Cono2", 11, "/images/mcdonalds/cono-coronado.png"));
-            dessertList.insert(new Product("McFlurry1", 11, "/images/mcdonalds/mcflurry_choco_swing.png"));
-            dessertList.insert(new Product("McFlurry2", 11, "/images/mcdonalds/mc-flurry-mm_new_cr.png"));
-            dessertList.insert(new Product("Sundae1", 11, "/images/mcdonalds/sundae-caramelo.png"));
-            dessertList.insert(new Product("Sundae2", 11, "/images/mcdonalds/sundae-chocolate.png"));
-            dessertList.insert(new Product("Sundae3", 11, "/images/mcdonalds/sundae-fresa.png"));
+            dessertList.insert(new Product("mcDessert1", 11, "/images/mcdonalds/mcDessert1.png"));
+            dessertList.insert(new Product("mcDessert2", 11, "/images/mcdonalds/mcDessert2.png"));
+            dessertList.insert(new Product("mcDessert3", 11, "/images/mcdonalds/mcDessert3.png"));
+            dessertList.insert(new Product("mcDessert4", 11, "/images/mcdonalds/mcDessert4.png"));
+            dessertList.insert(new Product("mcDessert5", 11, "/images/mcdonalds/mcDessert5.png"));
 
-            otherList.insert(new Product("McCafe1", 20, "/images/mcdonalds/Cafe-Americano.png"));
-            otherList.insert(new Product("McCafe2", 20, "/images/mcdonalds/Cafe-Mocha.png"));
-            otherList.insert(new Product("Galletas", 20, "/images/mcdonalds/cookies-mc.png"));
-            otherList.insert(new Product("McCafe3", 20, "/images/mcdonalds/product-iced-chocolate.png"));
+            otherList.insert(new Product("mcOther1", 20, "/images/mcdonalds/mcOther1.png"));
+            otherList.insert(new Product("mcOther2", 20, "/images/mcdonalds/mcOther2.png"));
+            otherList.insert(new Product("mcOther3", 20, "/images/mcdonalds/mcOther3.png"));
+            otherList.insert(new Product("mcOther4", 20, "/images/mcdonalds/mcOther4.png"));
+            otherList.insert(new Product("mcOther5", 20, "/images/mcdonalds/mcOther5.png"));
+
+        } else if (restaurant.equals("Burger King")) {
+            foodList.insert(new Product("bkFood1", 12, "/images/burgerking/bkFood1.png"));
+            foodList.insert(new Product("bkFood2", 12, "/images/burgerking/bkFood2.png"));
+            foodList.insert(new Product("bkFood3", 12, "/images/burgerking/bkFood3.png"));
+            foodList.insert(new Product("bkFood4", 12, "/images/burgerking/bkFood4.png"));
+
+            drinkList.insert(new Product("bkDrink1", 10, "/images/burgerking/bkDrink1.png"));
+            drinkList.insert(new Product("bkDrink2", 10, "/images/burgerking/bkDrink2.png"));
+            drinkList.insert(new Product("bkDrink3", 10, "/images/burgerking/bkDrink3.png"));
+            drinkList.insert(new Product("bkDrink4", 10, "/images/burgerking/bkDrink4.png"));
+
+            dessertList.insert(new Product("bkDessert1", 11, "/images/burgerking/bkDessert1.png"));
+            dessertList.insert(new Product("bkDessert2", 11, "/images/burgerking/bkDessert2.png"));
+            dessertList.insert(new Product("bkDessert3", 11, "/images/burgerking/bkDessert3.png"));
+            dessertList.insert(new Product("bkDessert4", 11, "/images/burgerking/bkDessert4.png"));
+
+            otherList.insert(new Product("bkOther1", 20, "/images/burgerking/bkOther1.png"));
+            otherList.insert(new Product("bkOther2", 20, "/images/burgerking/bkOther2.png"));
+            otherList.insert(new Product("bkOther3", 20, "/images/burgerking/bkOther3.png"));
+            otherList.insert(new Product("bkOther4", 20, "/images/burgerking/bkOther4.png"));
+
+        } else if (restaurant.equals("Carls Jr.")) {
+            foodList.insert(new Product("carlsjrFood1", 12, "/images/carlsjr/carlsjrFood1.png"));
+            foodList.insert(new Product("carlsjrFood2", 12, "/images/carlsjr/carlsjrFood2.png"));
+            foodList.insert(new Product("carlsjrFood3", 12, "/images/carlsjr/carlsjrFood3.png"));
+            foodList.insert(new Product("carlsjrFood4", 12, "/images/carlsjr/carlsjrFood4.png"));
+
+            drinkList.insert(new Product("carlsjrDrink1", 10, "/images/carlsjr/carlsjrDrink1.png"));
+            drinkList.insert(new Product("carlsjrDrink2", 10, "/images/carlsjr/carlsjrDrink2.png"));
+            drinkList.insert(new Product("carlsjrDrink3", 10, "/images/carlsjr/carlsjrDrink3.png"));
+            drinkList.insert(new Product("carlsjrDrink4", 10, "/images/carlsjr/carlsjrDrink4.png"));
+
+            dessertList.insert(new Product("carlsjrDessert1", 11, "/images/carlsjr/carlsjrDessert1.png"));
+            dessertList.insert(new Product("carlsjrDessert2", 11, "/images/carlsjr/carlsjrDessert2.png"));
+            dessertList.insert(new Product("carlsjrDessert3", 11, "/images/carlsjr/carlsjrDessert3.png"));
+            dessertList.insert(new Product("carlsjrDessert4", 11, "/images/carlsjr/carlsjrDessert4.png"));
+
+            otherList.insert(new Product("carlsjrOther1", 20, "/images/carlsjr/carlsjrOther1.png"));
+            otherList.insert(new Product("carlsjrOther2", 20, "/images/carlsjr/carlsjrOther2.png"));
+            otherList.insert(new Product("carlsjrOther3", 20, "/images/carlsjr/carlsjrOther3.png"));
+            otherList.insert(new Product("carlsjrOther4", 20, "/images/carlsjr/carlsjrOther4.png"));
+            
+        } else if (restaurant.equals("Domino's Pizza")) {
+            foodList.insert(new Product("dominospizzaFood1", 12, "/images/dominospizza/dominospizzaFood1.png"));
+            foodList.insert(new Product("dominospizzaFood2", 12, "/images/dominospizza/dominospizzaFood2.png"));
+            foodList.insert(new Product("dominospizzaFood3", 12, "/images/dominospizza/dominospizzaFood3.png"));
+            foodList.insert(new Product("dominospizzaFood4", 12, "/images/dominospizza/dominospizzaFood4.png"));
+
+            drinkList.insert(new Product("dominospizzaDrink1", 10, "/images/dominospizza/dominospizzaDrink1.png"));
+            drinkList.insert(new Product("dominospizzaDrink2", 10, "/images/dominospizza/dominospizzaDrink2.png"));
+            drinkList.insert(new Product("dominospizzaDrink3", 10, "/images/dominospizza/dominospizzaDrink3.png"));
+            drinkList.insert(new Product("dominospizzaDrink4", 10, "/images/dominospizza/dominospizzaDrink4.png"));
+
+            dessertList.insert(new Product("dominospizzaDessert1", 11, "/images/dominospizza/dominospizzaDessert1.png"));
+            dessertList.insert(new Product("dominospizzaDessert2", 11, "/images/dominospizza/dominospizzaDessert2.png"));
+            dessertList.insert(new Product("dominospizzaDessert3", 11, "/images/dominospizza/dominospizzaDessert3.png"));
+            dessertList.insert(new Product("dominospizzaDessert4", 11, "/images/dominospizza/dominospizzaDessert4.png"));
+
+            otherList.insert(new Product("dominospizzaOther1", 20, "/images/dominospizza/dominospizzaOther1.png"));
+            otherList.insert(new Product("dominospizzaOther2", 20, "/images/dominospizza/dominospizzaOther2.png"));
+            otherList.insert(new Product("dominospizzaOther3", 20, "/images/dominospizza/dominospizzaOther3.png"));
+            otherList.insert(new Product("dominospizzaOther4", 20, "/images/dominospizza/dominospizzaOther4.png"));
+
+        } else if (restaurant.equals("KFC")) {
+            foodList.insert(new Product("kfcFood1", 12, "/images/kfc/kfcFood1.png"));
+            foodList.insert(new Product("kfcFood2", 12, "/images/kfc/kfcFood2.png"));
+            foodList.insert(new Product("kfcFood3", 12, "/images/kfc/kfcFood3.png"));
+            foodList.insert(new Product("kfcFood4", 12, "/images/kfc/kfcFood4.png"));
+
+            drinkList.insert(new Product("kfcDrink1", 10, "/images/kfc/kfcDrink1.png"));
+            drinkList.insert(new Product("kfcDrink2", 10, "/images/kfc/kfcDrink2.png"));
+            drinkList.insert(new Product("kfcDrink3", 10, "/images/kfc/kfcDrink3.png"));
+            drinkList.insert(new Product("kfcDrink4", 10, "/images/kfc/kfcDrink4.png"));
+
+            dessertList.insert(new Product("kfcDessert1", 11, "/images/kfc/kfcDessert1.png"));
+            dessertList.insert(new Product("kfcDessert2", 11, "/images/kfc/kfcDessert2.png"));
+            dessertList.insert(new Product("kfcDessert3", 11, "/images/kfc/kfcDessert3.png"));
+            dessertList.insert(new Product("kfcDessert4", 11, "/images/kfc/kfcDessert4.png"));
+
+            otherList.insert(new Product("kfcOther1", 20, "/images/kfc/kfcOther1.png"));
+            otherList.insert(new Product("kfcOther2", 20, "/images/kfc/kfcOther2.png"));
+            otherList.insert(new Product("kfcOther3", 20, "/images/kfc/kfcOther3.png"));
+            otherList.insert(new Product("kfcOther4", 20, "/images/kfc/kfcOther4.png"));
+            
+        } else if (restaurant.equals("Pizza Hut")) {
+            foodList.insert(new Product("pizzahutFood1", 12, "/images/pizzahut/pizzahutFood1.png"));
+            foodList.insert(new Product("pizzahutFood2", 12, "/images/pizzahut/pizzahutFood2.png"));
+            foodList.insert(new Product("pizzahutFood3", 12, "/images/pizzahut/pizzahutFood3.png"));
+            foodList.insert(new Product("pizzahutFood4", 12, "/images/pizzahut/pizzahutFood4.png"));
+
+            drinkList.insert(new Product("pizzahutDrink1", 10, "/images/pizzahut/pizzahutDrink1.png"));
+            drinkList.insert(new Product("pizzahutDrink2", 10, "/images/pizzahut/pizzahutDrink2.png"));
+            drinkList.insert(new Product("pizzahutDrink3", 10, "/images/pizzahut/pizzahutDrink3.png"));
+            drinkList.insert(new Product("pizzahutDrink4", 10, "/images/pizzahut/pizzahutDrink4.png"));
+
+            dessertList.insert(new Product("pizzahutDessert1", 11, "/images/pizzahut/pizzahutDessert1.png"));
+            dessertList.insert(new Product("pizzahutDessert2", 11, "/images/pizzahut/pizzahutDessert2.png"));
+            dessertList.insert(new Product("pizzahutDessert3", 11, "/images/pizzahut/pizzahutDessert3.png"));
+            dessertList.insert(new Product("pizzahutDessert4", 11, "/images/pizzahut/pizzahutDessert4.png"));
+
+            otherList.insert(new Product("pizzahutOther1", 20, "/images/pizzahut/pizzahutOther1.png"));
+            otherList.insert(new Product("pizzahutOther2", 20, "/images/pizzahut/pizzahutOther2.png"));
+            otherList.insert(new Product("pizzahutOther3", 20, "/images/pizzahut/pizzahutOther3.png"));
+            otherList.insert(new Product("pizzahutOther4", 20, "/images/pizzahut/pizzahutOther4.png"));
+            
+        } else if (restaurant.equals("Taco Bell")) {
+            foodList.insert(new Product("tacoFood1", 12, "/images/tacobell/tacoFood1.png"));
+            foodList.insert(new Product("tacoFood2", 12, "/images/tacobell/tacoFood2.png"));
+            foodList.insert(new Product("tacoFood3", 12, "/images/tacobell/tacoFood3.png"));
+            foodList.insert(new Product("tacoFood4", 12, "/images/tacobell/tacoFood4.png"));
+
+            drinkList.insert(new Product("tacoDrink1", 10, "/images/tacobell/tacoDrink1.png"));
+            drinkList.insert(new Product("tacoDrink2", 10, "/images/tacobell/tacoDrink2.png"));
+            drinkList.insert(new Product("tacoDrink3", 10, "/images/tacobell/tacoDrink3.png"));
+            drinkList.insert(new Product("tacoDrink4", 10, "/images/tacobell/tacoDrink4.png"));
+
+            dessertList.insert(new Product("tacoDessert1", 11, "/images/tacobell/tacoDessert1.png"));
+            dessertList.insert(new Product("tacoDessert2", 11, "/images/tacobell/tacoDessert2.png"));
+            dessertList.insert(new Product("tacoDessert3", 11, "/images/tacobell/tacoDessert3.png"));
+            dessertList.insert(new Product("tacoDessert4", 11, "/images/tacobell/tacoDessert4.png"));
+
+            otherList.insert(new Product("tacoOther1", 20, "/images/tacobell/tacoOther1.png"));
+            otherList.insert(new Product("tacoOther2", 20, "/images/tacobell/tacoOther2.png"));
+            otherList.insert(new Product("tacoOther3", 20, "/images/tacobell/tacoOther3.png"));
+            otherList.insert(new Product("tacoOther4", 20, "/images/tacobell/tacoOther4.png"));
         }
     }
 
