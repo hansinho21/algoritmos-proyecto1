@@ -34,6 +34,7 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import logic.Clock;
 import logic.LinkedStack.LinkedStack;
+import logic.Notification;
 
 /**
  *
@@ -453,6 +454,10 @@ public class AgentInterface extends javax.swing.JFrame {
         }
         return auxList;
     }
+    
+    private void notificationThread(){
+        Notification notification = new Notification(jLabel7);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -510,13 +515,11 @@ public class AgentInterface extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jComboBoxProvince = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jTextFieldIdClient = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         LastName1Client = new javax.swing.JTextField();
         LastName2Client = new javax.swing.JTextField();
+        jLabelBordeProductos = new javax.swing.JLabel();
         jLabelFondoTab1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -547,6 +550,7 @@ public class AgentInterface extends javax.swing.JFrame {
         jLabelAgentName = new javax.swing.JLabel();
         jLabelAgentCode = new javax.swing.JLabel();
         jLabelBorder = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabelFondo2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -590,7 +594,7 @@ public class AgentInterface extends javax.swing.JFrame {
         jLabelNombreCliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelNombreCliente.setForeground(new java.awt.Color(255, 255, 255));
         jLabelNombreCliente.setText("Name:");
-        jPanel1.add(jLabelNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+        jPanel1.add(jLabelNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         jLabelCorreoCliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelCorreoCliente.setForeground(new java.awt.Color(255, 255, 255));
@@ -610,7 +614,7 @@ public class AgentInterface extends javax.swing.JFrame {
                 jTextFieldNomClienteActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldNomCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 240, 30));
+        jPanel1.add(jTextFieldNomCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 260, 30));
 
         jTextFieldTelCliente.setBackground(new java.awt.Color(0, 0, 51));
         jTextFieldTelCliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -883,7 +887,7 @@ public class AgentInterface extends javax.swing.JFrame {
         jLabelDireccion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelDireccion.setForeground(new java.awt.Color(255, 255, 255));
         jLabelDireccion.setText("Address:");
-        jPanel1.add(jLabelDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, 20));
+        jPanel1.add(jLabelDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, 20));
 
         jTexfieldDireccion.setBackground(new java.awt.Color(0, 0, 51));
         jTexfieldDireccion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -930,7 +934,7 @@ public class AgentInterface extends javax.swing.JFrame {
                 jButtonCleanActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonClean, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 90, 30));
+        jPanel1.add(jButtonClean, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, 90, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -965,20 +969,26 @@ public class AgentInterface extends javax.swing.JFrame {
         });
         jPanel1.add(jComboBoxProvince, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, 170, 30));
 
-        jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 600, 420));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("Last name 1:");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
-        jLabel18.setText("Id:");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
-        jPanel1.add(jTextFieldIdClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 240, -1));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Last name 2:");
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
-        jLabel19.setText("Last Name1");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        LastName1Client.setBackground(new java.awt.Color(0, 0, 51));
+        LastName1Client.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel1.add(LastName1Client, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 220, 30));
 
-        jLabel20.setText("Last name2");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
-        jPanel1.add(LastName1Client, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 170, -1));
-        jPanel1.add(LastName2Client, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 180, -1));
+        LastName2Client.setBackground(new java.awt.Color(0, 0, 51));
+        LastName2Client.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel1.add(LastName2Client, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 220, 30));
+
+        jLabelBordeProductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel1.add(jLabelBordeProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 600, 420));
 
         jLabelFondoTab1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoAzul.png"))); // NOI18N
         jPanel1.add(jLabelFondoTab1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 450));
@@ -1150,6 +1160,11 @@ public class AgentInterface extends javax.swing.JFrame {
         jLabelBorder.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         getContentPane().add(jLabelBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 530, 130));
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 190, 50));
+
         jLabelFondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoAzul.png"))); // NOI18N
         getContentPane().add(jLabelFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 620));
 
@@ -1214,7 +1229,6 @@ public class AgentInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         for (int i = 0; i < clientsList.size(); i++) {
             if (jTextFieldCorreoCliente.getText().equals(clientsList.get(i).getEmail())) {
-                jTextFieldIdClient.setText(clientsList.get(i).getId());
                 jTextFieldNomCliente.setText(clientsList.get(i).getName());
                 LastName1Client.setText(clientsList.get(i).getLastName1());
                 LastName2Client.setText(clientsList.get(i).getLastName2());
@@ -1344,7 +1358,7 @@ public class AgentInterface extends javax.swing.JFrame {
                 logic.updateDriverQueue(driversList);
 
                 //Verifica y añade un cliente en caso de que éste no esté en la lista
-                Client c = new Client(jTextFieldIdClient.getText(), jTextFieldNomCliente.getText(),
+                Client c = new Client("1", jTextFieldNomCliente.getText(),
                         LastName1Client.getText(), LastName2Client.getText(), jTextFieldCorreoCliente.getText(), jTextFieldTelCliente.getText(),
                         jComboBoxProvinciaCliente.getSelectedItem().toString(), jTexfieldDireccion.getText());
                 logic.saveClients(c);
@@ -1368,19 +1382,21 @@ public class AgentInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood1.element, tableModel, contTable);
         updatePrice(nodeFood1.element);
-
+        notificationThread();
     }//GEN-LAST:event_jLabelFood1MouseClicked
 
     private void jLabelFood2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFood2MouseClicked
         // TODO add your handling code here:
         logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood2.element, tableModel, contTable);
         updatePrice(nodeFood2.element);
+        notificationThread();
     }//GEN-LAST:event_jLabelFood2MouseClicked
 
     private void jLabelFood3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFood3MouseClicked
         // TODO add your handling code here:
         logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood3.element, tableModel, contTable);
         updatePrice(nodeFood3.element);
+        notificationThread();
     }//GEN-LAST:event_jLabelFood3MouseClicked
 
     private void jButtonCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCleanActionPerformed
@@ -1570,14 +1586,12 @@ public class AgentInterface extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxProvinciaCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1585,10 +1599,12 @@ public class AgentInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelAgentCode;
     private javax.swing.JLabel jLabelAgentName;
+    private javax.swing.JLabel jLabelBordeProductos;
     private javax.swing.JLabel jLabelBorder;
     private javax.swing.JLabel jLabelCliente;
     private javax.swing.JLabel jLabelCorreoCliente;
@@ -1635,7 +1651,6 @@ public class AgentInterface extends javax.swing.JFrame {
     private javax.swing.JTable jTableFactura;
     private javax.swing.JTextField jTexfieldDireccion;
     private javax.swing.JTextField jTextFieldCorreoCliente;
-    private javax.swing.JTextField jTextFieldIdClient;
     private javax.swing.JTextField jTextFieldNomCliente;
     private javax.swing.JTextField jTextFieldTelCliente;
     // End of variables declaration//GEN-END:variables
