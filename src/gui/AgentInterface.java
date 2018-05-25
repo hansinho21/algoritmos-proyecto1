@@ -101,6 +101,7 @@ public class AgentInterface extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         jMenuBar1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        jLabelId.setVisible(false);
 
         //Deshabilitar los botones
 //        jButtonClean.setEnabled(false);
@@ -152,8 +153,6 @@ public class AgentInterface extends javax.swing.JFrame {
         setActiveAgent();
         //Llena el autocompleter
         fillAutoCompleter();
-        //Inicializa las imagenes
-//        initializeImages();
         //Inicializa la tabla
         initializeTable();
         //Carga información del siguiente conductor en la cola
@@ -165,7 +164,7 @@ public class AgentInterface extends javax.swing.JFrame {
      */
     private void initializeTable() {
         String x[][] = {};
-        String columns[] = {"Restaurant", "Product", "Quantity", "Price"};
+        String columns[] = {"Id Client", "Id Restaurant", "Id Product", "Quantity", "Total Items"};
         tableModel = new DefaultTableModel(x, columns);
         jTableFactura.setModel(tableModel);
     }
@@ -189,7 +188,10 @@ public class AgentInterface extends javax.swing.JFrame {
         jComboBoxProvinciaCliente.setSelectedItem("Seleccione una opción");
         jTextFieldTelCliente.setText("");
         jTexfieldDireccion.setText("");
-
+        jTextFieldLastName1.setText("");
+        jTextFieldLastName2.setText("");
+        jLabelId.setVisible(false);
+        jLabelIdClient.setText("");
     }
 
     /**
@@ -380,9 +382,8 @@ public class AgentInterface extends javax.swing.JFrame {
      */
     private void driverInformation() {
         Driver driver = driversList.peek();
-        jLabelDriverIcon.setIcon(driver.getImage());
         jLabelDriverName.setText(driver.getName());
-        jLabelDriverId.setText(driver.getId());
+        jLabelDriverId.setText(String.valueOf(driver.getId()));
     }
 
     /**
@@ -448,13 +449,13 @@ public class AgentInterface extends javax.swing.JFrame {
         }
         return auxList;
     }
-    
-    private void threadNotification(){
+
+    private void threadNotification() {
         Notification notification = new Notification(jLabel7);
     }
-    
-    private int getLastIdClient(){
-        return clientsList.size();
+
+    private int getLastIdClient() {
+        return clientsList.size() + 1;
     }
 
     /**
@@ -515,9 +516,11 @@ public class AgentInterface extends javax.swing.JFrame {
         jComboBoxProvince = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        LastName1Client = new javax.swing.JTextField();
-        LastName2Client = new javax.swing.JTextField();
+        jTextFieldLastName1 = new javax.swing.JTextField();
+        jTextFieldLastName2 = new javax.swing.JTextField();
         jLabelBordeProductos = new javax.swing.JLabel();
+        jLabelId = new javax.swing.JLabel();
+        jLabelIdClient = new javax.swing.JLabel();
         jLabelFondoTab1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -962,21 +965,30 @@ public class AgentInterface extends javax.swing.JFrame {
         jLabel20.setText("Last name 2:");
         jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
-        LastName1Client.setBackground(new java.awt.Color(0, 0, 51));
-        LastName1Client.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        LastName1Client.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(LastName1Client, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 220, 30));
+        jTextFieldLastName1.setBackground(new java.awt.Color(0, 0, 51));
+        jTextFieldLastName1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTextFieldLastName1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jTextFieldLastName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 220, 30));
 
-        LastName2Client.setBackground(new java.awt.Color(0, 0, 51));
-        LastName2Client.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        LastName2Client.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(LastName2Client, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 220, 30));
+        jTextFieldLastName2.setBackground(new java.awt.Color(0, 0, 51));
+        jTextFieldLastName2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTextFieldLastName2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jTextFieldLastName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 220, 30));
 
         jLabelBordeProductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel1.add(jLabelBordeProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 600, 420));
 
+        jLabelId.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelId.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelId.setText("Id:");
+        jPanel1.add(jLabelId, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, 30));
+
+        jLabelIdClient.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelIdClient.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jLabelIdClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 120, 30));
+
         jLabelFondoTab1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoAzul.png"))); // NOI18N
-        jPanel1.add(jLabelFondoTab1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 450));
+        jPanel1.add(jLabelFondoTab1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 490));
 
         jTabbedPane1.addTab("Page 1", jPanel1);
 
@@ -986,18 +998,26 @@ public class AgentInterface extends javax.swing.JFrame {
         jTableFactura.setBackground(new java.awt.Color(204, 204, 255));
         jTableFactura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Restaurante", "Producto", "Cantidad", "Precio"
+                "Id Cliente", "Id Restaurante", "Id Producto", "Cantidad", "Total Items"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableFactura.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableFacturaMouseClicked(evt);
@@ -1210,12 +1230,14 @@ public class AgentInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         for (int i = 0; i < clientsList.size(); i++) {
             if (jTextFieldCorreoCliente.getText().equals(clientsList.get(i).getEmail())) {
+                jLabelId.setVisible(true);
                 jTextFieldNomCliente.setText(clientsList.get(i).getName());
-                LastName1Client.setText(clientsList.get(i).getLastName1());
-                LastName2Client.setText(clientsList.get(i).getLastName2());
+                jTextFieldLastName1.setText(clientsList.get(i).getLastName1());
+                jTextFieldLastName2.setText(clientsList.get(i).getLastName2());
                 jComboBoxProvinciaCliente.setSelectedItem(clientsList.get(i).getProvince());
                 jTextFieldTelCliente.setText(clientsList.get(i).getPhone());
                 jTexfieldDireccion.setText(clientsList.get(i).getAdress());
+                jLabelIdClient.setText(clientsList.get(i).getId());
             }
         }
     }//GEN-LAST:event_jTextFieldCorreoClienteFocusGained
@@ -1314,7 +1336,7 @@ public class AgentInterface extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             restaurantsByProvince.add(restaurantsByProvince.poll());
-    
+
             jLabelRestaurant.setIcon(restaurantsByProvince.peek().getImage());
             initializeImages();
         } catch (ListException ex) {
@@ -1327,6 +1349,7 @@ public class AgentInterface extends javax.swing.JFrame {
     private void jButtonConfirmOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmOrderActionPerformed
         try {
             if (verifyInformation() == true) {
+
                 //Añadir la orden a la pila y actualizar en la clase data
                 ordersStack.push(new Order(jTextFieldNomCliente.getText(), ordersStack.getSize() + 1, jLabelAgentName.getText(),
                         logic.getDate(), this.total, "Cartago", jTexfieldDireccion.getText(), driversList.peek().getName()));
@@ -1336,7 +1359,7 @@ public class AgentInterface extends javax.swing.JFrame {
 
                 //Verifica y añade un cliente en caso de que éste no esté en la lista
                 Client c = new Client(String.valueOf(getLastIdClient()), jTextFieldNomCliente.getText(),
-                        LastName1Client.getText(), LastName2Client.getText(), jTextFieldCorreoCliente.getText(), jTextFieldTelCliente.getText(),
+                        jTextFieldLastName1.getText(), jTextFieldLastName2.getText(), jTextFieldCorreoCliente.getText(), jTextFieldTelCliente.getText(),
                         jComboBoxProvinciaCliente.getSelectedItem().toString(), jTexfieldDireccion.getText());
                 logic.saveClients(c);
 
@@ -1357,9 +1380,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelFood1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFood1MouseClicked
         // TODO add your handling code here:
-        System.out.println(restaurantsByProvince.size()+"---"+restaurantsByProvince.peek().getName());
-        if(restaurantsByProvince.size() != 0){
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood1.element, tableModel, contTable);
+        if (restaurantsByProvince.size() != 0) {
+            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood1.element, tableModel, contTable, jLabelIdClient.getText());
             updatePrice(nodeFood1.element);
             threadNotification();
         }
@@ -1367,8 +1389,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelFood2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFood2MouseClicked
         // TODO add your handling code here:
-        if(restaurantsByProvince.size() != 0){
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood2.element, tableModel, contTable);
+        if (restaurantsByProvince.size() != 0) {
+            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood2.element, tableModel, contTable, jLabelIdClient.getText());
             updatePrice(nodeFood2.element);
             threadNotification();
         }
@@ -1376,8 +1398,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelFood3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFood3MouseClicked
         // TODO add your handling code here:
-        if(restaurantsByProvince.size() != 0){
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood3.element, tableModel, contTable);
+        if (restaurantsByProvince.size() != 0) {
+            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood3.element, tableModel, contTable, jLabelIdClient.getText());
             updatePrice(nodeFood3.element);
             threadNotification();
         }
@@ -1442,8 +1464,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelDrink1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDrink1MouseClicked
         // TODO add your handling code here:
-        if(restaurantsByProvince.size() != 0){
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDrink1.element, tableModel, contTable);
+        if (restaurantsByProvince.size() != 0) {
+            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDrink1.element, tableModel, contTable, jLabelIdClient.getText());
             updatePrice(nodeDrink1.element);
             threadNotification();
         }
@@ -1451,8 +1473,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelDrink2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDrink2MouseClicked
         // TODO add your handling code here:
-        if(restaurantsByProvince.size() != 0){
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDrink2.element, tableModel, contTable);
+        if (restaurantsByProvince.size() != 0) {
+            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDrink2.element, tableModel, contTable, jLabelIdClient.getText());
             updatePrice(nodeDrink2.element);
             threadNotification();
         }
@@ -1460,8 +1482,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelDrink3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDrink3MouseClicked
         // TODO add your handling code here:
-        if(restaurantsByProvince.size() != 0){
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDrink3.element, tableModel, contTable);
+        if (restaurantsByProvince.size() != 0) {
+            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDrink3.element, tableModel, contTable, jLabelIdClient.getText());
             updatePrice(nodeDrink3.element);
             threadNotification();
         }
@@ -1469,8 +1491,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelDessert1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDessert1MouseClicked
         // TODO add your handling code here:
-        if(restaurantsByProvince.size() != 0){
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDessert1.element, tableModel, contTable);
+        if (restaurantsByProvince.size() != 0) {
+            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDessert1.element, tableModel, contTable, jLabelIdClient.getText());
             updatePrice(nodeDessert1.element);
             threadNotification();
         }
@@ -1478,8 +1500,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelDessert2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDessert2MouseClicked
         // TODO add your handling code here:
-        if(restaurantsByProvince.size() != 0){
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDessert2.element, tableModel, contTable);
+        if (restaurantsByProvince.size() != 0) {
+            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDessert2.element, tableModel, contTable, jLabelIdClient.getText());
             updatePrice(nodeDessert2.element);
             threadNotification();
         }
@@ -1487,8 +1509,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelDessert3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDessert3MouseClicked
         // TODO add your handling code here:
-        if(restaurantsByProvince.size() != 0){
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDessert3.element, tableModel, contTable);
+        if (restaurantsByProvince.size() != 0) {
+            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDessert3.element, tableModel, contTable, jLabelIdClient.getText());
             updatePrice(nodeDessert3.element);
             threadNotification();
         }
@@ -1496,8 +1518,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelOther1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelOther1MouseClicked
         // TODO add your handling code here:
-        if(restaurantsByProvince.size() != 0){
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeOther1.element, tableModel, contTable);
+        if (restaurantsByProvince.size() != 0) {
+            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeOther1.element, tableModel, contTable, jLabelIdClient.getText());
             updatePrice(nodeOther1.element);
             threadNotification();
         }
@@ -1505,8 +1527,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelOther2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelOther2MouseClicked
         // TODO add your handling code here:
-        if(restaurantsByProvince.size() != 0){
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeOther2.element, tableModel, contTable);
+        if (restaurantsByProvince.size() != 0) {
+            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeOther2.element, tableModel, contTable, jLabelIdClient.getText());
             updatePrice(nodeOther2.element);
             threadNotification();
         }
@@ -1514,8 +1536,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelOther3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelOther3MouseClicked
         // TODO add your handling code here:
-        if(restaurantsByProvince.size() != 0){
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeOther3.element, tableModel, contTable);
+        if (restaurantsByProvince.size() != 0) {
+            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeOther3.element, tableModel, contTable, jLabelIdClient.getText());
             updatePrice(nodeOther3.element);
             threadNotification();
         }
@@ -1573,8 +1595,6 @@ public class AgentInterface extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField LastName1Client;
-    private javax.swing.JTextField LastName2Client;
     private javax.swing.JButton jButtonClean;
     private javax.swing.JButton jButtonConfirmOrder;
     private javax.swing.JButton jButtonDelete;
@@ -1633,6 +1653,8 @@ public class AgentInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelFood2;
     private javax.swing.JLabel jLabelFood3;
     private javax.swing.JLabel jLabelIV;
+    private javax.swing.JLabel jLabelId;
+    private javax.swing.JLabel jLabelIdClient;
     private javax.swing.JLabel jLabelIva;
     private javax.swing.JLabel jLabelLogo;
     private javax.swing.JLabel jLabelNombreCliente;
@@ -1658,6 +1680,8 @@ public class AgentInterface extends javax.swing.JFrame {
     private javax.swing.JTable jTableFactura;
     private javax.swing.JTextField jTexfieldDireccion;
     private javax.swing.JTextField jTextFieldCorreoCliente;
+    private javax.swing.JTextField jTextFieldLastName1;
+    private javax.swing.JTextField jTextFieldLastName2;
     private javax.swing.JTextField jTextFieldNomCliente;
     private javax.swing.JTextField jTextFieldTelCliente;
     // End of variables declaration//GEN-END:variables

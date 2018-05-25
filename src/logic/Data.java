@@ -96,11 +96,7 @@ public class Data {
     }
 
     private void fillDriversList() throws IOException {
-        driversList.add(new Driver("1", "Juan Solano", "/images/driver2.png"));
-        driversList.add(new Driver("2", "Carlos Rodriguez", "/images/driver2.png"));
-        driversList.add(new Driver("3", "Natalia Alvarado", "/images/driver2.png"));
-        driversList.add(new Driver("4", "Nancy Pereira", "/images/driver2.png"));
-        driversList.add(new Driver("5", "Allan Solano", "/images/driver2.png"));
+        
          String sCadena;
         FileReader fr = new FileReader("Drivers.txt");
         BufferedReader bf = new BufferedReader(fr);
@@ -108,7 +104,7 @@ public class Data {
             Driver driver = new Driver();
             String[] aux = sCadena.split("\t");
 //            System.out.println(Arrays.toString(sCadena.split(";")));
-            driver.setId(aux[0]);
+            driver.setId(Integer.parseInt(aux[0]));
             driver.setName(aux[1]);
             driver.setLastName1(aux[2]);
             driver.setLastName2(aux[3]);

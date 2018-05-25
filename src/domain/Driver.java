@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
 public class Driver {
     
     
-    private String id;
+    private int id;
     private String name;
     private String lastName1;
     private String lastName2;
@@ -25,11 +25,10 @@ public class Driver {
     private String phone;
     private String plate;
     private String cedula;
-    private ImageIcon image;
 
     public Driver(String id, String name, String lastName1, String lastName2, String age, 
             String type, String phone, String plate, String cedula) {
-        this.id = id;
+        this.id = Integer.parseInt(id);
         this.name = name;
         this.lastName1 = lastName1;
         this.lastName2 = lastName2;
@@ -40,23 +39,20 @@ public class Driver {
         this.cedula = cedula;
     }
     
-    
-    
-
-    public Driver(String id, String name, String imageAdress) throws IOException {
-        this.id = id;
-        this.name = name;
-        this.image = new ImageIcon(ImageIO.read(getClass().getResource(imageAdress)));
-    }
+//    public Driver(String id, String name) throws IOException {
+//        this.id = Integer.parseInt(id);
+//        this.name = name;
+//        
+//    }
 
     public Driver() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -66,14 +62,6 @@ public class Driver {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public ImageIcon getImage() {
-        return image;
-    }
-
-    public void setImage(ImageIcon image) {
-        this.image = image;
     }
 
     public String getLastName1() {

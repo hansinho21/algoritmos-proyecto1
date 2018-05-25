@@ -40,6 +40,10 @@ public class Login extends javax.swing.JFrame {
         datos = new Data();
         listaAgentes = datos.getAgentsList();
         logic = new Logic();
+        
+        for (int i = 0; i < listaAgentes.size(); i++) {
+            System.out.println("--->"+listaAgentes.get(i).toString());
+        }
     }
 
     //cambiar el icono de java por el de mi empresa
@@ -70,6 +74,7 @@ public class Login extends javax.swing.JFrame {
         jPasswordField = new javax.swing.JPasswordField();
         jButtonSesion = new javax.swing.JButton();
         jLabelLogo = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -125,6 +130,17 @@ public class Login extends javax.swing.JFrame {
         jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoMini.png"))); // NOI18N
         getContentPane().add(jLabelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 60, 50));
 
+        jButton1.setBackground(new java.awt.Color(0, 0, 51));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Créditos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, -1, 30));
+
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoAzul.png"))); // NOI18N
         getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 436, 539));
 
@@ -155,6 +171,11 @@ public class Login extends javax.swing.JFrame {
         }
         limpiarTexto();
     }//GEN-LAST:event_jButtonSesionActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Hans Villalobos Quirós\nJeison Segura Rivera","Créditos", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,6 +219,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JButton jButtonSesion;
     private javax.swing.JLabel jLabelFondo;

@@ -1109,7 +1109,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         for (int i = 0; i < driversList.size(); i++) {
             if (driversList.peek().getName().equals(jTextFieldCedulaDriver.getText())) {
-                jTextFieldIDDriver.setText(driversList.peek().getId());
+                jTextFieldIDDriver.setText(String.valueOf(driversList.peek().getId()));
             }
             driversList.add(driversList.poll());
         }

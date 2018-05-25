@@ -82,7 +82,7 @@ public class Logic implements Runnable {
         boolean active = false;
         for (int i = 0; i < agentsList.size(); i++) {
             if (user.equals(agentsList.get(i).getUser())
-                    && DigestUtils.md5Hex(password).equals(agentsList.get(i).getPassword())) {
+                    && password.equals(agentsList.get(i).getPassword())) {
                 agentsList.get(i).setActive(true);
                 active = true;
             }
@@ -105,7 +105,6 @@ public class Logic implements Runnable {
      * @return LinkedList
      */
     public LinkedList saveClients(Client client) {
-
         boolean exist = false;
         if (clientsList.isEmpty()) {
             clientsList.add(client);
@@ -280,7 +279,7 @@ public class Logic implements Runnable {
         } else {
 //            System.out.println(exist+" estoy antes ");
             while (exist&&!driversList.isEmpty()) {
-                if (driversList.peek().getId().equalsIgnoreCase(driver.getId())) {
+                if (driversList.peek().getId() == driver.getId()) {
                     exist = !exist;
                     JOptionPane.showMessageDialog(null, "The driver already exists");
 //                    System.out.println(exist+" estoy despues ");
@@ -381,13 +380,13 @@ public class Logic implements Runnable {
      * @param tableModel
      * @param contTable
      */
-    public void addDataInBillTable(String restaurant, Product product, DefaultTableModel tableModel, int contTable) {
+    public void addDataInBillTable(String idRestaurant, Product product, DefaultTableModel tableModel, int contTable, String idClient) {
         if (verifyProduct(tableModel, product.getName()) == false) {
             tableModel.insertRow(contTable, new Object[]{});
-            tableModel.setValueAt(restaurant, contTable, 0);
-            tableModel.setValueAt(product.getName(), contTable, 1);
-            tableModel.setValueAt(1, contTable, 2);
-            tableModel.setValueAt(product.getPrice(), contTable, 3);
+            tableModel.setValueAt(idClient, contTable, 0);
+            tableModel.setValueAt(idRestaurant, contTable, 1);
+            tableModel.setValueAt(product.getId(), contTable, 2);
+            tableModel.setValueAt(1, contTable, 3);
             contTable++;
         } else {
             changeQuantityByName(tableModel, product.getName());
