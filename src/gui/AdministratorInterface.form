@@ -460,6 +460,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldIdClient">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
@@ -841,6 +844,9 @@
             <Component class="javax.swing.JTextField" name="jTextFieldLastName1Driver">
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldLastName2Driver">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldLastName2DriverActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldPhoneDriver">
             </Component>
@@ -849,6 +855,9 @@
             <Component class="javax.swing.JTextField" name="jTextFieldPlateDriver">
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldCedulaDriver">
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldCedulaDriverFocusGained"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldAgeDriver">
             </Component>

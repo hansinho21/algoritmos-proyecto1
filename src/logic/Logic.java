@@ -278,15 +278,15 @@ public class Logic implements Runnable {
             exist = true;
             JOptionPane.showMessageDialog(null, "Driver added successfully");
         } else {
-            System.out.println(exist+" estoy antes we");
-            while (exist || !driversList.isEmpty()) {
+//            System.out.println(exist+" estoy antes ");
+            while (exist&&!driversList.isEmpty()) {
                 if (driversList.peek().getId().equalsIgnoreCase(driver.getId())) {
                     exist = !exist;
                     JOptionPane.showMessageDialog(null, "The driver already exists");
-                    System.out.println(exist+" estoy despues we");
+//                    System.out.println(exist+" estoy despues ");
                     
                 } else {
-                    aux.add(driversList.element());
+                    aux.add(driversList.peek());
                     driversList.poll();
                 }
             }
