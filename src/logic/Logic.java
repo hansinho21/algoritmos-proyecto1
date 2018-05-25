@@ -139,7 +139,7 @@ public class Logic implements Runnable {
         System.out.println(clientsList.size() + "Inicio");
 
         for (int i = 0; i < clientsList.size(); i++) {
-            if (clientsList.get(i).getEmail().equals(client.getEmail())) {
+            if (clientsList.get(i).getId().equals(client.getId())) {
                 exist = true;
                 clientsList.remove(i);
                 data.setClientsList(clientsList);
@@ -156,7 +156,7 @@ public class Logic implements Runnable {
     }
 
     /**
-     * Metodo para editar un cliente del LinkedList ARREGLAR ESTE HIJUEPUTA
+     * Metodo para editar un cliente del LinkedList 
      */
     public LinkedList updateClient(Client Client) {
         boolean exist = false;
@@ -164,7 +164,7 @@ public class Logic implements Runnable {
             if (clientsList.get(i).getId().equals(Client.getId())) {
                 exist = true;
                 clientsList.remove(i);
-                saveClients(Client);
+                clientsList.add(Client);
 //                clientsList.add(Client);
                 data.setClientsList(clientsList);
                 JOptionPane.showMessageDialog(null, "correctly modified client");
@@ -276,11 +276,15 @@ public class Logic implements Runnable {
             driversList.add(driver);
             Data.setDriversList(driversList);
             exist = true;
+            JOptionPane.showMessageDialog(null, "Driver added successfully");
         } else {
-            while (exist && !driversList.isEmpty()) {
+            System.out.println(exist+" estoy antes we");
+            while (exist || !driversList.isEmpty()) {
                 if (driversList.peek().getId().equalsIgnoreCase(driver.getId())) {
-                    exist = true;
+                    exist = !exist;
                     JOptionPane.showMessageDialog(null, "The driver already exists");
+                    System.out.println(exist+" estoy despues we");
+                    
                 } else {
                     aux.add(driversList.element());
                     driversList.poll();
@@ -294,6 +298,7 @@ public class Logic implements Runnable {
             }
             driversList.add(driver);
             Data.setDriversList(driversList);
+            JOptionPane.showMessageDialog(null, "Driver added successfully");
         }
         System.out.println(driversList.size());
         return driversList;

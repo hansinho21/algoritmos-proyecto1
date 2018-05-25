@@ -206,8 +206,8 @@ x();
         jLabel19 = new javax.swing.JLabel();
         jTextFieldIDDriver = new javax.swing.JTextField();
         jTextFieldNameDriver = new javax.swing.JTextField();
-        jTextFieldLastName1 = new javax.swing.JTextField();
-        jTextFieldLastName2 = new javax.swing.JTextField();
+        jTextFieldLastName1Driver = new javax.swing.JTextField();
+        jTextFieldLastName2Driver = new javax.swing.JTextField();
         jTextFieldPhoneDriver = new javax.swing.JTextField();
         jTextFieldTypeVehicle = new javax.swing.JTextField();
         jTextFieldPlateDriver = new javax.swing.JTextField();
@@ -217,15 +217,6 @@ x();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jTextFieldPlateDriver1 = new javax.swing.JTextField();
-        jTextFieldCedulaDriver1 = new javax.swing.JTextField();
-        jTextFieldAgeDriver1 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         Salir = new javax.swing.JButton();
         jButtonVolver = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -680,7 +671,7 @@ x();
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldIDDriver, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldNameDriver, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldLastName1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldLastName1Driver, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldPhoneDriver, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(46, 46, 46)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -701,7 +692,7 @@ x();
                                     .addComponent(jLabel17)
                                     .addGap(34, 34, 34)
                                     .addComponent(jTextFieldPlateDriver, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(jTextFieldLastName2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTextFieldLastName2Driver, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(169, 169, 169)
                 .addComponent(jButton2)
@@ -735,11 +726,11 @@ x();
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
-                            .addComponent(jTextFieldLastName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldLastName1Driver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
-                            .addComponent(jTextFieldLastName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldLastName2Driver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
@@ -763,79 +754,15 @@ x();
 
         jTabbedPane1.addTab("Conductores", jPanel6);
 
-        jLabel26.setText("nombre r");
-
-        jLabel27.setText("id");
-
-        jLabel28.setText("AGE");
-
-        jButton4.setText("DELETE");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("ADD");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        jButton6.setText("EDIT");
-
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(379, 379, 379)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel28)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldAgeDriver1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel27)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldCedulaDriver1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel26)
-                        .addGap(34, 34, 34)
-                        .addComponent(jTextFieldPlateDriver1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(169, 169, 169)
-                .addComponent(jButton5)
-                .addGap(59, 59, 59)
-                .addComponent(jButton6)
-                .addGap(67, 67, 67)
-                .addComponent(jButton4))
+            .addGap(0, 698, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26)
-                    .addComponent(jTextFieldPlateDriver1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel27)
-                    .addComponent(jTextFieldCedulaDriver1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
-                        .addGap(178, 178, 178)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5)
-                            .addComponent(jButton6)
-                            .addComponent(jButton4)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel28)
-                            .addComponent(jTextFieldAgeDriver1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(81, Short.MAX_VALUE))
+            .addGap(0, 384, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("resturante", jPanel7);
@@ -1006,7 +933,7 @@ x();
     private void jButtonEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarClienteActionPerformed
         // TODO add your handling co de here:
         Client c = new Client(jTextFieldIdClient.getText(), jTextFieldNombreCliente.getText(),
-                jTextFieldLastName1.getText(), jTextFieldLastName2.getText(), jTextFieldEmail.getText(), jTextFieldPhoneClient.getText(),
+                jTextFieldLastName2Client.getText(), jTextFieldLastName2Client.getText(), jTextFieldEmail.getText(), jTextFieldPhoneClient.getText(),
                 jComboBoxProvinceClient.getSelectedItem().toString(), jTextFieldAdressClient.getText());
         logic.deleteClient(c);
     }//GEN-LAST:event_jButtonEliminarClienteActionPerformed
@@ -1014,9 +941,10 @@ x();
     private void jButtonEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarClienteActionPerformed
         // TODO add your handling code here:
         Client c = new Client(jTextFieldIdClient.getText(), jTextFieldNombreCliente.getText(),
-                jTextFieldLastName1.getText(), jTextFieldLastName2.getText(), jTextFieldEmail.getText(), jTextFieldPhoneClient.getText(),
+                jTextFieldLastNameClient.getText(), jTextFieldLastName2Client.getText(), jTextFieldEmail.getText(), jTextFieldPhoneClient.getText(),
                 jComboBoxProvinceClient.getSelectedItem().toString(), jTextFieldAdressClient.getText());
         logic.updateClient(c);
+        
 
     }//GEN-LAST:event_jButtonEditarClienteActionPerformed
 
@@ -1093,22 +1021,24 @@ x();
         // TODO add your handling code here:
 
         Driver driver = new Driver(jTextFieldIDDriver.getText(),
-                jTextFieldNameDriver.getText(), jTextFieldLastName1.getText(),
-                jTextFieldLastName2.getText(), jTextFieldAgeDriver.getText(),
+                jTextFieldNameDriver.getText(), jTextFieldLastName1Driver.getText(),
+                jTextFieldLastName2Driver.getText(), jTextFieldAgeDriver.getText(),
                 jTextFieldTypeVehicle.getText(), jTextFieldPhoneDriver.getText(),
                 jTextFieldPlateDriver.getText(), jTextFieldCedulaDriver.getText());
         logic.saveDrivers(driver);
+        
+        jTextFieldIDDriver.setText("");
+        jTextFieldAgeDriver.setText("");
+        jTextFieldNameDriver.setText("");
+        jTextFieldLastName1Driver.setText("");
+        jTextFieldLastName2Driver.setText("");
+        jTextFieldPhoneDriver.setText("");
+        jTextFieldPlateDriver.setText("");
+        jTextFieldTypeVehicle.setText("");
+        jTextFieldCedulaDriver.setText("");
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextFieldClientFiltrerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldClientFiltrerKeyTyped
         // TODO add your handling code here:
@@ -1189,9 +1119,6 @@ x();
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButtonAgregarAgente;
     private javax.swing.JButton jButtonAgregarCliente;
     private javax.swing.JButton jButtonCleanAgent;
@@ -1217,9 +1144,6 @@ x();
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1249,18 +1173,16 @@ x();
     private javax.swing.JTextField jTexFieldUsuarioAgente;
     private javax.swing.JTextField jTextFieldAdressClient;
     private javax.swing.JTextField jTextFieldAgeDriver;
-    private javax.swing.JTextField jTextFieldAgeDriver1;
     private javax.swing.JTextField jTextFieldCedulaDriver;
-    private javax.swing.JTextField jTextFieldCedulaDriver1;
     private javax.swing.JTextField jTextFieldClientFiltrer;
     private javax.swing.JTextField jTextFieldCodigoAgente;
     private javax.swing.JTextField jTextFieldCorreoAgente;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldIDDriver;
     private javax.swing.JTextField jTextFieldIdClient;
-    private javax.swing.JTextField jTextFieldLastName1;
-    private javax.swing.JTextField jTextFieldLastName2;
+    private javax.swing.JTextField jTextFieldLastName1Driver;
     private javax.swing.JTextField jTextFieldLastName2Client;
+    private javax.swing.JTextField jTextFieldLastName2Driver;
     private javax.swing.JTextField jTextFieldLastNameClient;
     private javax.swing.JTextField jTextFieldNameDriver;
     private javax.swing.JTextField jTextFieldNombreAgente;
@@ -1269,7 +1191,6 @@ x();
     private javax.swing.JTextField jTextFieldPhoneClient;
     private javax.swing.JTextField jTextFieldPhoneDriver;
     private javax.swing.JTextField jTextFieldPlateDriver;
-    private javax.swing.JTextField jTextFieldPlateDriver1;
     private javax.swing.JTextField jTextFieldTypeVehicle;
     // End of variables declaration//GEN-END:variables
 }
