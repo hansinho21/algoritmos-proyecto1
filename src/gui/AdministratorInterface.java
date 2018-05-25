@@ -17,10 +17,13 @@ import domain.Driver;
 import domain.Order;
 import exceptions.ListException;
 import exceptions.StackException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -28,7 +31,9 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import logic.Data;
 import logic.LinkedStack.LinkedStack;
 import logic.Logic;
@@ -42,23 +47,26 @@ public class AdministratorInterface extends javax.swing.JFrame {
     //Instancias
     private Data data;
     private Logic logic;
-    
+
     private TextAutoCompleter textAutoCompleterClient;
     private TextAutoCompleter textAutoCompleterAgent;
-    
+
     //Table
     private DefaultTableModel tableModel;
     private int contTable;
-    
+
     //TDAs
     private LinkedStack ordersStack;
     private LinkedList<Client> clientsList;
     private LinkedList<Agent> agentsList;
     private Queue<Driver> driversList;
     
-    
+    //Filtro tabla
+    TableRowSorter trs;
+
     /**
      * Creates new form NewJFrame
+     *
      * @throws exceptions.ListException
      * @throws java.io.IOException
      * @throws exceptions.StackException
@@ -66,26 +74,24 @@ public class AdministratorInterface extends javax.swing.JFrame {
     public AdministratorInterface() throws ListException, IOException, StackException {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         //Instancias
-        
         data = new Data();
         logic = new Logic();
-        
+
         //TDAs
         ordersStack = data.getOrdersStack();
         clientsList = data.getClientsList();
-        agentsList=data.getAgentsList();
+        agentsList = data.getAgentsList();
         driversList = data.getDriversList();
-        
-        
+
         //autocompleter
         textAutoCompleterClient = new TextAutoCompleter(jTextFieldEmail);
         textAutoCompleterAgent = new TextAutoCompleter(jTextFieldCorreoAgente);
-        
+
         //Tabla
         contTable = 0;
-        
+x();
         //Inicializa la tabla
         initializeTable();
         //Llena la tabla
@@ -93,8 +99,17 @@ public class AdministratorInterface extends javax.swing.JFrame {
         //Llena el autocompleter
         fillAutoCompleterClients();
         fillAutoCompleterAgents();
+        
     }
     
+    public void x() throws StackException{
+        Date x = new Date();
+        ordersStack.push(new Order("Allan", 1, "Hans", x.toLocaleString(), 12, "Cartago", "casa", "Carlos"));
+        ordersStack.push(new Order("Karla", 2, "Hans", x.toLocaleString(), 12, "Cartago", "casa", "Carlos"));
+        ordersStack.push(new Order("Jeison", 3, "Hans", x.toLocaleString(), 12, "Cartago", "casa", "Carlos"));
+        ordersStack.push(new Order("Julio", 4, "Hans", x.toLocaleString(), 12, "Cartago", "casa", "Carlos"));
+    }
+
     /**
      * Metodo para inicializar la tabla con la cantidad de columnas deseadas.
      */
@@ -104,8 +119,8 @@ public class AdministratorInterface extends javax.swing.JFrame {
         tableModel = new DefaultTableModel(x, columns);
         jTableOrders.setModel(tableModel);
     }
-    
-     /**
+
+    /**
      * Carga datos de tipo Product a la tabla..
      *
      * @param product
@@ -113,11 +128,11 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private void updateTableData() throws StackException {
         LinkedStack auxStack = new LinkedStack();
         //Paso todos los elementos de la pila original a una auxiliar para cimplir con el funcionamiento de la pila
-        while(!ordersStack.isEmpty()){
+        while (!ordersStack.isEmpty()) {
             auxStack.push(ordersStack.pop());
         }
         //Ahora devuelvo los elementos a la pila original añadiendolos a la ves a la tabla
-        while(!auxStack.isEmpty()){
+        while (!auxStack.isEmpty()) {
             logic.addDataInOrdersTable((Order) auxStack.peek(), tableModel, contTable);
             ordersStack.push(auxStack.pop());
         }
@@ -139,6 +154,8 @@ public class AdministratorInterface extends javax.swing.JFrame {
         jTableOrders = new javax.swing.JTable();
         jButtonExcell = new javax.swing.JButton();
         jButtonPDF = new javax.swing.JButton();
+        jTextFieldClientFiltrer = new javax.swing.JTextField();
+        jTextFieldOrderFiltrer = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -252,12 +269,24 @@ public class AdministratorInterface extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldClientFiltrer.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldClientFiltrerKeyTyped(evt);
+            }
+        });
+
+        jTextFieldOrderFiltrer.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldOrderFiltrerKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -265,13 +294,22 @@ public class AdministratorInterface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonExcell)
                 .addGap(30, 30, 30))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jTextFieldClientFiltrer, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextFieldOrderFiltrer, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldClientFiltrer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldOrderFiltrer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonPDF)
                     .addComponent(jButtonExcell))
@@ -883,8 +921,6 @@ public class AdministratorInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNombreClienteActionPerformed
 
-    
-    
     /**
      * LLena el AutoCompleter con los correos.
      */
@@ -895,6 +931,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
             textAutoCompleterClient.addItem(clientsList.get(i).getEmail());
         }
     }
+
     private void fillAutoCompleterAgents() {
         textAutoCompleterAgent.removeAllItems();
         for (int i = 0; i < agentsList.size(); i++) {
@@ -902,19 +939,19 @@ public class AdministratorInterface extends javax.swing.JFrame {
             textAutoCompleterAgent.addItem(agentsList.get(i).getEmail());
         }
     }
-    
-    
+
     /**
      * Metodo para exportar a pdf
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButtonPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPDFActionPerformed
 
-        try{
+        try {
             jTableOrders.print(JTable.PrintMode.FIT_WIDTH);
 
-        }catch(java.awt.print.PrinterException e){
-            System.err.format("error de impresion",e.getMessage());
+        } catch (java.awt.print.PrinterException e) {
+            System.err.format("error de impresion", e.getMessage());
         }
     }//GEN-LAST:event_jButtonPDFActionPerformed
 
@@ -928,23 +965,23 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
     private void jButtonAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarClienteActionPerformed
         // TODO add your handling code here:
-        
+
         //Verifica y añade un cliente en caso de que éste no esté en la lista
-                Client c = new Client(jTextFieldIdClient.getText(),jTextFieldNombreCliente.getText(), 
-                        jTextFieldLastNameClient.getText(),jTextFieldLastName2Client.getText(),jTextFieldEmail.getText(), jTextFieldPhoneClient.getText(),
-                        jComboBoxProvinceClient.getSelectedItem().toString(), jTextFieldAdressClient.getText());
-                logic.saveClients(c);
-               
-                jTextFieldAdressClient.setText("");
-                jTextFieldIdClient.setText("");
-                jTextFieldLastNameClient.setText("");
-                jTextFieldLastName2Client.setText("");
-                jTextFieldIdClient.setText("");
-                jTextFieldEmail.setText("");
-                jTextFieldNombreCliente.setText("");
-                jTextFieldPhoneClient.setText("");
-       
-                
+        Client c = new Client(jTextFieldIdClient.getText(), jTextFieldNombreCliente.getText(),
+                jTextFieldLastNameClient.getText(), jTextFieldLastName2Client.getText(), jTextFieldEmail.getText(), jTextFieldPhoneClient.getText(),
+                jComboBoxProvinceClient.getSelectedItem().toString(), jTextFieldAdressClient.getText());
+        logic.saveClients(c);
+
+        jTextFieldAdressClient.setText("");
+        jTextFieldIdClient.setText("");
+        jTextFieldLastNameClient.setText("");
+        jTextFieldLastName2Client.setText("");
+        jTextFieldIdClient.setText("");
+        jTextFieldEmail.setText("");
+        jTextFieldNombreCliente.setText("");
+        jTextFieldPhoneClient.setText("");
+
+
     }//GEN-LAST:event_jButtonAgregarClienteActionPerformed
 
     private void jTextFieldCorreoAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCorreoAgenteActionPerformed
@@ -968,33 +1005,33 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
     private void jButtonEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarClienteActionPerformed
         // TODO add your handling co de here:
-        Client c = new Client(jTextFieldIdClient.getText(),jTextFieldNombreCliente.getText(), 
-                        jTextFieldLastName1.getText(),jTextFieldLastName2.getText(),jTextFieldEmail.getText(), jTextFieldPhoneClient.getText(),
-                        jComboBoxProvinceClient.getSelectedItem().toString(), jTextFieldAdressClient.getText());
+        Client c = new Client(jTextFieldIdClient.getText(), jTextFieldNombreCliente.getText(),
+                jTextFieldLastName1.getText(), jTextFieldLastName2.getText(), jTextFieldEmail.getText(), jTextFieldPhoneClient.getText(),
+                jComboBoxProvinceClient.getSelectedItem().toString(), jTextFieldAdressClient.getText());
         logic.deleteClient(c);
     }//GEN-LAST:event_jButtonEliminarClienteActionPerformed
 
     private void jButtonEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarClienteActionPerformed
         // TODO add your handling code here:
-        Client c = new Client(jTextFieldIdClient.getText(),jTextFieldNombreCliente.getText(), 
-                        jTextFieldLastName1.getText(),jTextFieldLastName2.getText(),jTextFieldEmail.getText(), jTextFieldPhoneClient.getText(),
-                        jComboBoxProvinceClient.getSelectedItem().toString(), jTextFieldAdressClient.getText());
+        Client c = new Client(jTextFieldIdClient.getText(), jTextFieldNombreCliente.getText(),
+                jTextFieldLastName1.getText(), jTextFieldLastName2.getText(), jTextFieldEmail.getText(), jTextFieldPhoneClient.getText(),
+                jComboBoxProvinceClient.getSelectedItem().toString(), jTextFieldAdressClient.getText());
         logic.updateClient(c);
-        
+
     }//GEN-LAST:event_jButtonEditarClienteActionPerformed
 
     private void jButtonAgregarAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarAgenteActionPerformed
         // TODO add your handling code here:
         Agent a = new Agent(jTextFieldNombreAgente.getText(), jTextFieldCorreoAgente.getText(),
                 jTexFieldUsuarioAgente.getText(), jPasswordFieldAgente.getText(), jTextFieldCodigoAgente.getText());
-                logic.saveAgent(a);
-                
-                jTexFieldUsuarioAgente.setText("");
-                jTextFieldCodigoAgente.setText("");
-                jTextFieldCorreoAgente.setText("");
-                jPasswordFieldAgente.setText("");
-                jTextFieldNombreAgente.setText("");
-        
+        logic.saveAgent(a);
+
+        jTexFieldUsuarioAgente.setText("");
+        jTextFieldCodigoAgente.setText("");
+        jTextFieldCorreoAgente.setText("");
+        jPasswordFieldAgente.setText("");
+        jTextFieldNombreAgente.setText("");
+
     }//GEN-LAST:event_jButtonAgregarAgenteActionPerformed
 
     private void jTextFieldCorreoAgenteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCorreoAgenteFocusGained
@@ -1007,45 +1044,45 @@ public class AdministratorInterface extends javax.swing.JFrame {
                 jPasswordFieldAgente.setText(agentsList.get(i).getPassword());
             }
         }
-        
+
     }//GEN-LAST:event_jTextFieldCorreoAgenteFocusGained
 
     private void jButtonCleanAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCleanAgentActionPerformed
         // TODO add your handling code here:
         jTexFieldUsuarioAgente.setText("");
-                jTextFieldCodigoAgente.setText("");
-                jTextFieldCorreoAgente.setText("");
-                jPasswordFieldAgente.setText("");
-                jTextFieldNombreAgente.setText("");
+        jTextFieldCodigoAgente.setText("");
+        jTextFieldCorreoAgente.setText("");
+        jPasswordFieldAgente.setText("");
+        jTextFieldNombreAgente.setText("");
     }//GEN-LAST:event_jButtonCleanAgentActionPerformed
 
     private void jButtonEditAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditAgentActionPerformed
         // TODO add your handling code here:
-        Agent agent=new Agent(jTextFieldNombreAgente.getText(), jTextFieldCorreoAgente.getText(),
+        Agent agent = new Agent(jTextFieldNombreAgente.getText(), jTextFieldCorreoAgente.getText(),
                 jTexFieldUsuarioAgente.getText(), jPasswordFieldAgente.getText(),
                 jTextFieldCodigoAgente.getText());
         logic.updateAgent(agent);
-        
+
         jTexFieldUsuarioAgente.setText("");
-                jTextFieldCodigoAgente.setText("");
-                jTextFieldCorreoAgente.setText("");
-                jPasswordFieldAgente.setText("");
-                jTextFieldNombreAgente.setText("");
-        
+        jTextFieldCodigoAgente.setText("");
+        jTextFieldCorreoAgente.setText("");
+        jPasswordFieldAgente.setText("");
+        jTextFieldNombreAgente.setText("");
+
     }//GEN-LAST:event_jButtonEditAgentActionPerformed
 
     private void jButtonDeleteAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteAgentActionPerformed
         // TODO add your handling code here:
-        Agent agent=new Agent(jTextFieldNombreAgente.getText(), jTextFieldCorreoAgente.getText(),
+        Agent agent = new Agent(jTextFieldNombreAgente.getText(), jTextFieldCorreoAgente.getText(),
                 jTexFieldUsuarioAgente.getText(), jPasswordFieldAgente.getText(),
                 jTextFieldCodigoAgente.getText());
         logic.deleteAgent(agent);
         jTexFieldUsuarioAgente.setText("");
-                jTextFieldCodigoAgente.setText("");
-                jTextFieldCorreoAgente.setText("");
-                jPasswordFieldAgente.setText("");
-                jTextFieldNombreAgente.setText("");
-        
+        jTextFieldCodigoAgente.setText("");
+        jTextFieldCorreoAgente.setText("");
+        jPasswordFieldAgente.setText("");
+        jTextFieldNombreAgente.setText("");
+
     }//GEN-LAST:event_jButtonDeleteAgentActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1054,15 +1091,15 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
-        Driver driver= new Driver(jTextFieldIDDriver.getText(),
-                jTextFieldNameDriver.getText(),jTextFieldLastName1.getText(),
-                jTextFieldLastName2.getText(),jTextFieldAgeDriver.getText(),
-                jTextFieldTypeVehicle.getText(),jTextFieldPhoneDriver.getText(),
-                jTextFieldPlateDriver.getText(),jTextFieldCedulaDriver.getText());
+
+        Driver driver = new Driver(jTextFieldIDDriver.getText(),
+                jTextFieldNameDriver.getText(), jTextFieldLastName1.getText(),
+                jTextFieldLastName2.getText(), jTextFieldAgeDriver.getText(),
+                jTextFieldTypeVehicle.getText(), jTextFieldPhoneDriver.getText(),
+                jTextFieldPlateDriver.getText(), jTextFieldCedulaDriver.getText());
         logic.saveDrivers(driver);
-        
-        
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -1072,6 +1109,37 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTextFieldClientFiltrerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldClientFiltrerKeyTyped
+        // TODO add your handling code here:
+        
+        jTextFieldClientFiltrer.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                trs.setRowFilter(RowFilter.regexFilter("(?i)"+jTextFieldClientFiltrer.getText(), 0));
+                //El "(?i)" es para que funcione con mayusculas y minusculas
+            }
+            
+        });
+        
+        trs = new TableRowSorter(tableModel);
+        jTableOrders.setRowSorter(trs);
+    }//GEN-LAST:event_jTextFieldClientFiltrerKeyTyped
+
+    private void jTextFieldOrderFiltrerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldOrderFiltrerKeyTyped
+        // TODO add your handling code here:
+        jTextFieldOrderFiltrer.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                trs.setRowFilter(RowFilter.regexFilter("(?i)"+jTextFieldOrderFiltrer.getText(), 1));
+                //El "(?i)" es para que funcione con mayusculas y minusculas
+            }
+            
+        });
+        
+        trs = new TableRowSorter(tableModel);
+        jTableOrders.setRowSorter(trs);
+    }//GEN-LAST:event_jTextFieldOrderFiltrerKeyTyped
 
     /**
      * @param args the command line arguments
@@ -1184,6 +1252,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldAgeDriver1;
     private javax.swing.JTextField jTextFieldCedulaDriver;
     private javax.swing.JTextField jTextFieldCedulaDriver1;
+    private javax.swing.JTextField jTextFieldClientFiltrer;
     private javax.swing.JTextField jTextFieldCodigoAgente;
     private javax.swing.JTextField jTextFieldCorreoAgente;
     private javax.swing.JTextField jTextFieldEmail;
@@ -1196,6 +1265,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNameDriver;
     private javax.swing.JTextField jTextFieldNombreAgente;
     private javax.swing.JTextField jTextFieldNombreCliente;
+    private javax.swing.JTextField jTextFieldOrderFiltrer;
     private javax.swing.JTextField jTextFieldPhoneClient;
     private javax.swing.JTextField jTextFieldPhoneDriver;
     private javax.swing.JTextField jTextFieldPlateDriver;
