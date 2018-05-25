@@ -101,25 +101,25 @@ public class Data {
         driversList.add(new Driver("3", "Natalia Alvarado", "/images/driver2.png"));
         driversList.add(new Driver("4", "Nancy Pereira", "/images/driver2.png"));
         driversList.add(new Driver("5", "Allan Solano", "/images/driver2.png"));
-//         String sCadena;
-//        FileReader fr = new FileReader("Drivers.txt");
-//        BufferedReader bf = new BufferedReader(fr);
-//        while ((sCadena = bf.readLine()) != null) {
-//            Driver driver = new Driver();
-//            String[] aux = sCadena.split("\t");
-////            System.out.println(Arrays.toString(sCadena.split(";")));
-//            driver.setId(aux[0]);
-//            driver.setName(aux[1]);
-//            driver.setLastName1(aux[2]);
-//            driver.setLastName2(aux[3]);
-//            driver.setAge(aux[4]);
-//            driver.setType(aux[5]);
-//            driver.setPhone(aux[6]);
-//            driver.setPlate(aux[7]);
-////            driver.setCedula(aux[8]);
-//            driversList.add(driver);
-//        }
-//        bf.close();
+         String sCadena;
+        FileReader fr = new FileReader("Drivers.txt");
+        BufferedReader bf = new BufferedReader(fr);
+        while ((sCadena = bf.readLine()) != null) {
+            Driver driver = new Driver();
+            String[] aux = sCadena.split("\t");
+//            System.out.println(Arrays.toString(sCadena.split(";")));
+            driver.setId(aux[0]);
+            driver.setName(aux[1]);
+            driver.setLastName1(aux[2]);
+            driver.setLastName2(aux[3]);
+            driver.setAge(aux[4]);
+            driver.setType(aux[5]);
+            driver.setPhone(aux[6]);
+            driver.setPlate(aux[7]);
+//            driver.setCedula(aux[8]);
+            driversList.add(driver);
+        }
+        bf.close();
 
     }
 

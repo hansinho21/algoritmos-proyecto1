@@ -215,11 +215,11 @@ x();
         jTextFieldPhoneDriver = new javax.swing.JTextField();
         jTextFieldTypeVehicle = new javax.swing.JTextField();
         jTextFieldPlateDriver = new javax.swing.JTextField();
-        jTextFieldCedulaDriver = new javax.swing.JTextField();
         jTextFieldAgeDriver = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jTextFieldCedulaDriver = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         Salir = new javax.swing.JButton();
         jButtonVolver = new javax.swing.JButton();
@@ -649,12 +649,6 @@ x();
             }
         });
 
-        jTextFieldCedulaDriver.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldCedulaDriverFocusGained(evt);
-            }
-        });
-
         jButton1.setText("DELETE");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -700,16 +694,16 @@ x();
                             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel6Layout.createSequentialGroup()
                                     .addComponent(jLabel19)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                                     .addComponent(jTextFieldAgeDriver, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel6Layout.createSequentialGroup()
-                                    .addComponent(jLabel18)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldCedulaDriver, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel6Layout.createSequentialGroup()
-                                    .addComponent(jLabel17)
-                                    .addGap(34, 34, 34)
-                                    .addComponent(jTextFieldPlateDriver, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel17)
+                                        .addComponent(jLabel18))
+                                    .addGap(25, 25, 25)
+                                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextFieldPlateDriver, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldCedulaDriver))))))
                     .addComponent(jTextFieldLastName2Driver, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(169, 169, 169)
@@ -1107,30 +1101,6 @@ x();
             jTableOrders.setRowSorter(trs);
         }
     }//GEN-LAST:event_jTextFieldOrderFiltrerKeyTyped
-
-    private void jTextFieldCedulaDriverFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCedulaDriverFocusGained
-        // TODO add your handling code here:
-        Queue<Driver> aux = new LinkedList<>();
-        while(!driversList.isEmpty()){
-            if(driversList.element().getCedula().equalsIgnoreCase(jTextFieldCedulaDriver.getText())){
-                jTextFieldIDDriver.setText(driversList.peek().getId());
-                jTextFieldNameDriver.setText(driversList.peek().getName());
-                jTextFieldLastName1Driver.setText(driversList.peek().getLastName1());
-                jTextFieldLastName2Driver.setText(driversList.peek().getLastName2());
-                jTextFieldPhoneDriver.setText(driversList.peek().getPhone());
-                jTextFieldPlateDriver.setText(driversList.peek().getPlate());
-                jTextFieldAgeDriver.setText(driversList.peek().getAge());
-                jTextFieldTypeVehicle.setText(driversList.peek().getType());
-                aux.add(driversList.peek());
-                driversList.poll();
-            }
-            while(!aux.isEmpty()){
-                driversList.add(aux.peek());
-                aux.poll();
-            }
-        }
-        
-    }//GEN-LAST:event_jTextFieldCedulaDriverFocusGained
 
     private void jTextFieldLastName2DriverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLastName2DriverActionPerformed
         // TODO add your handling code here:
