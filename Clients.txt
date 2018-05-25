@@ -1,4 +1,3 @@
-﻿2	Andres			jeison@ucr.ac.cr	85902353	Alajuela	"La Garita, frente a Distribuidora ABC"
+2	Andres			jeison@ucr.ac.cr	85902353	Alajuela	"La Garita, frente a Distribuidora ABC"
 ﻿1	Andrea			andrea@ucr.ac.cr	87031457	Cartago	"Central, Central, 200 oeste plaza central"
-1	Hans	Villalobos	Quiros	hansvilla	1234	San Jose	Tibas sur
-3	Manuel	Calvo	Perez	manuelito	21312	Heredia	sin direccion
+	aaa			aaa	11	Limón	aaa

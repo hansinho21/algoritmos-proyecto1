@@ -51,7 +51,6 @@ public class AgentInterface extends javax.swing.JFrame {
     //TDAs
     private LinkedList<Client> clientsList;
     private LinkedList<Agent> agentsList;
-    private ListaCircularDoblementeEnlazada iconsList;
     private Queue<Driver> driversList;
     private LinkedStack ordersStack;
     private Queue<Restaurant> restaurantsList;
@@ -124,7 +123,6 @@ public class AgentInterface extends javax.swing.JFrame {
 
         //TDAs
         clientsList = data.getClientsList();
-        iconsList = data.getIconsList();
         agentsList = Data.getAgentsList();
         driversList = data.getDriversList();
         ordersStack = data.getOrdersStack();
@@ -147,10 +145,6 @@ public class AgentInterface extends javax.swing.JFrame {
         iva = 0;
         total = 0;
 
-        //Nodos
-        nodeFood1 = iconsList.getNode(1);
-        nodeFood2 = iconsList.getNode(2);
-        nodeFood3 = iconsList.getNode(3);
         //Carga la fecha al label
         jLabelDate.setText(logic.getDate());
 
@@ -457,6 +451,10 @@ public class AgentInterface extends javax.swing.JFrame {
     
     private void threadNotification(){
         Notification notification = new Notification(jLabel7);
+    }
+    
+    private int getLastIdClient(){
+        return clientsList.size();
     }
 
     /**
@@ -966,10 +964,12 @@ public class AgentInterface extends javax.swing.JFrame {
 
         LastName1Client.setBackground(new java.awt.Color(0, 0, 51));
         LastName1Client.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        LastName1Client.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(LastName1Client, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 220, 30));
 
         LastName2Client.setBackground(new java.awt.Color(0, 0, 51));
         LastName2Client.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        LastName2Client.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(LastName2Client, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 220, 30));
 
         jLabelBordeProductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -1335,7 +1335,7 @@ public class AgentInterface extends javax.swing.JFrame {
                 logic.updateDriverQueue(driversList);
 
                 //Verifica y añade un cliente en caso de que éste no esté en la lista
-                Client c = new Client("1", jTextFieldNomCliente.getText(),
+                Client c = new Client(String.valueOf(getLastIdClient()), jTextFieldNomCliente.getText(),
                         LastName1Client.getText(), LastName2Client.getText(), jTextFieldCorreoCliente.getText(), jTextFieldTelCliente.getText(),
                         jComboBoxProvinciaCliente.getSelectedItem().toString(), jTexfieldDireccion.getText());
                 logic.saveClients(c);

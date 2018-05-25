@@ -5,24 +5,35 @@
  */
 package domain;
 
+import exceptions.ListException;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import logic.Data;
 
 /**
  *
  * @author hvill
  */
 public class Product {
-    
+
+    private static int id;
     private String name;
     private double price;
     private ImageIcon image;
+    private Data data;
 
-    public Product(String name, double price, String imageAdress) throws IOException {
+    public Product(String name, double price, String imageAdress) throws IOException, ListException {
         this.name = name;
         this.price = price;
         this.image = new ImageIcon(ImageIO.read(getClass().getResource(imageAdress)));
+        this.data = new Data();
+//        if (data.getProductList().isEmpty()) {
+//            this.id = 1;
+//        } else {
+//            this.id = data.getProductList().size();
+//        }
+        this.id = ++id;
     }
 
     public String getName() {
@@ -49,10 +60,17 @@ public class Product {
         this.image = image;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return "Product{" + "name=" + name + ", price=" + price + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", image=" + image + '}';
     }
-    
-    
+
 }
