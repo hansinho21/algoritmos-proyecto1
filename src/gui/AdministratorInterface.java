@@ -61,7 +61,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private LinkedList<Client> clientsList;
     private LinkedList<Agent> agentsList;
     private Queue<Driver> driversList;
-    
+
     //Filtro tabla
     TableRowSorter trs;
 
@@ -89,11 +89,11 @@ public class AdministratorInterface extends javax.swing.JFrame {
         //autocompleter
         textAutoCompleterClient = new TextAutoCompleter(jTextFieldEmail);
         textAutoCompleterAgent = new TextAutoCompleter(jTextFieldCorreoAgente);
-        textAutoCompleterDriver= new TextAutoCompleter(jTextFieldCedulaDriver);
+        textAutoCompleterDriver = new TextAutoCompleter(jTextFieldCedulaDriver);
 
         //Tabla
         contTable = 0;
-x();
+        x();
         //Inicializa la tabla
         initializeTable();
         //Llena la tabla
@@ -102,11 +102,10 @@ x();
         fillAutoCompleterClients();
         fillAutoCompleterAgents();
         fillAutoCompleterDrivers();
-        
-        
+
     }
-    
-    public void x() throws StackException{
+
+    public void x() throws StackException {
         Date x = new Date();
         ordersStack.push(new Order("Allan", 1, "Hans", x.toLocaleString(), 12, "Cartago", "casa", "Carlos"));
         ordersStack.push(new Order("Karla", 2, "Hans", x.toLocaleString(), 12, "Cartago", "casa", "Carlos"));
@@ -665,6 +664,12 @@ x();
 
         jButton3.setText("EDIT");
 
+        jTextFieldCedulaDriver.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldCedulaDriverFocusGained(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -861,6 +866,7 @@ x();
     }//GEN-LAST:event_jTextFieldNombreClienteActionPerformed
 
     /**
+     *
      * LLena el AutoCompleter con los correos.
      */
     private void fillAutoCompleterClients() {
@@ -878,21 +884,14 @@ x();
             textAutoCompleterAgent.addItem(agentsList.get(i).getEmail());
         }
     }
+
     private void fillAutoCompleterDrivers() {
-        Queue<Driver> aux = new LinkedList<>();
         textAutoCompleterDriver.removeAllItems();
-        while(!driversList.isEmpty()){
-            textAutoCompleterDriver.addItem(driversList.peek().getCedula());
-            aux.add(driversList.peek());
-            driversList.poll();
-        }
-        while(!aux.isEmpty()){
-            driversList.add(aux.peek());
-            aux.poll();
+        for (int i = 0; i < driversList.size(); i++) {
+            textAutoCompleterDriver.addItem(driversList.peek().getName());
+            driversList.add(driversList.poll());
         }
     }
-    
-    
 
     /**
      * Metodo para exportar a pdf
@@ -971,7 +970,7 @@ x();
                 jTextFieldLastNameClient.getText(), jTextFieldLastName2Client.getText(), jTextFieldEmail.getText(), jTextFieldPhoneClient.getText(),
                 jComboBoxProvinceClient.getSelectedItem().toString(), jTextFieldAdressClient.getText());
         logic.updateClient(c);
-        
+
 
     }//GEN-LAST:event_jButtonEditarClienteActionPerformed
 
@@ -1053,7 +1052,7 @@ x();
                 jTextFieldTypeVehicle.getText(), jTextFieldPhoneDriver.getText(),
                 jTextFieldPlateDriver.getText(), jTextFieldCedulaDriver.getText());
         logic.saveDrivers(driver);
-        
+
         jTextFieldIDDriver.setText("");
         jTextFieldAgeDriver.setText("");
         jTextFieldNameDriver.setText("");
@@ -1069,29 +1068,29 @@ x();
 
     private void jTextFieldClientFiltrerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldClientFiltrerKeyTyped
         // TODO add your handling code here:
-        
+
         jTextFieldClientFiltrer.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                trs.setRowFilter(RowFilter.regexFilter("(?i)"+jTextFieldClientFiltrer.getText(), 0));
+                trs.setRowFilter(RowFilter.regexFilter("(?i)" + jTextFieldClientFiltrer.getText(), 0));
                 //El "(?i)" es para que funcione con mayusculas y minusculas
             }
-            
+
         });
-        
+
         trs = new TableRowSorter(tableModel);
         jTableOrders.setRowSorter(trs);
     }//GEN-LAST:event_jTextFieldClientFiltrerKeyTyped
 
     private void jTextFieldOrderFiltrerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldOrderFiltrerKeyTyped
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE && jTextFieldOrderFiltrer.getText().toCharArray().length == 1){
+        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE && jTextFieldOrderFiltrer.getText().toCharArray().length == 1) {
             jTextFieldClientFiltrer.setText("");
         } else {
             jTextFieldOrderFiltrer.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyReleased(KeyEvent e) {
-                    trs.setRowFilter(RowFilter.regexFilter("(?i)"+jTextFieldOrderFiltrer.getText(), 1));
+                    trs.setRowFilter(RowFilter.regexFilter("(?i)" + jTextFieldOrderFiltrer.getText(), 1));
                     //El "(?i)" es para que funcione con mayusculas y minusculas
                 }
 
@@ -1105,6 +1104,16 @@ x();
     private void jTextFieldLastName2DriverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLastName2DriverActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldLastName2DriverActionPerformed
+
+    private void jTextFieldCedulaDriverFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCedulaDriverFocusGained
+        // TODO add your handling code here:
+        for (int i = 0; i < driversList.size(); i++) {
+            if (driversList.peek().getName().equals(jTextFieldCedulaDriver.getText())) {
+                jTextFieldIDDriver.setText(driversList.peek().getId());
+            }
+            driversList.add(driversList.poll());
+        }
+    }//GEN-LAST:event_jTextFieldCedulaDriverFocusGained
 
     /**
      * @param args the command line arguments
