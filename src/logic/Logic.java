@@ -155,7 +155,7 @@ public class Logic implements Runnable {
     }
 
     /**
-     * Metodo para editar un cliente del LinkedList 
+     * Metodo para editar un cliente del LinkedList
      */
     public LinkedList updateClient(Client Client) {
         boolean exist = false;
@@ -278,12 +278,12 @@ public class Logic implements Runnable {
             JOptionPane.showMessageDialog(null, "Driver added successfully");
         } else {
 //            System.out.println(exist+" estoy antes ");
-            while (exist&&!driversList.isEmpty()) {
+            while (exist && !driversList.isEmpty()) {
                 if (driversList.peek().getId() == driver.getId()) {
                     exist = !exist;
                     JOptionPane.showMessageDialog(null, "The driver already exists");
 //                    System.out.println(exist+" estoy despues ");
-                    
+
                 } else {
                     aux.add(driversList.peek());
                     driversList.poll();
@@ -304,6 +304,76 @@ public class Logic implements Runnable {
     }
 
     /**
+     * Metodo para eliminar un conductor especifico
+     *
+     * @param driver
+     * @return Queue
+     */
+    public Queue deleteDriver(Driver driver) {
+        boolean exist = false;
+        Queue<Driver> aux = new LinkedList<>();
+        if (driversList.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "The driver don't exist ");
+        } else {
+            while (!driversList.isEmpty()) {
+                if (driversList.peek().getId() == driver.getId()) {
+                    exist = true;
+                    driversList.remove();
+                    Data.setDriversList(driversList);
+                    JOptionPane.showMessageDialog(null, "Driver deleted succesfull");
+                } else {
+                    aux.add(driversList.peek());
+                    driversList.poll();
+                }
+            }
+            while (!aux.isEmpty()) {
+                driversList.add(aux.peek());
+                aux.remove();
+            }
+
+        }
+        if (exist == false) {
+            JOptionPane.showMessageDialog(null, "The driver don't exist ");
+            System.out.println(driversList.size());
+
+        }
+        return driversList;
+    }
+
+    public Queue updateDriversFile(Driver driver){
+        boolean exist = false;
+        Queue<Driver> aux = new LinkedList<>();
+        if (driversList.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "The driver don't exist ");
+        } else {
+            while (!driversList.isEmpty()) {
+                if (exist==false&&driversList.peek().getId() == driver.getId()) {
+                    exist = true;
+                    driversList.remove();
+                    driversList.add(driver);
+                    Data.setDriversList(driversList);
+                    JOptionPane.showMessageDialog(null, "Driver modified succesfull");
+                } else {
+                    aux.add(driversList.peek());
+                    driversList.poll();
+                }
+            }
+            while (!aux.isEmpty()) {
+                driversList.add(aux.peek());
+                aux.remove();
+            }
+
+        }
+        if (exist == false) {
+            JOptionPane.showMessageDialog(null, "The driver don't exist ");
+            System.out.println(driversList.size());
+
+        }
+        return driversList;
+    }
+    
+    
+    /**
      * metodo run para el hilo que actualiza los files cada 20 segundos
      */
     @Override
@@ -319,12 +389,12 @@ public class Logic implements Runnable {
             for (int i = 0; i < agentsList.size(); i++) {
                 agents += agentsList.get(i).toString() + "\r\n";
             }
-            while(!driversList.isEmpty()){
+            while (!driversList.isEmpty()) {
                 drivers += driversList.peek() + "\r\n";
                 aux.add(driversList.peek());
                 driversList.remove();
             }
-            while(!aux.isEmpty()){
+            while (!aux.isEmpty()) {
                 driversList.add(aux.peek());
                 aux.remove();
             }
@@ -436,7 +506,7 @@ public class Logic implements Runnable {
             if (tableModel.getValueAt(i, 2).equals(product.getName())) {
                 quantity = (int) tableModel.getValueAt(i, 3);
                 tableModel.setValueAt(++quantity, i, 3);
-                tableModel.setValueAt(product.getPrice()*quantity, i, 4);
+                tableModel.setValueAt(product.getPrice() * quantity, i, 4);
             }
         }
     }

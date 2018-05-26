@@ -382,7 +382,7 @@ public class AgentInterface extends javax.swing.JFrame {
      */
     private void driverInformation() {
         Driver driver = driversList.peek();
-        jLabelDriverName.setText(driver.getName());
+        jLabelDriverName.setText(driver.getName()+" "+driver.getLastName1());
         jLabelDriverId.setText(String.valueOf(driver.getId()));
     }
 

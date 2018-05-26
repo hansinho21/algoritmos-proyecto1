@@ -66,7 +66,6 @@ public class Data {
             client.setName(aux[1]);
             client.setLastName1(aux[2]);
             client.setLastName2(aux[3]);
-            System.out.println(aux[7] + " aqui es");
             client.setEmail(aux[4]);
             client.setPhone(aux[5]);
             client.setProvince(aux[6]);
@@ -96,14 +95,17 @@ public class Data {
     }
 
     private void fillDriversList() throws IOException {
-        
+//        Driver d = new Driver("20", "Miguel", "Sanchez", "Perez", "23", "moto",
+//                "3435443", "42342342", "24234234");
+//        driversList.add(d);
+//        
          String sCadena;
         FileReader fr = new FileReader("Drivers.txt");
         BufferedReader bf = new BufferedReader(fr);
         while ((sCadena = bf.readLine()) != null) {
             Driver driver = new Driver();
             String[] aux = sCadena.split("\t");
-//            System.out.println(Arrays.toString(sCadena.split(";")));
+            System.out.println(aux[0]);
             driver.setId(Integer.parseInt(aux[0]));
             driver.setName(aux[1]);
             driver.setLastName1(aux[2]);
@@ -112,7 +114,7 @@ public class Data {
             driver.setType(aux[5]);
             driver.setPhone(aux[6]);
             driver.setPlate(aux[7]);
-//            driver.setCedula(aux[8]);
+            driver.setCedula(aux[8]);
             driversList.add(driver);
         }
         bf.close();

@@ -89,7 +89,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
         //autocompleter
         textAutoCompleterClient = new TextAutoCompleter(jTextFieldEmail);
         textAutoCompleterAgent = new TextAutoCompleter(jTextFieldCorreoAgente);
-        textAutoCompleterDriver = new TextAutoCompleter(jTextFieldCedulaDriver);
+        textAutoCompleterDriver = new TextAutoCompleter(jTextFieldNameDriver);
 
         //Tabla
         contTable = 0;
@@ -160,7 +160,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
         jTextFieldClientFiltrer = new javax.swing.JTextField();
         jTextFieldOrderFiltrer = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabelNombreCliente = new javax.swing.JLabel();
         jLabelCorreoCliente = new javax.swing.JLabel();
@@ -221,7 +221,6 @@ public class AdministratorInterface extends javax.swing.JFrame {
         jTextFieldCedulaDriver = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         Salir = new javax.swing.JButton();
-        jButtonVolver = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabelNombre = new javax.swing.JLabel();
         jLabelCodigo = new javax.swing.JLabel();
@@ -231,6 +230,11 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
@@ -312,23 +316,24 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Control General", jPanel1);
 
-        jLabel2.setText("Chart");
+        jPanel5.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel5.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(356, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(234, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reportes", jPanel2);
@@ -642,6 +647,12 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
         jLabel19.setText("AGE");
 
+        jTextFieldNameDriver.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldNameDriverFocusGained(evt);
+            }
+        });
+
         jTextFieldLastName2Driver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldLastName2DriverActionPerformed(evt);
@@ -663,10 +674,20 @@ public class AdministratorInterface extends javax.swing.JFrame {
         });
 
         jButton3.setText("EDIT");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTextFieldCedulaDriver.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldCedulaDriverFocusGained(evt);
+            }
+        });
+        jTextFieldCedulaDriver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCedulaDriverActionPerformed(evt);
             }
         });
 
@@ -794,14 +815,6 @@ public class AdministratorInterface extends javax.swing.JFrame {
         });
         getContentPane().add(Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 10, -1, -1));
 
-        jButtonVolver.setText("Volver");
-        jButtonVolver.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonVolverMouseClicked(evt);
-            }
-        });
-        getContentPane().add(jButtonVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 10, -1, -1));
-
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Agent Information");
@@ -841,17 +854,6 @@ public class AdministratorInterface extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_SalirMouseClicked
-
-    private void jButtonVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonVolverMouseClicked
-        try {
-            // TODO add your handling code here:
-            AgentInterface p1 = new AgentInterface();
-            p1.setVisible(true);
-            dispose();
-        } catch (ListException | IOException ex) {
-            Logger.getLogger(AdministratorInterface.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButtonVolverMouseClicked
 
     private void jTextFieldPhoneClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPhoneClientActionPerformed
         // TODO add your handling code here:
@@ -1041,6 +1043,24 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Driver d = new Driver(jTextFieldIDDriver.getText(), jTextFieldNameDriver.getText(),
+                jTextFieldLastName1Driver.getText(), jTextFieldLastName2Driver.getText(),
+                jTextFieldAgeDriver.getText(), jTextFieldTypeVehicle.getText(),
+                jTextFieldPhoneDriver.getText(), jTextFieldPlateDriver.getText(),
+                jTextFieldCedulaDriver.getText());
+        logic.deleteDriver(d);
+
+        jTextFieldIDDriver.setText("");
+        jTextFieldAgeDriver.setText("");
+        jTextFieldNameDriver.setText("");
+        jTextFieldLastName1Driver.setText("");
+        jTextFieldLastName2Driver.setText("");
+        jTextFieldPhoneDriver.setText("");
+        jTextFieldPlateDriver.setText("");
+        jTextFieldTypeVehicle.setText("");
+        jTextFieldCedulaDriver.setText("");
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1109,13 +1129,52 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
     private void jTextFieldCedulaDriverFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCedulaDriverFocusGained
         // TODO add your handling code here:
+
+    }//GEN-LAST:event_jTextFieldCedulaDriverFocusGained
+
+    private void jTextFieldCedulaDriverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCedulaDriverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCedulaDriverActionPerformed
+
+    private void jTextFieldNameDriverFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNameDriverFocusGained
+        // TODO add your handling code here:
         for (int i = 0; i < driversList.size(); i++) {
-            if (driversList.peek().getName().equals(jTextFieldCedulaDriver.getText())) {
+            if (driversList.peek().getName().equals(jTextFieldNameDriver.getText())) {
                 jTextFieldIDDriver.setText(String.valueOf(driversList.peek().getId()));
+                jTextFieldLastName1Driver.setText(driversList.peek().getLastName1());
+                jTextFieldLastName2Driver.setText(driversList.peek().getLastName2());
+                jTextFieldPhoneDriver.setText(driversList.peek().getPhone());
+                jTextFieldPlateDriver.setText(driversList.peek().getPlate());
+                jTextFieldAgeDriver.setText(driversList.peek().getAge());
+                jTextFieldCedulaDriver.setText(driversList.peek().getCedula());
+                jTextFieldTypeVehicle.setText(driversList.peek().getType());
+
             }
             driversList.add(driversList.poll());
         }
-    }//GEN-LAST:event_jTextFieldCedulaDriverFocusGained
+    }//GEN-LAST:event_jTextFieldNameDriverFocusGained
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Driver d = new Driver(jTextFieldIDDriver.getText(), jTextFieldNameDriver.getText(),
+                jTextFieldLastName1Driver.getText(), jTextFieldLastName2Driver.getText(),
+                jTextFieldAgeDriver.getText(), jTextFieldTypeVehicle.getText(),
+                jTextFieldPhoneDriver.getText(), jTextFieldPlateDriver.getText(),
+                jTextFieldCedulaDriver.getText());
+        logic.updateDriversFile(d);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            new Thread(new Logic()).start();
+
+        } catch (ListException | IOException ex) {
+            Logger.getLogger(AgentInterface.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -1174,7 +1233,6 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEliminarCliente;
     private javax.swing.JButton jButtonExcell;
     private javax.swing.JButton jButtonPDF;
-    private javax.swing.JButton jButtonVolver;
     private javax.swing.JComboBox<String> jComboBoxProvinceClient;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1187,7 +1245,6 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
@@ -1210,6 +1267,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPasswordField jPasswordFieldAgente;
