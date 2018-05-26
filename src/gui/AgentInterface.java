@@ -458,6 +458,41 @@ public class AgentInterface extends javax.swing.JFrame {
         return clientsList.size() + 1;
     }
 
+    private void actionMenu(Product product){
+        if (restaurantsByProvince.size() != 0 && verifyClientInformation()== true) {
+            if(verifyClientByEmail(jTextFieldCorreoCliente.getText()) == true){
+                logic.addDataInBillTable(restaurantsByProvince.peek().getName(), product, tableModel, contTable, jLabelIdClient.getText());
+                updatePrice(product);
+                threadNotification();
+            } else {
+                logic.addDataInBillTable(restaurantsByProvince.peek().getName(), product, tableModel, contTable, String.valueOf(getLastIdClient()));
+                updatePrice(product);
+                threadNotification();
+            }
+        }
+    }
+    
+    private boolean verifyClientInformation(){
+        if (jTextFieldNomCliente.getText().equals("")
+                || jTextFieldCorreoCliente.getText().equals("")
+                || jTextFieldTelCliente.getText().equals("")
+                || jComboBoxProvinciaCliente.getSelectedItem().toString().equals("Seleccione una opción")
+                || jTexfieldDireccion.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Información del cliente incompleta");
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean verifyClientByEmail(String email){
+        for (int i = 0; i < clientsList.size(); i++) {
+            if(clientsList.get(i).getEmail().equals(email)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1380,29 +1415,17 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelFood1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFood1MouseClicked
         // TODO add your handling code here:
-        if (restaurantsByProvince.size() != 0) {
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood1.element, tableModel, contTable, jLabelIdClient.getText());
-            updatePrice(nodeFood1.element);
-            threadNotification();
-        }
+        actionMenu(nodeFood1.element);
     }//GEN-LAST:event_jLabelFood1MouseClicked
 
     private void jLabelFood2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFood2MouseClicked
         // TODO add your handling code here:
-        if (restaurantsByProvince.size() != 0) {
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood2.element, tableModel, contTable, jLabelIdClient.getText());
-            updatePrice(nodeFood2.element);
-            threadNotification();
-        }
+        actionMenu(nodeFood2.element);
     }//GEN-LAST:event_jLabelFood2MouseClicked
 
     private void jLabelFood3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFood3MouseClicked
         // TODO add your handling code here:
-        if (restaurantsByProvince.size() != 0) {
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeFood3.element, tableModel, contTable, jLabelIdClient.getText());
-            updatePrice(nodeFood3.element);
-            threadNotification();
-        }
+        actionMenu(nodeFood3.element);
     }//GEN-LAST:event_jLabelFood3MouseClicked
 
     private void jButtonCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCleanActionPerformed
@@ -1464,83 +1487,47 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jLabelDrink1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDrink1MouseClicked
         // TODO add your handling code here:
-        if (restaurantsByProvince.size() != 0) {
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDrink1.element, tableModel, contTable, jLabelIdClient.getText());
-            updatePrice(nodeDrink1.element);
-            threadNotification();
-        }
+        actionMenu(nodeDrink1.element);
     }//GEN-LAST:event_jLabelDrink1MouseClicked
 
     private void jLabelDrink2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDrink2MouseClicked
         // TODO add your handling code here:
-        if (restaurantsByProvince.size() != 0) {
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDrink2.element, tableModel, contTable, jLabelIdClient.getText());
-            updatePrice(nodeDrink2.element);
-            threadNotification();
-        }
+        actionMenu(nodeDrink2.element);
     }//GEN-LAST:event_jLabelDrink2MouseClicked
 
     private void jLabelDrink3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDrink3MouseClicked
         // TODO add your handling code here:
-        if (restaurantsByProvince.size() != 0) {
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDrink3.element, tableModel, contTable, jLabelIdClient.getText());
-            updatePrice(nodeDrink3.element);
-            threadNotification();
-        }
+        actionMenu(nodeDrink3.element);
     }//GEN-LAST:event_jLabelDrink3MouseClicked
 
     private void jLabelDessert1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDessert1MouseClicked
         // TODO add your handling code here:
-        if (restaurantsByProvince.size() != 0) {
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDessert1.element, tableModel, contTable, jLabelIdClient.getText());
-            updatePrice(nodeDessert1.element);
-            threadNotification();
-        }
+        actionMenu(nodeDessert1.element);
     }//GEN-LAST:event_jLabelDessert1MouseClicked
 
     private void jLabelDessert2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDessert2MouseClicked
         // TODO add your handling code here:
-        if (restaurantsByProvince.size() != 0) {
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDessert2.element, tableModel, contTable, jLabelIdClient.getText());
-            updatePrice(nodeDessert2.element);
-            threadNotification();
-        }
+        actionMenu(nodeDessert2.element);
     }//GEN-LAST:event_jLabelDessert2MouseClicked
 
     private void jLabelDessert3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDessert3MouseClicked
         // TODO add your handling code here:
-        if (restaurantsByProvince.size() != 0) {
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeDessert3.element, tableModel, contTable, jLabelIdClient.getText());
-            updatePrice(nodeDessert3.element);
-            threadNotification();
-        }
+        actionMenu(nodeDessert3.element);
     }//GEN-LAST:event_jLabelDessert3MouseClicked
 
     private void jLabelOther1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelOther1MouseClicked
         // TODO add your handling code here:
-        if (restaurantsByProvince.size() != 0) {
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeOther1.element, tableModel, contTable, jLabelIdClient.getText());
-            updatePrice(nodeOther1.element);
-            threadNotification();
-        }
+        actionMenu(nodeOther1.element);
     }//GEN-LAST:event_jLabelOther1MouseClicked
 
     private void jLabelOther2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelOther2MouseClicked
         // TODO add your handling code here:
-        if (restaurantsByProvince.size() != 0) {
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeOther2.element, tableModel, contTable, jLabelIdClient.getText());
-            updatePrice(nodeOther2.element);
-            threadNotification();
-        }
+        actionMenu(nodeOther2.element);
     }//GEN-LAST:event_jLabelOther2MouseClicked
 
     private void jLabelOther3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelOther3MouseClicked
         // TODO add your handling code here:
-        if (restaurantsByProvince.size() != 0) {
-            logic.addDataInBillTable(restaurantsByProvince.peek().getName(), nodeOther3.element, tableModel, contTable, jLabelIdClient.getText());
-            updatePrice(nodeOther3.element);
-            threadNotification();
-        }
+        actionMenu(nodeOther3.element);
     }//GEN-LAST:event_jLabelOther3MouseClicked
 
     /**
