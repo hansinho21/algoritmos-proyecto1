@@ -385,11 +385,12 @@ public class Logic implements Runnable {
             tableModel.insertRow(contTable, new Object[]{});
             tableModel.setValueAt(idClient, contTable, 0);
             tableModel.setValueAt(idRestaurant, contTable, 1);
-            tableModel.setValueAt(product.getId(), contTable, 2);
+            tableModel.setValueAt(product.getName(), contTable, 2);
             tableModel.setValueAt(1, contTable, 3);
+            tableModel.setValueAt(product.getPrice(), contTable, 4);
             contTable++;
         } else {
-            changeQuantityByName(tableModel, product.getName());
+            changeQuantityByName(tableModel, product);
         }
     }
 
@@ -429,12 +430,13 @@ public class Logic implements Runnable {
      * @param tableModel
      * @param name
      */
-    private void changeQuantityByName(DefaultTableModel tableModel, String name) {
+    private void changeQuantityByName(DefaultTableModel tableModel, Product product) {
         int quantity = 0;
         for (int i = 0; i < tableModel.getRowCount(); i++) {
-            if (tableModel.getValueAt(i, 1).equals(name)) {
-                quantity = (int) tableModel.getValueAt(i, 2);
-                tableModel.setValueAt(++quantity, i, 2);
+            if (tableModel.getValueAt(i, 2).equals(product.getName())) {
+                quantity = (int) tableModel.getValueAt(i, 3);
+                tableModel.setValueAt(++quantity, i, 3);
+                tableModel.setValueAt(product.getPrice()*quantity, i, 4);
             }
         }
     }

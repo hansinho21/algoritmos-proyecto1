@@ -1084,21 +1084,23 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
     private void jTextFieldOrderFiltrerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldOrderFiltrerKeyTyped
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE && jTextFieldOrderFiltrer.getText().toCharArray().length == 1) {
-            jTextFieldClientFiltrer.setText("");
-        } else {
-            jTextFieldOrderFiltrer.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyReleased(KeyEvent e) {
+
+        jTextFieldOrderFiltrer.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE && jTextFieldOrderFiltrer.getText().equals("")) {
+                    jTextFieldClientFiltrer.setText("");
+                } else {
                     trs.setRowFilter(RowFilter.regexFilter("(?i)" + jTextFieldOrderFiltrer.getText(), 1));
                     //El "(?i)" es para que funcione con mayusculas y minusculas
                 }
+            }
 
-            });
+        });
 
-            trs = new TableRowSorter(tableModel);
-            jTableOrders.setRowSorter(trs);
-        }
+        trs = new TableRowSorter(tableModel);
+        jTableOrders.setRowSorter(trs);
+
     }//GEN-LAST:event_jTextFieldOrderFiltrerKeyTyped
 
     private void jTextFieldLastName2DriverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLastName2DriverActionPerformed
