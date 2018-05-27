@@ -41,6 +41,7 @@ public class Logic implements Runnable {
     private LinkedList<Agent> agentsList;
     private LinkedList<Client> clientsList;
     private Queue<Driver> driversList;
+    private LinkedList<Product> productsList;
 
     /**
      * Constructor
@@ -53,6 +54,7 @@ public class Logic implements Runnable {
         agentsList = data.getAgentsList();
         clientsList = data.getClientsList();
         driversList = data.getDriversList();
+        productsList= data.getProductList();
     }
 
     /**
@@ -95,6 +97,37 @@ public class Logic implements Runnable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedLocalDate = localDate.format(formatter);
         return formattedLocalDate;
+    }
+    
+    /**
+     * Metodo para agregar un producto al archivo
+     * @param product
+     * @return LinkedList
+     */
+    public LinkedList saveProducts(Product product){
+        boolean exist = false;
+        if (productsList.isEmpty()) {
+            productsList.add(product);
+            Data.setProductList(productsList);
+            exist = true;
+        } else {
+            for (int i = 0; i < productsList.size(); i++) {
+                if (productsList.get(i).getId()==product.getId()) {
+                    exist = true;
+                    JOptionPane.showMessageDialog(null, "The product already exists");
+                }
+            }
+        }
+        if (exist == false) {
+            productsList.add(product);
+            Data.setProductList(productsList);
+        }
+
+        System.out.println(productsList.size());
+        for (int i = 0; i < productsList.size(); i++) {
+            System.out.println(productsList.get(i).toString());
+        }
+        return productsList;
     }
 
     /**
@@ -383,11 +416,15 @@ public class Logic implements Runnable {
             String clients = "";
             String agents = "";
             String drivers = "";
+            String products= "";
             for (int i = 0; i < clientsList.size(); i++) {
                 clients += clientsList.get(i).toString() + "\r\n";
             }
             for (int i = 0; i < agentsList.size(); i++) {
                 agents += agentsList.get(i).toString() + "\r\n";
+            }
+            for (int i = 0; i < productsList.size(); i++) {
+                products += productsList.get(i).toString() + "\r\n";
             }
             while (!driversList.isEmpty()) {
                 drivers += driversList.peek() + "\r\n";
@@ -401,9 +438,11 @@ public class Logic implements Runnable {
             File fileDrivers = new File("Drivers.txt");
             File fileAgents = new File("Agents.txt");
             File fileClients = new File("Clients.txt");
+            File fileProducts = new File("Products.txt");
             BufferedWriter bwClients;
             BufferedWriter bwAgents;
             BufferedWriter bwDrivers;
+            BufferedWriter bwProducts;
             try {
                 bwClients = new BufferedWriter(new FileWriter(fileClients));
                 bwClients.write(clients);
@@ -415,6 +454,10 @@ public class Logic implements Runnable {
 
                 bwDrivers = new BufferedWriter(new FileWriter(fileDrivers));
                 bwDrivers.write(drivers);
+                bwDrivers.close();
+                
+                bwDrivers = new BufferedWriter(new FileWriter(fileProducts));
+                bwDrivers.write(products);
                 bwDrivers.close();
 
             } catch (IOException e) {

@@ -587,11 +587,11 @@ public class Data {
         Data.otherList = otherList;
     }
 
-    public LinkedList<Product> getProductList() {
+    public static LinkedList<Product> getProductList() {
         return productList;
     }
 
-    public void setProductList(LinkedList<Product> productList) {
+    public static void setProductList(LinkedList<Product> productList) {
         Data.productList = productList;
     }
 

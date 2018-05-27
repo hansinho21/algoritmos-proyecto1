@@ -15,10 +15,12 @@ import domain.Client;
 import domain.Agent;
 import domain.Driver;
 import domain.Order;
+import domain.Product;
 import exceptions.ListException;
 import exceptions.StackException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -220,13 +222,30 @@ public class AdministratorInterface extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jTextFieldCedulaDriver = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
+        IdRestaurant = new javax.swing.JLabel();
+        NameRestaurant = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTexFieldIdProduct = new javax.swing.JTextField();
+        jTextFieldNameProduct = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jTextFieldPriceProduct = new javax.swing.JTextField();
+        jComboBoxRestaurant = new javax.swing.JComboBox<>();
+        jComboBoxType = new javax.swing.JComboBox<>();
+        jButtonAddProduct = new javax.swing.JButton();
+        jButtonUpdateProduct = new javax.swing.JButton();
+        jButtonDeleteProduct = new javax.swing.JButton();
+        jButtonDireccionProducto = new javax.swing.JButton();
+        jTextFieldAdressProduct = new javax.swing.JTextField();
+        jButtonCleanProduct = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
         Salir = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabelNombre = new javax.swing.JLabel();
         jLabelCodigo = new javax.swing.JLabel();
         jLabelBorder = new javax.swing.JLabel();
         jLabelLogo = new javax.swing.JLabel();
-        Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -792,18 +811,140 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Conductores", jPanel6);
 
+        IdRestaurant.setText("ID:");
+
+        NameRestaurant.setText("Name:");
+
+        jLabel2.setText("Location:");
+
+        jLabel22.setText("Price:");
+
+        jLabel23.setText("Restaurant:");
+
+        jLabel24.setText("Type:");
+
+        jComboBoxRestaurant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "McDonalds", "Burger King", "Carls Jr.", "Domino's Pizza", "KFC", "Pizza Hut", "Taco Bell" }));
+
+        jComboBoxType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+
+        jButtonAddProduct.setText("ADD");
+        jButtonAddProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddProductActionPerformed(evt);
+            }
+        });
+
+        jButtonUpdateProduct.setText("UPDATE");
+
+        jButtonDeleteProduct.setText("DELETE");
+
+        jButtonDireccionProducto.setText("Buscar");
+        jButtonDireccionProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDireccionProductoActionPerformed(evt);
+            }
+        });
+
+        jTextFieldAdressProduct.setEditable(false);
+
+        jButtonCleanProduct.setText("CLEAN");
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ayuda.png"))); // NOI18N
+        jLabel25.setToolTipText("Selected:\n1-food  \n2-drink  \n3-dessert  \n4-other  ");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 698, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel7Layout.createSequentialGroup()
+                            .addGap(33, 33, 33)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel7Layout.createSequentialGroup()
+                                    .addComponent(NameRestaurant)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextFieldNameProduct))
+                                .addGroup(jPanel7Layout.createSequentialGroup()
+                                    .addGap(23, 23, 23)
+                                    .addComponent(IdRestaurant)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTexFieldIdProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel7Layout.createSequentialGroup()
+                            .addGap(19, 19, 19)
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTextFieldAdressProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel22))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAddProduct)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextFieldPriceProduct)
+                                .addComponent(jComboBoxRestaurant, 0, 1, Short.MAX_VALUE)
+                                .addComponent(jComboBoxType, 0, 112, Short.MAX_VALUE)))))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jButtonUpdateProduct)
+                        .addGap(79, 79, 79)
+                        .addComponent(jButtonDeleteProduct)
+                        .addGap(67, 67, 67)
+                        .addComponent(jButtonCleanProduct))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonDireccionProducto))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 384, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(IdRestaurant)
+                    .addComponent(jTexFieldIdProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNameProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NameRestaurant))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jButtonDireccionProducto)
+                    .addComponent(jTextFieldAdressProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldPriceProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(jComboBoxRestaurant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel24)
+                        .addComponent(jComboBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel25))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAddProduct)
+                    .addComponent(jButtonUpdateProduct)
+                    .addComponent(jButtonDeleteProduct)
+                    .addComponent(jButtonCleanProduct))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("resturante", jPanel7);
+        jTabbedPane1.addTab("Producto", jPanel7);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 700, 410));
 
@@ -836,11 +977,6 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
         jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoMediano.png"))); // NOI18N
         getContentPane().add(jLabelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        Fondo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        Fondo.setForeground(new java.awt.Color(255, 255, 255));
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoAzul.png"))); // NOI18N
-        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1176,6 +1312,41 @@ public class AdministratorInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void jButtonDireccionProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDireccionProductoActionPerformed
+        // TODO add your handling code here:
+        /**
+         * llamamos el metodo que permite cargar la ventana
+         */
+        JFileChooser file = new JFileChooser();
+        file.showOpenDialog(this);
+        /**
+         * abrimos el archivo seleccionado
+         */
+        File abre = file.getSelectedFile();
+        jTextFieldAdressProduct.setText(abre.toString());
+        
+    }//GEN-LAST:event_jButtonDireccionProductoActionPerformed
+
+    private void jButtonAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProductActionPerformed
+        try {
+            // TODO add your handling code here:
+            Product p;
+            p = new Product(jTextFieldNameProduct.getText(),
+                    Double.parseDouble(jTextFieldPriceProduct.getText()), jTextFieldAdressProduct.getText(),
+                    jComboBoxRestaurant.getSelectedItem().toString(),
+                    jComboBoxType.getSelectedIndex()+1);
+            
+            logic.saveProducts(p);
+            jTextFieldNameProduct.setText("");
+            jTextFieldPriceProduct.setText("");        
+            jTextFieldAdressProduct.setText("");
+            
+        } catch (IOException ex) {
+            Logger.getLogger(AdministratorInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButtonAddProductActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1219,21 +1390,29 @@ public class AdministratorInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Fondo;
+    private javax.swing.JLabel IdRestaurant;
+    private javax.swing.JLabel NameRestaurant;
     private javax.swing.JButton Salir;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonAddProduct;
     private javax.swing.JButton jButtonAgregarAgente;
     private javax.swing.JButton jButtonAgregarCliente;
     private javax.swing.JButton jButtonCleanAgent;
+    private javax.swing.JButton jButtonCleanProduct;
     private javax.swing.JButton jButtonDeleteAgent;
+    private javax.swing.JButton jButtonDeleteProduct;
+    private javax.swing.JButton jButtonDireccionProducto;
     private javax.swing.JButton jButtonEditAgent;
     private javax.swing.JButton jButtonEditarCliente;
     private javax.swing.JButton jButtonEliminarCliente;
     private javax.swing.JButton jButtonExcell;
     private javax.swing.JButton jButtonPDF;
+    private javax.swing.JButton jButtonUpdateProduct;
     private javax.swing.JComboBox<String> jComboBoxProvinceClient;
+    private javax.swing.JComboBox<String> jComboBoxRestaurant;
+    private javax.swing.JComboBox<String> jComboBoxType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1245,8 +1424,13 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1274,8 +1458,10 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableOrders;
+    private javax.swing.JTextField jTexFieldIdProduct;
     private javax.swing.JTextField jTexFieldUsuarioAgente;
     private javax.swing.JTextField jTextFieldAdressClient;
+    private javax.swing.JTextField jTextFieldAdressProduct;
     private javax.swing.JTextField jTextFieldAgeDriver;
     private javax.swing.JTextField jTextFieldCedulaDriver;
     private javax.swing.JTextField jTextFieldClientFiltrer;
@@ -1289,12 +1475,14 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldLastName2Driver;
     private javax.swing.JTextField jTextFieldLastNameClient;
     private javax.swing.JTextField jTextFieldNameDriver;
+    private javax.swing.JTextField jTextFieldNameProduct;
     private javax.swing.JTextField jTextFieldNombreAgente;
     private javax.swing.JTextField jTextFieldNombreCliente;
     private javax.swing.JTextField jTextFieldOrderFiltrer;
     private javax.swing.JTextField jTextFieldPhoneClient;
     private javax.swing.JTextField jTextFieldPhoneDriver;
     private javax.swing.JTextField jTextFieldPlateDriver;
+    private javax.swing.JTextField jTextFieldPriceProduct;
     private javax.swing.JTextField jTextFieldTypeVehicle;
     // End of variables declaration//GEN-END:variables
 }

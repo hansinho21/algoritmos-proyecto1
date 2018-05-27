@@ -43,11 +43,6 @@ public class LinkedStack implements Stack {
         return this.cont;
     }
 
-    /**
-     * Cancela la pila
-     *
-     * @throws StackException
-     */
     @Override
     public void anular() throws StackException {
         this.top = null;
@@ -56,7 +51,6 @@ public class LinkedStack implements Stack {
     /**
      * Añade un elemento a la pila
      *
-     * @param element
      * @throws StackException
      */
     @Override
