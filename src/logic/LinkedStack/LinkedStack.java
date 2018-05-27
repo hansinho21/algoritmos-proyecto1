@@ -6,6 +6,8 @@
 package logic.LinkedStack;
 
 import exceptions.StackException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import logic.Node;
 import logic.Stack;
 
@@ -100,17 +102,38 @@ public class LinkedStack implements Stack {
         } else {
             LinkedStack auxStack = new LinkedStack();
             int auxCont = -1;
-            while(!this.isEmpty()){
-                if(this.peek().equals(element)){
+            while (!this.isEmpty()) {
+                if (this.peek().equals(element)) {
                     auxCont = this.getSize();
-                } 
+                }
                 auxStack.push(this.pop());
             }
-            while(!auxStack.isEmpty()){
+            while (!auxStack.isEmpty()) {
                 this.push(auxStack.pop());
             }
             return auxCont;
         }
+    }
+
+    @Override
+    public String toString() {
+        String content = "\nPILA\n\n";
+        LinkedStack auxStack = new LinkedStack();
+        try {
+
+            while (!this.isEmpty()) {
+                auxStack.push(this.pop());
+            }
+
+            while (!auxStack.isEmpty()) {
+                content += auxStack.peek().toString() + "\n";
+                this.push(auxStack.pop());
+            }
+
+        } catch (StackException ex) {
+            Logger.getLogger(LinkedStack.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return content;
     }
 
 }

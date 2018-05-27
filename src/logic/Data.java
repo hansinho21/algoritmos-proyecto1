@@ -34,9 +34,10 @@ public class Data {
     private static LinkedList<Agent> agentsList = new LinkedList<>();
     private static ListaCircularDoblementeEnlazada iconsList = new ListaCircularDoblementeEnlazada();
     private static Queue<Driver> driversList = new LinkedList<>();
-    private static LinkedStack ordersStack = new LinkedStack();
     private static Queue<Restaurant> restaurantsList = new LinkedList<>();
     private static LinkedList<Product> productList = new LinkedList<>();
+    private static LinkedStack ordersPart1Stack = new LinkedStack();
+    private static LinkedStack ordersPart2Stack = new LinkedStack();
 
     //Comidas
     private static ListaCircularDoblementeEnlazada foodList = new ListaCircularDoblementeEnlazada();
@@ -539,14 +540,6 @@ public class Data {
         Data.driversList = driversList;
     }
 
-    public LinkedStack getOrdersStack() {
-        return ordersStack;
-    }
-
-    public void setOrdersStack(LinkedStack ordersStack) {
-        Data.ordersStack = ordersStack;
-    }
-
     public static Queue<Restaurant> getRestaurantsList() {
         return restaurantsList;
     }
@@ -587,12 +580,28 @@ public class Data {
         Data.otherList = otherList;
     }
 
-    public static LinkedList<Product> getProductList() {
+    public LinkedList<Product> getProductList() {
         return productList;
     }
 
-    public static void setProductList(LinkedList<Product> productList) {
+    public void setProductList(LinkedList<Product> productList) {
         Data.productList = productList;
+    }
+
+    public LinkedStack getOrdersPart1Stack() {
+        return ordersPart1Stack;
+    }
+
+    public void setOrdersPart1Stack(LinkedStack ordersPart1Stack) {
+        Data.ordersPart1Stack = ordersPart1Stack;
+    }
+
+    public LinkedStack getOrdersPart2Stack() {
+        return ordersPart2Stack;
+    }
+
+    public void setOrdersPart2Stack(LinkedStack ordersPart2Stack) {
+        Data.ordersPart2Stack = ordersPart2Stack;
     }
 
 }

@@ -15,6 +15,7 @@ import domain.Client;
 import domain.Agent;
 import domain.Driver;
 import domain.Order;
+import domain.OrderPart1;
 import domain.Product;
 import exceptions.ListException;
 import exceptions.StackException;
@@ -59,7 +60,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private int contTable;
 
     //TDAs
-    private LinkedStack ordersStack;
+    private LinkedStack orderPart1Stack;
     private LinkedList<Client> clientsList;
     private LinkedList<Agent> agentsList;
     private Queue<Driver> driversList;
@@ -83,10 +84,10 @@ public class AdministratorInterface extends javax.swing.JFrame {
         logic = new Logic();
 
         //TDAs
-        ordersStack = data.getOrdersStack();
         clientsList = data.getClientsList();
         agentsList = data.getAgentsList();
         driversList = data.getDriversList();
+        orderPart1Stack = data.getOrdersPart1Stack();
 
         //autocompleter
         textAutoCompleterClient = new TextAutoCompleter(jTextFieldEmail);
@@ -95,7 +96,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
         //Tabla
         contTable = 0;
-        x();
+        
         //Inicializa la tabla
         initializeTable();
         //Llena la tabla
@@ -107,20 +108,13 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
     }
 
-    public void x() throws StackException {
-        Date x = new Date();
-        ordersStack.push(new Order("Allan", 1, "Hans", x.toLocaleString(), 12, "Cartago", "casa", "Carlos"));
-        ordersStack.push(new Order("Karla", 2, "Hans", x.toLocaleString(), 12, "Cartago", "casa", "Carlos"));
-        ordersStack.push(new Order("Jeison", 3, "Hans", x.toLocaleString(), 12, "Cartago", "casa", "Carlos"));
-        ordersStack.push(new Order("Julio", 4, "Hans", x.toLocaleString(), 12, "Cartago", "casa", "Carlos"));
-    }
-
     /**
      * Metodo para inicializar la tabla con la cantidad de columnas deseadas.
      */
     private void initializeTable() {
         String x[][] = {};
-        String columns[] = {"Client", "# Order", "Agent", "Date", "Price", "Province", "Adress", "Driver"};
+        String columns[] = {"ID Order", "ID Client", "ID Restaurant", "ID Product", "Quantity", "Total Items", 
+            "Agent Name", "Date", "Total Order", "Province", "Address", "Driver"};
         tableModel = new DefaultTableModel(x, columns);
         jTableOrders.setModel(tableModel);
     }
@@ -133,14 +127,15 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private void updateTableData() throws StackException {
         LinkedStack auxStack = new LinkedStack();
         //Paso todos los elementos de la pila original a una auxiliar para cimplir con el funcionamiento de la pila
-        while (!ordersStack.isEmpty()) {
-            auxStack.push(ordersStack.pop());
+        while (!orderPart1Stack.isEmpty()) {
+            auxStack.push(orderPart1Stack.pop());
         }
         //Ahora devuelvo los elementos a la pila original añadiendolos a la ves a la tabla
         while (!auxStack.isEmpty()) {
-            logic.addDataInOrdersTable((Order) auxStack.peek(), tableModel, contTable);
-            ordersStack.push(auxStack.pop());
+            logic.addOrderPart1InOrdersTable((OrderPart1) auxStack.peek(), tableModel, contTable);
+            orderPart1Stack.push(auxStack.pop());
         }
+        logic.addOrderPart2InOrdersTable(tableModel, contTable);
     }
 
     /**
@@ -161,6 +156,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
         jButtonPDF = new javax.swing.JButton();
         jTextFieldClientFiltrer = new javax.swing.JTextField();
         jTextFieldOrderFiltrer = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -246,6 +242,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
         jLabelCodigo = new javax.swing.JLabel();
         jLabelBorder = new javax.swing.JLabel();
         jLabelLogo = new javax.swing.JLabel();
+        jLabelFonoPrincipal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -257,20 +254,24 @@ public class AdministratorInterface extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jTableOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cliente", "N_orden", "Agente", "Fecha", "Monto", "Provincia", "Conductor"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12"
             }
         ));
         jScrollPane1.setViewportView(jTableOrders);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1175, 195));
 
         jButtonExcell.setText("Exportar Excell");
         jButtonExcell.addActionListener(new java.awt.event.ActionListener() {
@@ -278,6 +279,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
                 jButtonExcellActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonExcell, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 348, -1, -1));
 
         jButtonPDF.setText("Exportar PDF");
         jButtonPDF.addActionListener(new java.awt.event.ActionListener() {
@@ -285,53 +287,24 @@ public class AdministratorInterface extends javax.swing.JFrame {
                 jButtonPDFActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(943, 348, -1, -1));
 
         jTextFieldClientFiltrer.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldClientFiltrerKeyTyped(evt);
             }
         });
+        jPanel1.add(jTextFieldClientFiltrer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 90, -1));
 
         jTextFieldOrderFiltrer.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldOrderFiltrerKeyTyped(evt);
             }
         });
+        jPanel1.add(jTextFieldOrderFiltrer, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 93, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonPDF)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonExcell)
-                .addGap(30, 30, 30))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jTextFieldClientFiltrer, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldOrderFiltrer, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldClientFiltrer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldOrderFiltrer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonPDF)
-                    .addComponent(jButtonExcell))
-                .addContainerGap())
-        );
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoAzul.png"))); // NOI18N
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 380));
 
         jTabbedPane1.addTab("Control General", jPanel1);
 
@@ -344,7 +317,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1165, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -465,7 +438,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabelAdress)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
                                 .addComponent(jTextFieldAdressClient, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonEditarCliente)
@@ -473,7 +446,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
                                 .addComponent(jButtonAgregarCliente)
                                 .addGap(26, 26, 26)
                                 .addComponent(jButtonEliminarCliente)))
-                        .addContainerGap(63, Short.MAX_VALUE))
+                        .addContainerGap(318, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabelProvince)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -612,7 +585,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
                                     .addComponent(jTextFieldCorreoAgente))))
                         .addGap(28, 28, 28)
                         .addComponent(jButtonCleanAgent)))
-                .addContainerGap(353, Short.MAX_VALUE))
+                .addContainerGap(857, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -903,7 +876,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(577, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -946,7 +919,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Producto", jPanel7);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 700, 410));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1190, 410));
 
         Salir.setText("Salir");
         Salir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -977,6 +950,9 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
         jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoMediano.png"))); // NOI18N
         getContentPane().add(jLabelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabelFonoPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoAzul.png"))); // NOI18N
+        getContentPane().add(jLabelFonoPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1431,6 +1407,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1442,6 +1419,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelBorder;
     private javax.swing.JLabel jLabelCodigo;
     private javax.swing.JLabel jLabelCorreoCliente;
+    private javax.swing.JLabel jLabelFonoPrincipal;
     private javax.swing.JLabel jLabelLogo;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelNombreCliente;

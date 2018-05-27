@@ -21,16 +21,23 @@ import com.mxrck.autocompleter.TextAutoCompleter;
 import domain.Agent;
 import domain.Driver;
 import domain.Order;
+import domain.OrderPart1;
+import domain.OrderPart2;
 import domain.Product;
 import domain.Restaurant;
 import exceptions.StackException;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.stage.FileChooser;
+import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import logic.Clock;
 import logic.LinkedStack.LinkedStack;
@@ -52,7 +59,8 @@ public class AgentInterface extends javax.swing.JFrame {
     private LinkedList<Client> clientsList;
     private LinkedList<Agent> agentsList;
     private Queue<Driver> driversList;
-    private LinkedStack ordersStack;
+    private LinkedStack orderPart1Stack;
+    private LinkedStack orderPart2Stack;
     private Queue<Restaurant> restaurantsList;
     private Queue<Restaurant> restaurantsByProvince;
 
@@ -127,12 +135,12 @@ public class AgentInterface extends javax.swing.JFrame {
         clientsList = data.getClientsList();
         agentsList = Data.getAgentsList();
         driversList = data.getDriversList();
-        ordersStack = data.getOrdersStack();
         restaurantsList = data.getRestaurantsList();
+        orderPart1Stack = data.getOrdersPart1Stack();
+        orderPart2Stack = data.getOrdersPart2Stack();
 
         //Numero de orden
-        jLabelOrderNumber.setText(String.valueOf(ordersStack.getSize() + 1));
-
+//        jLabelOrderNumber.setText(String.valueOf(ordersStack.getSize() + 1));
         //AutoCompleter
         textAutoCompleter = new TextAutoCompleter(jTextFieldCorreoCliente);
 
@@ -193,12 +201,7 @@ public class AgentInterface extends javax.swing.JFrame {
         jTextFieldLastName2.setText("");
         jLabelId.setVisible(false);
         jLabelIdClient.setText("");
-        
-        //Limpia la tabla
-        for (int i = 0; i < tableModel.getRowCount(); i++) {
-            tableModel.removeRow(i);
-        }
-        tableModel.removeRow(0);
+
     }
 
     /**
@@ -389,7 +392,7 @@ public class AgentInterface extends javax.swing.JFrame {
      */
     private void driverInformation() {
         Driver driver = driversList.peek();
-        jLabelDriverName.setText(driver.getName()+" "+driver.getLastName1());
+        jLabelDriverName.setText(driver.getName() + " " + driver.getLastName1());
         jLabelDriverId.setText(String.valueOf(driver.getId()));
     }
 
@@ -454,10 +457,10 @@ public class AgentInterface extends javax.swing.JFrame {
             cont = 0;
             restaurantsList.add(restaurantsList.poll());
         }
-        if(!auxList.isEmpty()){
+        if (!auxList.isEmpty()) {
             idRestaurantSelected = auxList.peek().getId();
         }
-        
+
         return auxList;
     }
 
@@ -469,9 +472,9 @@ public class AgentInterface extends javax.swing.JFrame {
         return clientsList.size() + 1;
     }
 
-    private void actionMenu(Product product){
-        if (restaurantsByProvince.size() != 0 && verifyClientInformation()== true) {
-            if(verifyClientByEmail(jTextFieldCorreoCliente.getText()) == true){
+    private void actionMenu(Product product) {
+        if (restaurantsByProvince.size() != 0 && verifyClientInformation() == true) {
+            if (verifyClientByEmail(jTextFieldCorreoCliente.getText()) == true) {
                 logic.addDataInBillTable(idRestaurantSelected, product, tableModel, contTable, jLabelIdClient.getText());
                 updatePrice(product);
                 threadNotification();
@@ -482,8 +485,8 @@ public class AgentInterface extends javax.swing.JFrame {
             }
         }
     }
-    
-    private boolean verifyClientInformation(){
+
+    private boolean verifyClientInformation() {
         if (jTextFieldNomCliente.getText().equals("")
                 || jTextFieldCorreoCliente.getText().equals("")
                 || jTextFieldTelCliente.getText().equals("")
@@ -494,14 +497,35 @@ public class AgentInterface extends javax.swing.JFrame {
         }
         return true;
     }
-    
-    private boolean verifyClientByEmail(String email){
+
+    private boolean verifyClientByEmail(String email) {
         for (int i = 0; i < clientsList.size(); i++) {
-            if(clientsList.get(i).getEmail().equals(email)){
+            if (clientsList.get(i).getEmail().equals(email)) {
                 return true;
             }
         }
         return false;
+    }
+
+    private void updateOrderPart1() throws StackException {
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            OrderPart1 newOrder = new OrderPart1();
+                newOrder.setIdOrder(1);
+                newOrder.setIdClient((int) tableModel.getValueAt(i, 1));
+                newOrder.setIdRestaurant((int) tableModel.getValueAt(i, 1));
+                newOrder.setIdProduct((int) tableModel.getValueAt(i, 2));
+                newOrder.setQuantity((int) tableModel.getValueAt(i, 3));
+                newOrder.setTotalItems((double) tableModel.getValueAt(i, 4));
+            orderPart1Stack.push(newOrder);
+        }
+        data.setOrdersPart1Stack(orderPart1Stack);
+    }
+    
+    private void upupdateOrderPart2() throws StackException{
+        Date date = new Date();
+        orderPart2Stack.push(new OrderPart2(1, jLabelAgentName.getText(), date.toString(), this.total, 
+                jComboBoxProvinciaCliente.getSelectedItem().toString(), jTexfieldDireccion.getText(), jLabelDriverName.getText()));
+        data.setOrdersPart2Stack(orderPart2Stack);
     }
 
     /**
@@ -1397,9 +1421,13 @@ public class AgentInterface extends javax.swing.JFrame {
             if (verifyInformation() == true) {
 
                 //Añadir la orden a la pila y actualizar en la clase data
-                ordersStack.push(new Order(jTextFieldNomCliente.getText(), ordersStack.getSize() + 1, jLabelAgentName.getText(),
-                        logic.getDate(), this.total, "Cartago", jTexfieldDireccion.getText(), driversList.peek().getName()));
-                data.setOrdersStack(ordersStack);
+//                ordersStack.push(new Order(jTextFieldNomCliente.getText(), ordersStack.getSize() + 1, jLabelAgentName.getText(),
+//                        logic.getDate(), this.total, "Cartago", jTexfieldDireccion.getText(), driversList.peek().getName()));
+//                data.setOrdersStack(ordersStack);
+                updateOrderPart1();
+                upupdateOrderPart2();
+                System.out.println(orderPart1Stack.toString());
+
                 //Actializar cola de conductores
                 logic.updateDriverQueue(driversList);
 
@@ -1417,10 +1445,12 @@ public class AgentInterface extends javax.swing.JFrame {
                 dispose();
 
             }
-        } catch (ListException | IOException | StackException ex) {
+        } catch (ListException | IOException ex) {
             Logger.getLogger(AgentInterface.class
                     .getName()).log(Level.SEVERE, null, ex);
 
+        } catch (StackException ex) {
+            Logger.getLogger(AgentInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonConfirmOrderActionPerformed
 
@@ -1442,7 +1472,11 @@ public class AgentInterface extends javax.swing.JFrame {
     private void jButtonCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCleanActionPerformed
         // TODO add your handling code here:
         cleanInformation();
-        
+//Limpia la tabla
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            tableModel.removeRow(i);
+        }
+        tableModel.removeRow(0);
 //        System.out.println(jLabelRestaurant.getIcon().toString());
     }//GEN-LAST:event_jButtonCleanActionPerformed
 

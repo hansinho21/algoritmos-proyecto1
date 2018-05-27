@@ -17,7 +17,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 import domain.Client;
 import domain.Driver;
 import domain.Order;
+import domain.OrderPart1;
+import domain.OrderPart2;
 import domain.Product;
+import exceptions.StackException;
 import java.util.LinkedList;
 import gui.AgentInterface;
 import java.io.BufferedWriter;
@@ -42,6 +45,8 @@ public class Logic implements Runnable {
     private LinkedList<Client> clientsList;
     private Queue<Driver> driversList;
     private LinkedList<Product> productsList;
+    private LinkedStack orderPart1Stack;
+    private LinkedStack orderPart2Stack;
 
     /**
      * Constructor
@@ -54,7 +59,9 @@ public class Logic implements Runnable {
         agentsList = data.getAgentsList();
         clientsList = data.getClientsList();
         driversList = data.getDriversList();
-        productsList= data.getProductList();
+        productsList = data.getProductList();
+        orderPart1Stack = data.getOrdersPart1Stack();
+        orderPart2Stack = data.getOrdersPart2Stack();
     }
 
     /**
@@ -98,21 +105,22 @@ public class Logic implements Runnable {
         String formattedLocalDate = localDate.format(formatter);
         return formattedLocalDate;
     }
-    
+
     /**
      * Metodo para agregar un producto al archivo
+     *
      * @param product
      * @return LinkedList
      */
-    public LinkedList saveProducts(Product product){
+    public LinkedList saveProducts(Product product) {
         boolean exist = false;
         if (productsList.isEmpty()) {
             productsList.add(product);
-            Data.setProductList(productsList);
+            data.setProductList(productsList);
             exist = true;
         } else {
             for (int i = 0; i < productsList.size(); i++) {
-                if (productsList.get(i).getId()==product.getId()) {
+                if (productsList.get(i).getId() == product.getId()) {
                     exist = true;
                     JOptionPane.showMessageDialog(null, "The product already exists");
                 }
@@ -120,7 +128,7 @@ public class Logic implements Runnable {
         }
         if (exist == false) {
             productsList.add(product);
-            Data.setProductList(productsList);
+            data.setProductList(productsList);
         }
 
         System.out.println(productsList.size());
@@ -373,14 +381,14 @@ public class Logic implements Runnable {
         return driversList;
     }
 
-    public Queue updateDriversFile(Driver driver){
+    public Queue updateDriversFile(Driver driver) {
         boolean exist = false;
         Queue<Driver> aux = new LinkedList<>();
         if (driversList.isEmpty()) {
             JOptionPane.showMessageDialog(null, "The driver don't exist ");
         } else {
             while (!driversList.isEmpty()) {
-                if (exist==false&&driversList.peek().getId() == driver.getId()) {
+                if (exist == false && driversList.peek().getId() == driver.getId()) {
                     exist = true;
                     driversList.remove();
                     driversList.add(driver);
@@ -404,8 +412,7 @@ public class Logic implements Runnable {
         }
         return driversList;
     }
-    
-    
+
     /**
      * metodo run para el hilo que actualiza los files cada 20 segundos
      */
@@ -416,7 +423,7 @@ public class Logic implements Runnable {
             String clients = "";
             String agents = "";
             String drivers = "";
-            String products= "";
+            String products = "";
             for (int i = 0; i < clientsList.size(); i++) {
                 clients += clientsList.get(i).toString() + "\r\n";
             }
@@ -455,7 +462,7 @@ public class Logic implements Runnable {
                 bwDrivers = new BufferedWriter(new FileWriter(fileDrivers));
                 bwDrivers.write(drivers);
                 bwDrivers.close();
-                
+
                 bwDrivers = new BufferedWriter(new FileWriter(fileProducts));
                 bwDrivers.write(products);
                 bwDrivers.close();
@@ -507,16 +514,55 @@ public class Logic implements Runnable {
         }
     }
 
-    public void addDataInOrdersTable(Order order, DefaultTableModel tableModel, int contTable) {
+    public void addOrderPart1InOrdersTable(OrderPart1 order, DefaultTableModel tableModel, int contTable) {
         tableModel.insertRow(contTable, new Object[]{});
-        tableModel.setValueAt(order.getClient(), contTable, 0);
-        tableModel.setValueAt(order.getOrderNumber(), contTable, 1);
-        tableModel.setValueAt(order.getAgent(), contTable, 2);
-        tableModel.setValueAt(order.getDate(), contTable, 3);
-        tableModel.setValueAt(order.getPrice(), contTable, 4);
-        tableModel.setValueAt(order.getProvince(), contTable, 5);
-        tableModel.setValueAt(order.getAdress(), contTable, 6);
-        tableModel.setValueAt(order.getDriver(), contTable, 7);
+        tableModel.setValueAt(order.getIdOrder(), contTable, 0);
+        tableModel.setValueAt(order.getIdClient(), contTable, 1);
+        tableModel.setValueAt(order.getIdRestaurant(), contTable, 2);
+        tableModel.setValueAt(order.getIdProduct(), contTable, 3);
+        tableModel.setValueAt(order.getQuantity(), contTable, 4);
+        tableModel.setValueAt(order.getTotalItems(), contTable, 5);
+
+    }
+
+    public void addOrderPart2InOrdersTable(DefaultTableModel tableModel, int contTable) throws StackException {
+        LinkedStack auxOrder1 = new LinkedStack();
+        LinkedStack auxOrder2 = new LinkedStack();
+        LinkedList<OrderPart1> list = new LinkedList<>();
+        int size1 = orderPart1Stack.getSize();
+        int size2 = orderPart2Stack.getSize();
+
+        while (!orderPart1Stack.isEmpty()) {
+            auxOrder1.push(orderPart1Stack.pop());
+        }
+        while (!auxOrder1.isEmpty()) {
+            list.add((OrderPart1) auxOrder1.peek());
+            orderPart1Stack.push(auxOrder1.pop());
+        }
+
+        while (!orderPart2Stack.isEmpty()) {
+            auxOrder2.push(orderPart2Stack.pop());
+        }
+
+        while (!auxOrder2.isEmpty()) {
+            OrderPart2 aux2 = (OrderPart2) auxOrder2.peek();
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getIdOrder() == aux2.getIdOrder()) {
+                    for (int j = 0; j < tableModel.getRowCount(); j++) {
+                        if ((int) tableModel.getValueAt(j, 0) == aux2.getIdOrder()) {
+                            tableModel.setValueAt(aux2.getAgentName(), j, 6);
+                            tableModel.setValueAt(aux2.getDate(), j, 7);
+                            tableModel.setValueAt(aux2.getTotalOrder(), j, 8);
+                            tableModel.setValueAt(aux2.getProvince(), j, 9);
+                            tableModel.setValueAt(aux2.getAddress(), j, 10);
+                            tableModel.setValueAt(aux2.getDriverName(), j, 11);
+                        }
+                    }
+                }
+            }
+            orderPart2Stack.push(auxOrder2.pop());
+
+        }
     }
 
     /**
@@ -528,11 +574,11 @@ public class Logic implements Runnable {
      */
     private boolean verifyProduct(DefaultTableModel tableModel, int id) {
         for (int i = 0; i < tableModel.getRowCount(); i++) {
-                if (tableModel.getValueAt(i, 2).equals(id)) {
-                    return true;
-                }
+            if (tableModel.getValueAt(i, 2).equals(id)) {
+                return true;
             }
-        
+        }
+
         return false;
     }
 
