@@ -25,17 +25,6 @@ public class Product {
     private String restaurant;
     private int type;//1-food, 2-drink, 3-dessert, 4-other
 
-    public Product(String name, double price, String imageAdress) throws IOException, ListException {
-        this.name = name;
-        this.price = price;
-        this.image = new ImageIcon(ImageIO.read(getClass().getResource(imageAdress)));
-        this.data = new Data();
-//        if (data.getProductList().isEmpty()) {
-//            this.id = 1;
-//        } else {
-//            this.id = data.getProductList().size();
-//        }
-    }
 
     public Product(String name, double price, String imageAdress, String restaurant, int type) throws IOException {
         this.id = id;
