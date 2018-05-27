@@ -87,11 +87,12 @@ public class AgentInterface extends javax.swing.JFrame {
     //Table
     private DefaultTableModel tableModel;
     private int contTable;
+    private int idRestaurantSelected;
 
     //Precio del pedido
-    private double subTotal;
-    private double iva;
-    private double total;
+    private float subTotal;
+    private float iva;
+    private float total;
 
     /**
      * Creates new form PanelDeControl
@@ -180,9 +181,9 @@ public class AgentInterface extends javax.swing.JFrame {
     }
 
     /**
-     * Limpia lo que tengan los textfields.
+     * Limpia lo que tengan los textfields y la tabla.
      */
-    void cleanTextFields() {
+    void cleanInformation() {
         jTextFieldCorreoCliente.setText("");
         jTextFieldNomCliente.setText("");
         jComboBoxProvinciaCliente.setSelectedItem("Seleccione una opción");
@@ -192,6 +193,12 @@ public class AgentInterface extends javax.swing.JFrame {
         jTextFieldLastName2.setText("");
         jLabelId.setVisible(false);
         jLabelIdClient.setText("");
+        
+        //Limpia la tabla
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            tableModel.removeRow(i);
+        }
+        tableModel.removeRow(0);
     }
 
     /**
@@ -413,7 +420,7 @@ public class AgentInterface extends javax.swing.JFrame {
      */
     private void reducePrice(int row) {
         subTotal -= (double) tableModel.getValueAt(row, 3) * (int) tableModel.getValueAt(row, 2);
-        iva -= ((double) tableModel.getValueAt(row, 3) * 10 / 100) * (int) tableModel.getValueAt(row, 2);
+        iva -= ((float) tableModel.getValueAt(row, 3) * 10 / 100) * (int) tableModel.getValueAt(row, 2);
         total = subTotal + iva;
         jLabelSubTotal.setText(String.valueOf(subTotal));
         jLabelIva.setText(String.valueOf(iva));
@@ -447,6 +454,10 @@ public class AgentInterface extends javax.swing.JFrame {
             cont = 0;
             restaurantsList.add(restaurantsList.poll());
         }
+        if(!auxList.isEmpty()){
+            idRestaurantSelected = auxList.peek().getId();
+        }
+        
         return auxList;
     }
 
@@ -461,11 +472,11 @@ public class AgentInterface extends javax.swing.JFrame {
     private void actionMenu(Product product){
         if (restaurantsByProvince.size() != 0 && verifyClientInformation()== true) {
             if(verifyClientByEmail(jTextFieldCorreoCliente.getText()) == true){
-                logic.addDataInBillTable(restaurantsByProvince.peek().getName(), product, tableModel, contTable, jLabelIdClient.getText());
+                logic.addDataInBillTable(idRestaurantSelected, product, tableModel, contTable, jLabelIdClient.getText());
                 updatePrice(product);
                 threadNotification();
             } else {
-                logic.addDataInBillTable(restaurantsByProvince.peek().getName(), product, tableModel, contTable, String.valueOf(getLastIdClient()));
+                logic.addDataInBillTable(idRestaurantSelected, product, tableModel, contTable, String.valueOf(getLastIdClient()));
                 updatePrice(product);
                 threadNotification();
             }
@@ -1099,7 +1110,7 @@ public class AgentInterface extends javax.swing.JFrame {
 
         jLabelIva.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelIva.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(jLabelIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 300, 30));
+        jPanel2.add(jLabelIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 300, 40));
 
         jLabelTotalPrice.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelTotalPrice.setForeground(new java.awt.Color(255, 255, 255));
@@ -1371,7 +1382,7 @@ public class AgentInterface extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             restaurantsByProvince.add(restaurantsByProvince.poll());
-
+            idRestaurantSelected = restaurantsByProvince.peek().getId();
             jLabelRestaurant.setIcon(restaurantsByProvince.peek().getImage());
             initializeImages();
         } catch (ListException ex) {
@@ -1401,7 +1412,7 @@ public class AgentInterface extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Pedido realizado con exito!!!");
 
                 AgentInterface adm = new AgentInterface();
-                adm.cleanTextFields();
+                adm.cleanInformation();
                 adm.setVisible(true);
                 dispose();
 
@@ -1430,7 +1441,8 @@ public class AgentInterface extends javax.swing.JFrame {
 
     private void jButtonCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCleanActionPerformed
         // TODO add your handling code here:
-        cleanTextFields();
+        cleanInformation();
+        
 //        System.out.println(jLabelRestaurant.getIcon().toString());
     }//GEN-LAST:event_jButtonCleanActionPerformed
 

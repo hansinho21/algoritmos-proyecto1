@@ -17,11 +17,13 @@ import logic.Data;
  */
 public class Product {
 
-    private static int id;
+    private int id;
     private String name;
     private double price;
     private ImageIcon image;
     private Data data;
+    private String restaurant;
+    private int type;//1-food, 2-drink, 3-dessert, 4-other
 
     public Product(String name, double price, String imageAdress) throws IOException, ListException {
         this.name = name;
@@ -33,7 +35,23 @@ public class Product {
 //        } else {
 //            this.id = data.getProductList().size();
 //        }
-        this.id = ++id;
+    }
+
+    public Product(String name, double price, String imageAdress, String restaurant, int type) throws IOException {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.image = new ImageIcon(ImageIO.read(getClass().getResource(imageAdress)));
+        this.restaurant = restaurant;
+        this.type = type;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -68,9 +86,12 @@ public class Product {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", image=" + image + '}';
+    public String getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(String restaurant) {
+        this.restaurant = restaurant;
     }
 
 }

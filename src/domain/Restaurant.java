@@ -15,7 +15,8 @@ import javax.swing.ImageIcon;
  * @author hvill
  */
 public class Restaurant {
-    
+
+    private int id;
     private String name;
     private ImageIcon image;
     private ArrayList<Location> locationList;
@@ -25,8 +26,6 @@ public class Restaurant {
         this.image = new ImageIcon(ImageIO.read(getClass().getResource(imageAdress)));
         this.locationList = locationList;
     }
-
-    
 
     public String getName() {
         return name;
@@ -52,10 +51,17 @@ public class Restaurant {
         this.locationList = locationList;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return "Restaurant{" + "name=" + name + ", image=" + image + '}';
+        return "Restaurant{" + "id=" + id + ", name=" + name + ", image=" + image + ", locationList=" + locationList + '}';
     }
-    
-    
+
 }

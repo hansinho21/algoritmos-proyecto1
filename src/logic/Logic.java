@@ -450,12 +450,12 @@ public class Logic implements Runnable {
      * @param tableModel
      * @param contTable
      */
-    public void addDataInBillTable(String idRestaurant, Product product, DefaultTableModel tableModel, int contTable, String idClient) {
-        if (verifyProduct(tableModel, product.getName()) == false) {
+    public void addDataInBillTable(int idRestaurant, Product product, DefaultTableModel tableModel, int contTable, String idClient) {
+        if (verifyProduct(tableModel, product.getId()) == false) {
             tableModel.insertRow(contTable, new Object[]{});
             tableModel.setValueAt(idClient, contTable, 0);
             tableModel.setValueAt(idRestaurant, contTable, 1);
-            tableModel.setValueAt(product.getName(), contTable, 2);
+            tableModel.setValueAt(product.getId(), contTable, 2);
             tableModel.setValueAt(1, contTable, 3);
             tableModel.setValueAt(product.getPrice(), contTable, 4);
             contTable++;
@@ -483,14 +483,13 @@ public class Logic implements Runnable {
      * @param name
      * @return Retorna true si lo encuentra y false si no lo hace.
      */
-    private boolean verifyProduct(DefaultTableModel tableModel, String name) {
+    private boolean verifyProduct(DefaultTableModel tableModel, int id) {
         for (int i = 0; i < tableModel.getRowCount(); i++) {
-            for (int j = 0; j < tableModel.getColumnCount(); j++) {
-                if (tableModel.getValueAt(i, j).equals(name)) {
+                if (tableModel.getValueAt(i, 2).equals(id)) {
                     return true;
                 }
             }
-        }
+        
         return false;
     }
 
@@ -503,7 +502,7 @@ public class Logic implements Runnable {
     private void changeQuantityByName(DefaultTableModel tableModel, Product product) {
         int quantity = 0;
         for (int i = 0; i < tableModel.getRowCount(); i++) {
-            if (tableModel.getValueAt(i, 2).equals(product.getName())) {
+            if (tableModel.getValueAt(i, 2).equals(product.getId())) {
                 quantity = (int) tableModel.getValueAt(i, 3);
                 tableModel.setValueAt(++quantity, i, 3);
                 tableModel.setValueAt(product.getPrice() * quantity, i, 4);
