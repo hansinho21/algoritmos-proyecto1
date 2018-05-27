@@ -37,7 +37,7 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{" + "province=" + province + ", location=" + location + '}';
+        return  province + ", " + location;
     }
     
 }

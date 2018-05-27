@@ -54,6 +54,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private TextAutoCompleter textAutoCompleterClient;
     private TextAutoCompleter textAutoCompleterAgent;
     private TextAutoCompleter textAutoCompleterDriver;
+    private TextAutoCompleter textAutoCompleterProduct;
 
     //Table
     private DefaultTableModel tableModel;
@@ -64,6 +65,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
     private LinkedList<Client> clientsList;
     private LinkedList<Agent> agentsList;
     private Queue<Driver> driversList;
+    private LinkedList<Product> productsList;
 
     //Filtro tabla
     TableRowSorter trs;
@@ -88,11 +90,13 @@ public class AdministratorInterface extends javax.swing.JFrame {
         agentsList = data.getAgentsList();
         driversList = data.getDriversList();
         orderPart1Stack = data.getOrdersPart1Stack();
+        productsList = data.getProductList();
 
         //autocompleter
         textAutoCompleterClient = new TextAutoCompleter(jTextFieldEmail);
         textAutoCompleterAgent = new TextAutoCompleter(jTextFieldCorreoAgente);
         textAutoCompleterDriver = new TextAutoCompleter(jTextFieldNameDriver);
+        textAutoCompleterProduct = new TextAutoCompleter(jTextFieldNameProduct);
 
         //Tabla
         contTable = 0;
@@ -105,6 +109,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
         fillAutoCompleterClients();
         fillAutoCompleterAgents();
         fillAutoCompleterDrivers();
+        fillAutoCompleterProducts();
 
     }
 
@@ -790,6 +795,14 @@ public class AdministratorInterface extends javax.swing.JFrame {
 
         jLabel2.setText("Location:");
 
+        jTexFieldIdProduct.setEditable(false);
+
+        jTextFieldNameProduct.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldNameProductFocusGained(evt);
+            }
+        });
+
         jLabel22.setText("Price:");
 
         jLabel23.setText("Restaurant:");
@@ -808,8 +821,18 @@ public class AdministratorInterface extends javax.swing.JFrame {
         });
 
         jButtonUpdateProduct.setText("UPDATE");
+        jButtonUpdateProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateProductActionPerformed(evt);
+            }
+        });
 
         jButtonDeleteProduct.setText("DELETE");
+        jButtonDeleteProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteProductActionPerformed(evt);
+            }
+        });
 
         jButtonDireccionProducto.setText("Buscar");
         jButtonDireccionProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -821,6 +844,11 @@ public class AdministratorInterface extends javax.swing.JFrame {
         jTextFieldAdressProduct.setEditable(false);
 
         jButtonCleanProduct.setText("CLEAN");
+        jButtonCleanProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCleanProductActionPerformed(evt);
+            }
+        });
 
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ayuda.png"))); // NOI18N
         jLabel25.setToolTipText("Selected:\n1-food  \n2-drink  \n3-dessert  \n4-other  ");
@@ -998,6 +1026,14 @@ public class AdministratorInterface extends javax.swing.JFrame {
             textAutoCompleterAgent.addItem(agentsList.get(i).getEmail());
         }
     }
+    
+    private void fillAutoCompleterProducts() {
+        textAutoCompleterProduct.removeAllItems();
+        for (int i = 0; i < productsList.size(); i++) {
+            System.out.println(productsList.get(i).toString());
+            textAutoCompleterProduct.addItem(productsList.get(i).getName());
+        }
+    }
 
     private void fillAutoCompleterDrivers() {
         textAutoCompleterDriver.removeAllItems();
@@ -1006,6 +1042,7 @@ public class AdministratorInterface extends javax.swing.JFrame {
             driversList.add(driversList.poll());
         }
     }
+    
 
     /**
      * Metodo para exportar a pdf
@@ -1307,12 +1344,13 @@ public class AdministratorInterface extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             Product p;
-            p = new Product(jTextFieldNameProduct.getText(),
+            p = new Product(Integer.parseInt(jTexFieldIdProduct.getText()),jTextFieldNameProduct.getText(),
                     Double.parseDouble(jTextFieldPriceProduct.getText()), jTextFieldAdressProduct.getText(),
                     jComboBoxRestaurant.getSelectedItem().toString(),
                     jComboBoxType.getSelectedIndex()+1);
             
             logic.saveProducts(p);
+            jTexFieldIdProduct.setText("");
             jTextFieldNameProduct.setText("");
             jTextFieldPriceProduct.setText("");        
             jTextFieldAdressProduct.setText("");
@@ -1322,6 +1360,65 @@ public class AdministratorInterface extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButtonAddProductActionPerformed
+
+    private void jButtonUpdateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateProductActionPerformed
+        try {
+            // TODO add your handling code here:
+            Product p = new Product(Integer.parseInt(jTexFieldIdProduct.getText()),jTextFieldNameProduct.getText(),
+                    Double.parseDouble(jTextFieldPriceProduct.getText()), jTextFieldAdressProduct.getText(),
+                    jComboBoxRestaurant.getSelectedItem().toString(),
+                    Integer.parseInt(jComboBoxType.getSelectedItem().toString()));
+            
+            logic.updateProduct(p);
+            
+            jTexFieldIdProduct.setText("");
+            jTextFieldNameProduct.setText("");
+            jTextFieldPriceProduct.setText("");
+            jTextFieldAdressProduct.setText("");        
+        } catch (IOException ex) {
+            Logger.getLogger(AdministratorInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonUpdateProductActionPerformed
+
+    private void jTextFieldNameProductFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNameProductFocusGained
+        // TODO add your handling code here:
+        for (int i = 0; i < productsList.size(); i++) {
+            if(jTextFieldNameProduct.getText().equalsIgnoreCase(productsList.get(i).getName())){
+                jTexFieldIdProduct.setText(String.valueOf(productsList.get(i).getId()));
+                jTextFieldAdressProduct.setText(productsList.get(i).getUrl());
+                jTextFieldPriceProduct.setText(String.valueOf(productsList.get(i).getPrice()));
+                jComboBoxRestaurant.setSelectedItem(productsList.get(i).getRestaurant());
+                jComboBoxType.setSelectedItem(productsList.get(i).getType());
+            }
+        }
+    }//GEN-LAST:event_jTextFieldNameProductFocusGained
+
+    private void jButtonDeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteProductActionPerformed
+        try {
+            // TODO add your handling code here:
+            Product p = new Product(Integer.parseInt(jTexFieldIdProduct.getText()),jTextFieldNameProduct.getText(),
+                    Double.parseDouble(jTextFieldPriceProduct.getText()), jTextFieldAdressProduct.getText(),
+                    jComboBoxRestaurant.getSelectedItem().toString(),
+                    Integer.parseInt(jComboBoxType.getSelectedItem().toString()));
+            logic.deleteProduct(p);
+            
+            jTexFieldIdProduct.setText("");
+            jTextFieldNameProduct.setText("");
+            jTextFieldPriceProduct.setText("");
+            jTextFieldAdressProduct.setText(""); 
+            
+        } catch (IOException ex) {
+            Logger.getLogger(AdministratorInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonDeleteProductActionPerformed
+
+    private void jButtonCleanProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCleanProductActionPerformed
+        // TODO add your handling code here:
+        jTexFieldIdProduct.setText("");
+            jTextFieldNameProduct.setText("");
+            jTextFieldPriceProduct.setText("");
+            jTextFieldAdressProduct.setText(""); 
+    }//GEN-LAST:event_jButtonCleanProductActionPerformed
 
     /**
      * @param args the command line arguments

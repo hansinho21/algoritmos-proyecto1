@@ -20,11 +20,13 @@ public class Restaurant {
     private String name;
     private ImageIcon image;
     private ArrayList<Location> locationList;
+    private String url;
 
     public Restaurant(String name, String imageAdress, ArrayList<Location> locationList) throws IOException {
         this.name = name;
         this.image = new ImageIcon(ImageIO.read(getClass().getResource(imageAdress)));
         this.locationList = locationList;
+        this.url= imageAdress;
     }
 
     public String getName() {
@@ -61,7 +63,12 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return "Restaurant{" + "id=" + id + ", name=" + name + ", image=" + image + ", locationList=" + locationList + '}';
+        return id + ";" + name + ";" + url + ";" + locationList;
     }
+
+    public Restaurant() {
+    }
+    
+    
 
 }

@@ -24,16 +24,30 @@ public class Product {
     private Data data;
     private String restaurant;
     private int type;//1-food, 2-drink, 3-dessert, 4-other
+    String url;
 
 
-    public Product(String name, double price, String imageAdress, String restaurant, int type) throws IOException {
+    public Product(int id,String name, double price, String imageAdress, String restaurant, int type) throws IOException {
         this.id = id;
         this.name = name;
         this.price = price;
         this.image = new ImageIcon(ImageIO.read(getClass().getResource(imageAdress)));
         this.restaurant = restaurant;
         this.type = type;
+        this.url = imageAdress;
     }
+
+    public Product(String imageAdress) throws IOException {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.image = new ImageIcon(ImageIO.read(getClass().getResource(imageAdress)));
+        this.restaurant = restaurant;
+        this.type = type;
+        this.url = imageAdress;
+    }
+    
+    
 
     public int getType() {
         return type;
@@ -81,6 +95,21 @@ public class Product {
 
     public void setRestaurant(String restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    
+    
+
+    @Override
+    public String toString() {
+        return id + ";" + name + ";" + price + ";" +  url+ ";" + restaurant +";" + type;
     }
 
 }

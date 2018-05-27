@@ -1,0 +1,7 @@
+1;McDonalds;/images/restaurants/McDonalds.png;[Cartago, North, San José, Central, Alajuela, South, Limón, Central, Puntarenas, Central]
+2;Burger King;/images/restaurants/burgerking.png;[San José, North, Cartago, South, Heredia, Central]
+3;Carls Jr.;/images/restaurants/carlsjr.png;[Guanacaste, Central, Guanacaste, South, Guanacaste, North, Cartago, Central, San José, South, Alajuela, North]
+4;Domino's Pizza;/images/restaurants/dominospizza.png;[Alajuela, Central, Heredia, North, Heredia, South, Puntarenas, North]
+5;KFC;/images/restaurants/kfc.png;[Puntarenas, South, Cartago, Central, San José, Central, Limón, North, Alajuela, Central, Guanacaste, South, Heredia, South]
+6;Pizza Hut;/images/restaurants/pizzahut.png;[Limón, South, Cartago, North, Alajuela, North]
+7;Taco Bell;/images/restaurants/tacobell.png;[San José, Central, Cartago, Central]

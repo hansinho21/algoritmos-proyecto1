@@ -12,14 +12,19 @@ import domain.Location;
 import domain.Product;
 import domain.Restaurant;
 import exceptions.ListException;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import logic.ListaCircularDoblementeenlazada.ListaCircularDoblementeEnlazada;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import logic.LinkedStack.LinkedStack;
 
 /**
@@ -124,6 +129,24 @@ public class Data {
     }
 
     private void fillRestaurantsList() throws IOException {
+//        String sCadena;
+//        FileReader fr = new FileReader("Restaurants.txt");
+//        BufferedReader bf = new BufferedReader(fr);
+//        while ((sCadena = bf.readLine()) != null) {
+//            Restaurant restaurant = new Restaurant();
+//            String[] aux = sCadena.split(";");
+//            restaurant.setId(Integer.parseInt(aux[0]));
+//            restaurant.setName(aux[1]);
+//            ImageIcon image = new ImageIcon(ImageIO.read(getClass().getResource(aux[2])));
+//            restaurant.setImage(image);
+//            Location l = new Location(sCadena, sCadena);
+//            ArrayList<Location> locations = new ArrayList<>();
+//            locations.add(e)
+//            restaurant.setLocationList();
+//            driversList.add(driver);
+//        }
+//        bf.close();
+        //----------------------------------------------------------
         ArrayList<Location> mcDonaldsLocation = new ArrayList<>();
         ArrayList<Location> burgerKingLocation = new ArrayList<>();
         ArrayList<Location> carlsJrLocation = new ArrayList<>();
@@ -358,153 +381,28 @@ public class Data {
     }
 
     private void fillProductList() throws IOException, ListException {
-        productList.add(new Product("mcFood1", 12, "/images/mcdonalds/mcFood1.png", "McDonalds", 1));
-        productList.add(new Product("mcFood2", 12, "/images/mcdonalds/mcFood2.png", "McDonalds", 1));
-        productList.add(new Product("mcFood3", 12, "/images/mcdonalds/mcFood3.png", "McDonalds", 1));
-        productList.add(new Product("mcFood4", 12, "/images/mcdonalds/mcFood4.png", "McDonalds", 1));
-        productList.add(new Product("mcFood5", 12, "/images/mcdonalds/mcFood5.png", "McDonalds", 1));
-        productList.add(new Product("mcFood6", 12, "/images/mcdonalds/mcFood6.png", "McDonalds", 1));
-
-        productList.add(new Product("mcDrink1", 10, "/images/mcdonalds/mcDrink1.png", "McDonalds", 2));
-        productList.add(new Product("mcDrink2", 10, "/images/mcdonalds/mcDrink2.png", "McDonalds", 2));
-        productList.add(new Product("mcDrink3", 10, "/images/mcdonalds/mcDrink3.png", "McDonalds", 2));
-        productList.add(new Product("mcDrink4", 10, "/images/mcdonalds/mcDrink4.png", "McDonalds", 2));
-
-        productList.add(new Product("mcDessert1", 11, "/images/mcdonalds/mcDessert1.png", "McDonalds", 3));
-        productList.add(new Product("mcDessert2", 11, "/images/mcdonalds/mcDessert2.png", "McDonalds", 3));
-        productList.add(new Product("mcDessert3", 11, "/images/mcdonalds/mcDessert3.png", "McDonalds", 3));
-        productList.add(new Product("mcDessert4", 11, "/images/mcdonalds/mcDessert4.png", "McDonalds", 3));
-        productList.add(new Product("mcDessert5", 11, "/images/mcdonalds/mcDessert5.png", "McDonalds", 3));
-
-        productList.add(new Product("mcOther1", 20, "/images/mcdonalds/mcOther1.png", "McDonalds", 4));
-        productList.add(new Product("mcOther2", 20, "/images/mcdonalds/mcOther2.png", "McDonalds", 4));
-        productList.add(new Product("mcOther3", 20, "/images/mcdonalds/mcOther3.png", "McDonalds", 4));
-        productList.add(new Product("mcOther4", 20, "/images/mcdonalds/mcOther4.png", "McDonalds", 4));
-        productList.add(new Product("mcOther5", 20, "/images/mcdonalds/mcOther5.png", "McDonalds", 4));
-
-        productList.add(new Product("bkFood1", 12, "/images/burgerking/bkFood1.png", "Burger King", 1));
-        productList.add(new Product("bkFood2", 12, "/images/burgerking/bkFood2.png", "Burger King", 1));
-        productList.add(new Product("bkFood3", 12, "/images/burgerking/bkFood3.png", "Burger King", 1));
-        productList.add(new Product("bkFood4", 12, "/images/burgerking/bkFood4.png", "Burger King", 1));
-
-        productList.add(new Product("bkDrink1", 10, "/images/burgerking/bkDrink1.png", "Burger King", 2));
-        productList.add(new Product("bkDrink2", 10, "/images/burgerking/bkDrink2.png", "Burger King", 2));
-        productList.add(new Product("bkDrink3", 10, "/images/burgerking/bkDrink3.png", "Burger King", 2));
-        productList.add(new Product("bkDrink4", 10, "/images/burgerking/bkDrink4.png", "Burger King", 2));
-
-        productList.add(new Product("bkDessert1", 11, "/images/burgerking/bkDessert1.png", "Burger King", 3));
-        productList.add(new Product("bkDessert2", 11, "/images/burgerking/bkDessert2.png", "Burger King", 3));
-        productList.add(new Product("bkDessert3", 11, "/images/burgerking/bkDessert3.png", "Burger King", 3));
-        productList.add(new Product("bkDessert4", 11, "/images/burgerking/bkDessert4.png", "Burger King", 3));
-
-        productList.add(new Product("bkOther1", 20, "/images/burgerking/bkOther1.png", "Burger King", 4));
-        productList.add(new Product("bkOther2", 20, "/images/burgerking/bkOther2.png", "Burger King", 4));
-        productList.add(new Product("bkOther3", 20, "/images/burgerking/bkOther3.png", "Burger King", 4));
-        productList.add(new Product("bkOther4", 20, "/images/burgerking/bkOther4.png", "Burger King", 4));
-
-        productList.add(new Product("carlsjrFood1", 12, "/images/carlsjr/carlsjrFood1.png", "Carls Jr.", 1));
-        productList.add(new Product("carlsjrFood2", 12, "/images/carlsjr/carlsjrFood2.png", "Carls Jr.", 1));
-        productList.add(new Product("carlsjrFood3", 12, "/images/carlsjr/carlsjrFood3.png", "Carls Jr.", 1));
-        productList.add(new Product("carlsjrFood4", 12, "/images/carlsjr/carlsjrFood4.png", "Carls Jr.", 1));
-
-        productList.add(new Product("carlsjrDrink1", 10, "/images/carlsjr/carlsjrDrink1.png", "Carls Jr.", 2));
-        productList.add(new Product("carlsjrDrink2", 10, "/images/carlsjr/carlsjrDrink2.png", "Carls Jr.", 2));
-        productList.add(new Product("carlsjrDrink3", 10, "/images/carlsjr/carlsjrDrink3.png", "Carls Jr.", 2));
-        productList.add(new Product("carlsjrDrink4", 10, "/images/carlsjr/carlsjrDrink4.png", "Carls Jr.", 2));
-
-        productList.add(new Product("carlsjrDessert1", 11, "/images/carlsjr/carlsjrDessert1.png", "Carls Jr.", 3));
-        productList.add(new Product("carlsjrDessert2", 11, "/images/carlsjr/carlsjrDessert2.png", "Carls Jr.", 3));
-        productList.add(new Product("carlsjrDessert3", 11, "/images/carlsjr/carlsjrDessert3.png", "Carls Jr.", 3));
-        productList.add(new Product("carlsjrDessert4", 11, "/images/carlsjr/carlsjrDessert4.png", "Carls Jr.", 3));
-
-        productList.add(new Product("carlsjrOther1", 20, "/images/carlsjr/carlsjrOther1.png", "Carls Jr.", 4));
-        productList.add(new Product("carlsjrOther2", 20, "/images/carlsjr/carlsjrOther2.png", "Carls Jr.", 4));
-        productList.add(new Product("carlsjrOther3", 20, "/images/carlsjr/carlsjrOther3.png", "Carls Jr.", 4));
-        productList.add(new Product("carlsjrOther4", 20, "/images/carlsjr/carlsjrOther4.png", "Carls Jr.", 4));
-
-        productList.add(new Product("dominospizzaFood1", 12, "/images/dominospizza/dominospizzaFood1.png", "Domino's Pizza", 1));
-        productList.add(new Product("dominospizzaFood2", 12, "/images/dominospizza/dominospizzaFood2.png", "Domino's Pizza", 1));
-        productList.add(new Product("dominospizzaFood3", 12, "/images/dominospizza/dominospizzaFood3.png", "Domino's Pizza", 1));
-        productList.add(new Product("dominospizzaFood4", 12, "/images/dominospizza/dominospizzaFood4.png", "Domino's Pizza", 1));
-
-        productList.add(new Product("dominospizzaDrink1", 10, "/images/dominospizza/dominospizzaDrink1.png", "Domino's Pizza", 2));
-        productList.add(new Product("dominospizzaDrink2", 10, "/images/dominospizza/dominospizzaDrink2.png", "Domino's Pizza", 2));
-        productList.add(new Product("dominospizzaDrink3", 10, "/images/dominospizza/dominospizzaDrink3.png", "Domino's Pizza", 2));
-        productList.add(new Product("dominospizzaDrink4", 10, "/images/dominospizza/dominospizzaDrink4.png", "Domino's Pizza", 2));
-
-        productList.add(new Product("dominospizzaDessert1", 11, "/images/dominospizza/dominospizzaDessert1.png", "Domino's Pizza", 3));
-        productList.add(new Product("dominospizzaDessert2", 11, "/images/dominospizza/dominospizzaDessert2.png", "Domino's Pizza", 3));
-        productList.add(new Product("dominospizzaDessert3", 11, "/images/dominospizza/dominospizzaDessert3.png", "Domino's Pizza", 3));
-        productList.add(new Product("dominospizzaDessert4", 11, "/images/dominospizza/dominospizzaDessert4.png", "Domino's Pizza", 3));
-
-        productList.add(new Product("dominospizzaOther1", 20, "/images/dominospizza/dominospizzaOther1.png", "Domino's Pizza", 4));
-        productList.add(new Product("dominospizzaOther2", 20, "/images/dominospizza/dominospizzaOther2.png", "Domino's Pizza", 4));
-        productList.add(new Product("dominospizzaOther3", 20, "/images/dominospizza/dominospizzaOther3.png", "Domino's Pizza", 4));
-        productList.add(new Product("dominospizzaOther4", 20, "/images/dominospizza/dominospizzaOther4.png", "Domino's Pizza", 4));
-
-        productList.add(new Product("kfcFood1", 12, "/images/kfc/kfcFood1.png", "KFC", 1));
-        productList.add(new Product("kfcFood2", 12, "/images/kfc/kfcFood2.png", "KFC", 1));
-        productList.add(new Product("kfcFood3", 12, "/images/kfc/kfcFood3.png", "KFC", 1));
-        productList.add(new Product("kfcFood4", 12, "/images/kfc/kfcFood4.png", "KFC", 1));
-
-        productList.add(new Product("kfcDrink1", 10, "/images/kfc/kfcDrink1.png", "KFC", 2));
-        productList.add(new Product("kfcDrink2", 10, "/images/kfc/kfcDrink2.png", "KFC", 2));
-        productList.add(new Product("kfcDrink3", 10, "/images/kfc/kfcDrink3.png", "KFC", 2));
-        productList.add(new Product("kfcDrink4", 10, "/images/kfc/kfcDrink4.png", "KFC", 2));
-
-        productList.add(new Product("kfcDessert1", 11, "/images/kfc/kfcDessert1.png", "KFC", 3));
-        productList.add(new Product("kfcDessert2", 11, "/images/kfc/kfcDessert2.png", "KFC", 3));
-        productList.add(new Product("kfcDessert3", 11, "/images/kfc/kfcDessert3.png", "KFC", 3));
-        productList.add(new Product("kfcDessert4", 11, "/images/kfc/kfcDessert4.png", "KFC", 3));
-
-        productList.add(new Product("kfcOther1", 20, "/images/kfc/kfcOther1.png", "KFC", 4));
-        productList.add(new Product("kfcOther2", 20, "/images/kfc/kfcOther2.png", "KFC", 4));
-        productList.add(new Product("kfcOther3", 20, "/images/kfc/kfcOther3.png", "KFC", 4));
-        productList.add(new Product("kfcOther4", 20, "/images/kfc/kfcOther4.png", "KFC", 4));
-
-        productList.add(new Product("pizzahutFood1", 12, "/images/pizzahut/pizzahutFood1.png", "Pizza Hut", 1));
-        productList.add(new Product("pizzahutFood2", 12, "/images/pizzahut/pizzahutFood2.png", "Pizza Hut", 1));
-        productList.add(new Product("pizzahutFood3", 12, "/images/pizzahut/pizzahutFood3.png", "Pizza Hut", 1));
-        productList.add(new Product("pizzahutFood4", 12, "/images/pizzahut/pizzahutFood4.png", "Pizza Hut", 1));
-
-        productList.add(new Product("pizzahutDrink1", 10, "/images/pizzahut/pizzahutDrink1.png", "Pizza Hut", 2));
-        productList.add(new Product("pizzahutDrink2", 10, "/images/pizzahut/pizzahutDrink2.png", "Pizza Hut", 2));
-        productList.add(new Product("pizzahutDrink3", 10, "/images/pizzahut/pizzahutDrink3.png", "Pizza Hut", 2));
-        productList.add(new Product("pizzahutDrink4", 10, "/images/pizzahut/pizzahutDrink4.png", "Pizza Hut", 2));
-
-        productList.add(new Product("pizzahutDessert1", 11, "/images/pizzahut/pizzahutDessert1.png", "Pizza Hut", 3));
-        productList.add(new Product("pizzahutDessert2", 11, "/images/pizzahut/pizzahutDessert2.png", "Pizza Hut", 3));
-        productList.add(new Product("pizzahutDessert3", 11, "/images/pizzahut/pizzahutDessert3.png", "Pizza Hut", 3));
-        productList.add(new Product("pizzahutDessert4", 11, "/images/pizzahut/pizzahutDessert4.png", "Pizza Hut", 3));
-
-        productList.add(new Product("pizzahutOther1", 20, "/images/pizzahut/pizzahutOther1.png", "Pizza Hut", 4));
-        productList.add(new Product("pizzahutOther2", 20, "/images/pizzahut/pizzahutOther2.png", "Pizza Hut", 4));
-        productList.add(new Product("pizzahutOther3", 20, "/images/pizzahut/pizzahutOther3.png", "Pizza Hut", 4));
-        productList.add(new Product("pizzahutOther4", 20, "/images/pizzahut/pizzahutOther4.png", "Pizza Hut", 4));
-
-        productList.add(new Product("tacoFood1", 12, "/images/tacobell/tacoFood1.png", "Taco Bell", 1));
-        productList.add(new Product("tacoFood2", 12, "/images/tacobell/tacoFood2.png", "Taco Bell", 1));
-        productList.add(new Product("tacoFood3", 12, "/images/tacobell/tacoFood3.png", "Taco Bell", 1));
-        productList.add(new Product("tacoFood4", 12, "/images/tacobell/tacoFood4.png", "Taco Bell", 1));
-
-        productList.add(new Product("tacoDrink1", 10, "/images/tacobell/tacoDrink1.png", "Taco Bell", 2));
-        productList.add(new Product("tacoDrink2", 10, "/images/tacobell/tacoDrink2.png", "Taco Bell", 2));
-        productList.add(new Product("tacoDrink3", 10, "/images/tacobell/tacoDrink3.png", "Taco Bell", 2));
-        productList.add(new Product("tacoDrink4", 10, "/images/tacobell/tacoDrink4.png", "Taco Bell", 2));
-
-        productList.add(new Product("tacoDessert1", 11, "/images/tacobell/tacoDessert1.png", "Taco Bell", 3));
-        productList.add(new Product("tacoDessert2", 11, "/images/tacobell/tacoDessert2.png", "Taco Bell", 3));
-        productList.add(new Product("tacoDessert3", 11, "/images/tacobell/tacoDessert3.png", "Taco Bell", 3));
-        productList.add(new Product("tacoDessert4", 11, "/images/tacobell/tacoDessert4.png", "Taco Bell", 3));
-
-        productList.add(new Product("tacoOther1", 20, "/images/tacobell/tacoOther1.png", "Taco Bell", 4));
-        productList.add(new Product("tacoOther2", 20, "/images/tacobell/tacoOther2.png", "Taco Bell", 4));
-        productList.add(new Product("tacoOther3", 20, "/images/tacobell/tacoOther3.png", "Taco Bell", 4));
-        productList.add(new Product("tacoOther4", 20, "/images/tacobell/tacoOther4.png", "Taco Bell", 4));
-
-        for (int i = 0; i < productList.size(); i++) {
-            productList.get(i).setId(i + 1);
+        String sCadena;
+        FileReader fr = new FileReader("Products.txt");
+        BufferedReader bf = new BufferedReader(fr);
+        while ((sCadena = bf.readLine()) != null) {
+            String[] aux = sCadena.split(";");
+            Product product = new Product(aux[3]);
+            product.setId(Integer.parseInt(aux[0]));
+            product.setName(aux[1]);
+            product.setPrice(Double.parseDouble(aux[2]));
+            ImageIcon image = new ImageIcon(ImageIO.read(getClass().getResource(aux[3])));
+            product.setImage(image);
+            product.setRestaurant(aux[4]);
+            product.setType(Integer.parseInt(aux[5]));
+            productList.add(product);
         }
+        bf.close();
+
+//        for (int i = 0; i < productList.size(); i++) {
+//            productList.get(i).setId(i + 1);
+//        }
+
+        
 
     }
 
@@ -544,7 +442,7 @@ public class Data {
         return restaurantsList;
     }
 
-    public void setRestaurantsList(Queue<Restaurant> restaurantsList) {
+    public static void setRestaurantsList(Queue<Restaurant> restaurantsList) {
         Data.restaurantsList = restaurantsList;
     }
 
@@ -580,11 +478,11 @@ public class Data {
         Data.otherList = otherList;
     }
 
-    public LinkedList<Product> getProductList() {
+    public static LinkedList<Product> getProductList() {
         return productList;
     }
 
-    public void setProductList(LinkedList<Product> productList) {
+    public static void setProductList(LinkedList<Product> productList) {
         Data.productList = productList;
     }
 
@@ -603,5 +501,6 @@ public class Data {
     public void setOrdersPart2Stack(LinkedStack ordersPart2Stack) {
         Data.ordersPart2Stack = ordersPart2Stack;
     }
+    
 
 }

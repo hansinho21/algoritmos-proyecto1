@@ -20,6 +20,7 @@ import domain.Order;
 import domain.OrderPart1;
 import domain.OrderPart2;
 import domain.Product;
+import domain.Restaurant;
 import exceptions.StackException;
 import java.util.LinkedList;
 import gui.AgentInterface;
@@ -47,6 +48,7 @@ public class Logic implements Runnable {
     private LinkedList<Product> productsList;
     private LinkedStack orderPart1Stack;
     private LinkedStack orderPart2Stack;
+    private Queue<Restaurant> restaurantsList;
 
     /**
      * Constructor
@@ -60,6 +62,7 @@ public class Logic implements Runnable {
         clientsList = data.getClientsList();
         driversList = data.getDriversList();
         productsList = data.getProductList();
+        restaurantsList = data.getRestaurantsList();
         orderPart1Stack = data.getOrdersPart1Stack();
         orderPart2Stack = data.getOrdersPart2Stack();
     }
@@ -130,11 +133,6 @@ public class Logic implements Runnable {
             productsList.add(product);
             data.setProductList(productsList);
         }
-
-        System.out.println(productsList.size());
-        for (int i = 0; i < productsList.size(); i++) {
-            System.out.println(productsList.get(i).toString());
-        }
         return productsList;
     }
 
@@ -165,9 +163,7 @@ public class Logic implements Runnable {
         }
 
         System.out.println(clientsList.size());
-        for (int i = 0; i < clientsList.size(); i++) {
-            System.out.println(clientsList.get(i).toString());
-        }
+
         return clientsList;
     }
 
@@ -193,6 +189,23 @@ public class Logic implements Runnable {
 
         System.out.println(clientsList.size() + "Final");
         return clientsList;
+    }
+
+    public LinkedList deleteProduct(Product product) {
+        boolean exist = false;
+        for (int i = 0; i < productsList.size(); i++) {
+            if (productsList.get(i).getId() == (product.getId())) {
+                exist = true;
+                productsList.remove(i);
+                data.setProductList(productsList);
+                JOptionPane.showMessageDialog(null, "product removed succesfull");
+            }
+        }
+
+        if (exist == false) {
+            JOptionPane.showMessageDialog(null, "The product does not exist, verify the information.");
+        }
+        return productsList;
     }
 
     /**
@@ -244,9 +257,6 @@ public class Logic implements Runnable {
         }
 
         System.out.println(agentsList.size());
-        for (int i = 0; i < agentsList.size(); i++) {
-            System.out.println(agentsList.get(i).toString());
-        }
         return agentsList;
 
     }
@@ -301,6 +311,24 @@ public class Logic implements Runnable {
             JOptionPane.showMessageDialog(null, "The agent does not exist, verify the information.");
         }
         return agentsList;
+    }
+
+    public LinkedList updateProduct(Product product) {
+        boolean exist = false;
+        for (int i = 0; i < productsList.size(); i++) {
+            if (productsList.get(i).getId() == (product.getId())) {
+                exist = true;
+                productsList.remove(i);
+                productsList.add(i, product);
+                Data.setProductList(productsList);
+                JOptionPane.showMessageDialog(null, "correctly modified product");
+            }
+        }
+
+        if (exist == false) {
+            JOptionPane.showMessageDialog(null, "The product does not exist, verify the information.");
+        }
+        return productsList;
     }
 
     /**
@@ -418,12 +446,18 @@ public class Logic implements Runnable {
      */
     @Override
     public void run() {
-        Queue<Driver> aux = new LinkedList<>();
+        LinkedStack auxPart1Order = new LinkedStack();
+        LinkedStack auxPart2Order = new LinkedStack();
+        Queue<Driver> auxDrivers = new LinkedList<>();
+        Queue<Restaurant> auxRestaurants = new LinkedList<>();
         while (true) {
+            String orderStackPart1 = "";
             String clients = "";
             String agents = "";
             String drivers = "";
             String products = "";
+            String restaurants = "";
+            String orderStackPart2 = "";
             for (int i = 0; i < clientsList.size(); i++) {
                 clients += clientsList.get(i).toString() + "\r\n";
             }
@@ -433,24 +467,81 @@ public class Logic implements Runnable {
             for (int i = 0; i < productsList.size(); i++) {
                 products += productsList.get(i).toString() + "\r\n";
             }
+            for (int i = 0; i < productsList.size(); i++) {
+                products += productsList.get(i).toString() + "\r\n";
+            }
+            while (!orderPart1Stack.isEmpty()) {
+                try {
+                    orderStackPart1 += orderPart1Stack.peek() + "\r\n";
+                    auxPart1Order.push(orderPart1Stack.pop());
+                    
+                } catch (StackException ex) {
+                    Logger.getLogger(Logic.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            while(!auxPart1Order.isEmpty()){
+                try {
+                    orderPart1Stack.push(auxPart1Order.pop());
+                    
+                } catch (StackException ex) {
+                    Logger.getLogger(Logic.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            //---------------------------------------
+            while (!orderPart2Stack.isEmpty()) {
+                try {
+                    orderStackPart2 += orderPart2Stack.peek() + "\r\n";
+                    auxPart2Order.push(orderPart2Stack.pop());
+                    
+                } catch (StackException ex) {
+                    Logger.getLogger(Logic.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            while(!auxPart2Order.isEmpty()){
+                try {
+                    orderPart2Stack.push(auxPart2Order.pop());
+                    
+                } catch (StackException ex) {
+                    Logger.getLogger(Logic.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            //-----------------------------------------
             while (!driversList.isEmpty()) {
                 drivers += driversList.peek() + "\r\n";
-                aux.add(driversList.peek());
+                auxDrivers.add(driversList.peek());
                 driversList.remove();
             }
-            while (!aux.isEmpty()) {
-                driversList.add(aux.peek());
-                aux.remove();
+            while (!auxDrivers.isEmpty()) {
+                driversList.add(auxDrivers.peek());
+                auxDrivers.remove();
             }
+            while (!restaurantsList.isEmpty()) {
+                restaurants += restaurantsList.peek() + "\r\n";
+                auxRestaurants.add(restaurantsList.peek());
+                restaurantsList.remove();
+            }
+            while (!auxRestaurants.isEmpty()) {
+                restaurantsList.add(auxRestaurants.peek());
+                auxRestaurants.remove();
+            }
+
             File fileDrivers = new File("Drivers.txt");
             File fileAgents = new File("Agents.txt");
             File fileClients = new File("Clients.txt");
             File fileProducts = new File("Products.txt");
+            File fileRestaurants = new File("Restaurants.txt");
+            File fileOrderPart1 = new File("OrderPart1Stack.txt");
+            BufferedWriter bwRestaurants;
             BufferedWriter bwClients;
             BufferedWriter bwAgents;
             BufferedWriter bwDrivers;
             BufferedWriter bwProducts;
+            BufferedWriter bwOrderPart1;
             try {
+                bwOrderPart1 = new BufferedWriter(new FileWriter(fileOrderPart1));
+                bwOrderPart1.write(orderStackPart1);
+                bwOrderPart1.close();
+                
                 bwClients = new BufferedWriter(new FileWriter(fileClients));
                 bwClients.write(clients);
                 bwClients.close();
@@ -463,9 +554,13 @@ public class Logic implements Runnable {
                 bwDrivers.write(drivers);
                 bwDrivers.close();
 
-                bwDrivers = new BufferedWriter(new FileWriter(fileProducts));
-                bwDrivers.write(products);
-                bwDrivers.close();
+                bwProducts = new BufferedWriter(new FileWriter(fileProducts));
+                bwProducts.write(products);
+                bwProducts.close();
+
+                bwRestaurants = new BufferedWriter(new FileWriter(fileRestaurants));
+                bwRestaurants.write(restaurants);
+                bwRestaurants.close();
 
             } catch (IOException e) {
                 e.printStackTrace();

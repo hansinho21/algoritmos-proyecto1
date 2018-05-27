@@ -1,3 +1,3 @@
+4	Carlos	Lopez	Vega	67	avion	4243	w43434	4564564
 1	Marco Tulio	Vega	Sanabria	46	Motocicleta	87330303	473847	607890475
 3	Steven	Calderon	Rivera	23	bus	42423424	42342	4334324
-4	Carlos	Lopez	Vega	67	avion	4243	w43434	4564564
